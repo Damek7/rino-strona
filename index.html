@@ -3,6 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Rino pomaga znaleźć sprawdzonego trenera tenisa, boksu, golfa lub padla w Warszawie.">
+<meta name="theme-color" content="#C72562">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:title" content="Rino — trenerzy sportowi w Warszawie">
+<meta property="og:description" content="Znajdź sprawdzonego trenera sportowego w Warszawie.">
+<meta property="og:image" content="assets/Rino-tenis.png">
+<title>Rino — trenerzy sportowi w Warszawie</title>
+<link rel="icon" href="assets/Rino-logo.png" type="image/png">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -12,23 +21,58 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    html, body { margin: 0; padding: 0; background: #FFFFFF; scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; max-width: 100%; overflow-x: clip; background: #FFFFFF; scroll-behavior: smooth; }
+    img, svg { max-width: 100%; }
     a { color: #C72562; }
     a:hover { color: #A8BFE9; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #1C1B20; outline-offset: 3px; }
+    .skip-link { position: fixed; left: 12px; top: -80px; z-index: 1000; background: #FFFFFF; color: #1C1B20; padding: 12px 16px; }
+    .skip-link:focus { top: 12px; }
+    .mobile-menu-button { display: none; min-width: 44px; min-height: 44px; }
     @keyframes rino-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
     @keyframes antenna-sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    @media (max-width: 767px) {
+      .site-nav { padding: 10px 16px !important; flex-wrap: wrap; }
+      .site-logo img { width: 38px !important; height: 38px !important; }
+      .mobile-menu-button { display: inline-flex; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,.7); border-radius: 10px; background: transparent; color: #FFFFFF; font-size: 24px; cursor: pointer; }
+      .desktop-nav { display: none !important; width: 100%; padding: 12px 0 4px; flex-direction: column; align-items: stretch !important; gap: 4px !important; }
+      .desktop-nav.menu-open { display: flex !important; }
+      .desktop-nav a { min-height: 44px; display: flex; align-items: center; padding: 8px 12px !important; }
+      .hero { padding: 48px 20px 56px !important; gap: 32px !important; }
+      .hero-copy { min-width: 0; }
+      .hero h1 { font-size: clamp(2rem, 10vw, 3.25rem) !important; overflow-wrap: anywhere; }
+      .hero-cta { flex-direction: column; width: 100%; }
+      .hero-cta a { width: 100%; text-align: center; padding-left: 16px !important; padding-right: 16px !important; }
+      .hero-image { width: min(100%, 340px) !important; height: auto; }
+      section { scroll-margin-top: 72px; }
+      #specjalizacje { padding: 56px 20px 32px !important; }
+      #specjalizacje h2, #jak-to-dziala h2, #dla-trenerow h2, #faq h2 { font-size: clamp(1.8rem, 8vw, 2.5rem) !important; }
+      .sport-stage { position: static !important; height: auto !important; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 28px !important; }
+      .wallet-decoration { display: none !important; }
+      .sport-card { position: static !important; width: auto !important; transform: none !important; transition-delay: 0s !important; }
+      #zapisy { padding: 56px 16px !important; }
+      .signup-card { padding: 28px 20px 24px !important; width: 100%; }
+    }
+    @media (max-width: 359px) { .sport-stage { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) {
+      html, body { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+    }
   </style>
 </helmet>
 
 <div style="font-family: 'Nunito', sans-serif; color: #1C1B20; background: #FFFFFF;">
+  <a class="skip-link" href="#main-content">Przejdź do treści</a>
 
   <!-- ===== NAWIGACJA ===== -->
-  <nav data-screen-label="Nawigacja" style="position: sticky; top: 0; z-index: 50; background: #C72562; display: flex; align-items: center; justify-content: space-between; padding: 14px 5%; box-shadow: 0 4px 18px rgba(28,27,32,0.18);">
-    <a href="#top" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+  <nav class="site-nav" aria-label="Główna nawigacja" data-screen-label="Nawigacja" style="position: sticky; top: 0; z-index: 50; background: #C72562; display: flex; align-items: center; justify-content: space-between; padding: 14px 5%; box-shadow: 0 4px 18px rgba(28,27,32,0.18);">
+    <a class="site-logo" href="#top" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
       <img src="assets/Rino-logo.png" alt="Rino" style="width: 42px; height: 42px; border-radius: 11px;">
       <span style="color: #FFFFFF; font-size: 24px; font-weight: 900; letter-spacing: -0.5px;">Rino</span>
     </a>
-    <div style="display: flex; align-items: center; gap: 28px;">
+    <button class="mobile-menu-button" type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuExpanded }}" aria-controls="main-menu" aria-label="Otwórz lub zamknij menu">☰</button>
+    <div id="main-menu" class="desktop-nav {{ menuClass }}" style="display: flex; align-items: center; gap: 28px;">
       <a href="#specjalizacje" style="color: #FFFFFF; text-decoration: none; font-weight: 800; font-size: 15px;">Specjalizacje</a>
       <a href="#jak-to-dziala" style="color: #FFFFFF; text-decoration: none; font-weight: 800; font-size: 15px;">Jak to działa</a>
       <a href="#dla-trenerow" style="color: #FFFFFF; text-decoration: none; font-weight: 800; font-size: 15px;">Dla trenerów</a>
@@ -38,18 +82,19 @@
   </nav>
 
   <!-- ===== HERO ===== -->
-  <header id="top" data-screen-label="Hero" style="background: #C72562; display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap; padding: 72px 5% 88px;">
-    <div style="max-width: 560px; display: flex; flex-direction: column; gap: 22px;">
+  <main id="main-content">
+  <header class="hero" id="top" data-screen-label="Hero" style="background: #C72562; display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap; padding: 72px 5% 88px;">
+    <div class="hero-copy" style="max-width: 560px; display: flex; flex-direction: column; gap: 22px;">
       <div style="align-self: flex-start; background: rgba(255,255,255,0.14); color: #FFFFFF; font-size: 14px; font-weight: 800; padding: 8px 16px; border-radius: 999px;">Startujemy w Warszawie</div>
       <h1 style="margin: 0; color: #FFFFFF; font-size: 52px; font-weight: 900; line-height: 1.08; letter-spacing: -1px;">Najlepsi trenerzy sportów premium. W jednym miejscu.</h1>
       <p style="margin: 0; color: #F3D9E4; font-size: 19px; font-weight: 700; line-height: 1.5;">Tenis, boks, golf, padel i squash. Sprawdzeni trenerzy z opiniami i cennikiem — rezerwujesz termin i płacisz online.</p>
-      <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+      <div class="hero-cta" style="display: flex; gap: 14px; flex-wrap: wrap;">
         <a href="#zapisy" style="background: #FFFFFF; color: #C72562; text-decoration: none; font-weight: 900; font-size: 18px; padding: 16px 34px; border-radius: 999px; box-shadow: 0 10px 26px rgba(28,27,32,0.28);">Znajdź trenera</a>
         <a href="#dla-trenerow" style="background: transparent; color: #FFFFFF; text-decoration: none; font-weight: 900; font-size: 18px; padding: 14px 34px; border-radius: 999px; border: 3px solid rgba(255,255,255,0.55);">Jestem trenerem</a>
       </div>
       <div style="color: rgba(255,255,255,0.7); font-size: 14px; font-weight: 700;">Płatność BLIK · Polskie faktury · Zgodność z RODO</div>
     </div>
-    <img src="assets/Rino-tenis.png" alt="Rino gra w tenisa" style="width: 340px; border-radius: 36px; transform: rotate(3deg); box-shadow: 0 24px 60px rgba(28,27,32,0.35);">
+    <img class="hero-image" src="assets/Rino-tenis.png" alt="Rino gra w tenisa" width="340" height="340" fetchpriority="high" style="width: 340px; border-radius: 36px; transform: rotate(3deg); box-shadow: 0 24px 60px rgba(28,27,32,0.35);">
   </header>
 
   <!-- ===== SPECJALIZACJE: RINO Z PORTFELEM ===== -->
@@ -59,10 +104,10 @@
       <p style="margin: 0; color: #6B6A72; font-size: 18px; font-weight: 700; max-width: 560px;">Rino trzyma je wszystkie w portfelu. Kliknij kartę, aby zapisać się na listę oczekujących w swojej dyscyplinie.</p>
     </div>
 
-    <div ref="{{ stageRef }}" style="position: relative; max-width: 1160px; height: 470px; margin: 0 auto;">
+    <div class="sport-stage" ref="{{ stageRef }}" style="position: relative; max-width: 1160px; height: 470px; margin: 0 auto;">
 
       <!-- Rino (owalny, z lewej) -->
-      <div style="position: absolute; left: 0; bottom: 20px; width: 290px; height: 350px; animation: rino-bob 3.8s ease-in-out infinite; z-index: 1;">
+      <div class="wallet-decoration" style="position: absolute; left: 0; bottom: 20px; width: 290px; height: 350px; animation: rino-bob 3.8s ease-in-out infinite; z-index: 1;">
         <svg viewBox="0 0 400 480" style="width: 100%; height: 100%; display: block;" aria-label="Maskotka Rino trzymająca portfel">
           <g style="transform-origin: 175px 100px; animation: antenna-sway 3.8s ease-in-out infinite;">
             <path d="M176 104 C 170 66 160 48 146 34" stroke="#A8BFE9" stroke-width="9" stroke-linecap="round" fill="none"></path>
@@ -80,11 +125,11 @@
       </div>
 
       <!-- tylna ścianka portfela -->
-      <div style="position: absolute; left: 118px; bottom: 40px; width: 250px; height: 148px; background: #26252C; border-radius: 20px; z-index: 2;"></div>
+      <div class="wallet-decoration" style="position: absolute; left: 118px; bottom: 40px; width: 250px; height: 148px; background: #26252C; border-radius: 20px; z-index: 2;"></div>
 
       <!-- karty: wyjeżdżają z portfela w prawo, jedna po drugiej -->
       <sc-for list="{{ cards }}" as="card" hint-placeholder-count="4">
-        <a href="#zapisy" onClick="{{ card.pick }}" style="position: absolute; left: 138px; bottom: 84px; width: 168px; text-decoration: none; z-index: 3; transform: {{ card.transform }}; transition: transform 0.9s cubic-bezier(0.3, 1.25, 0.4, 1); transition-delay: {{ card.delay }};">
+        <a class="sport-card" href="#zapisy" onClick="{{ card.pick }}" style="position: absolute; left: 138px; bottom: 84px; width: 168px; text-decoration: none; z-index: 3; transform: {{ card.transform }}; transition: transform 0.55s ease-out; transition-delay: {{ card.delay }};">
           <div style="background: #FFFFFF; border-radius: 20px; padding: 10px 10px 12px; display: flex; flex-direction: column; gap: 8px; align-items: center; border: 3px solid #F0E2E8; box-shadow: 0 16px 34px rgba(28,27,32,0.18); transition: box-shadow 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 24px 44px rgba(199,37,98,0.3); border-color: #A8BFE9">
             <div role="img" aria-label="{{ card.name }}" style="width: 100%; aspect-ratio: 1; border-radius: 13px; background-color: #F3E2EA; background-image: url('{{ card.img }}'); background-size: cover; background-position: center;"></div>
             <span style="color: #1C1B20; font-size: 18px; font-weight: 900;">{{ card.name }}</span>
@@ -93,17 +138,17 @@
       </sc-for>
 
       <!-- przednia ścianka portfela -->
-      <div style="position: absolute; left: 104px; bottom: 28px; width: 274px; height: 126px; background: #1C1B20; border-radius: 22px; z-index: 4; box-shadow: 0 16px 32px rgba(28,27,32,0.3);">
+      <div class="wallet-decoration" style="position: absolute; left: 104px; bottom: 28px; width: 274px; height: 126px; background: #1C1B20; border-radius: 22px; z-index: 4; box-shadow: 0 16px 32px rgba(28,27,32,0.3);">
         <div style="position: absolute; inset: 10px; border: 2px dashed rgba(168,191,233,0.4); border-radius: 15px;"></div>
         <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: #C72562; border: 3px solid rgba(255,255,255,0.25);"></div>
         <img src="assets/Rino-logo.png" alt="" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 8px; opacity: 0.9;">
       </div>
 
       <!-- łapki Rino na portfelu -->
-      <div style="position: absolute; left: 96px; bottom: 60px; width: 42px; height: 56px; background: #A8BFE9; border-radius: 21px; z-index: 5;"></div>
-      <div style="position: absolute; left: 348px; bottom: 60px; width: 42px; height: 56px; background: #A8BFE9; border-radius: 21px; z-index: 5;"></div>
+      <div class="wallet-decoration" style="position: absolute; left: 96px; bottom: 60px; width: 42px; height: 56px; background: #A8BFE9; border-radius: 21px; z-index: 5;"></div>
+      <div class="wallet-decoration" style="position: absolute; left: 348px; bottom: 60px; width: 42px; height: 56px; background: #A8BFE9; border-radius: 21px; z-index: 5;"></div>
 
-      <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: #F6EDF1; border-radius: 999px; z-index: 0;"></div>
+      <div class="wallet-decoration" style="position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: #F6EDF1; border-radius: 999px; z-index: 0;"></div>
     </div>
     <div style="max-width: 1160px; margin: 0 auto; color: #A9A7B0; font-size: 14px; font-weight: 700;">Squash i kolejne dyscypliny — wkrótce.</div>
   </section>
@@ -150,7 +195,7 @@
 
   <!-- ===== FORMULARZ LISTY OCZEKUJĄCYCH ===== -->
   <section id="zapisy" data-screen-label="Zapisy" style="padding: 80px 5%; background: #C72562;">
-    <div style="max-width: 620px; margin: 0 auto; background: #FFFFFF; border-radius: 28px; padding: 40px 40px 34px; box-shadow: 0 26px 60px rgba(28,27,32,0.3); display: flex; flex-direction: column; gap: 20px;">
+    <div class="signup-card" style="max-width: 620px; margin: 0 auto; background: #FFFFFF; border-radius: 28px; padding: 40px 40px 34px; box-shadow: 0 26px 60px rgba(28,27,32,0.3); display: flex; flex-direction: column; gap: 20px;">
       <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
         <h2 style="margin: 0; font-size: 30px; font-weight: 900; letter-spacing: -0.5px;">Dołącz do listy oczekujących</h2>
         <div style="display: flex; background: #F6EDF1; border-radius: 999px; padding: 5px; gap: 4px;">
@@ -158,8 +203,10 @@
           <button onClick="{{ pickTrenerBtn }}" style="flex: 1; border: none; border-radius: 999px; padding: 12px 0; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900; cursor: pointer; background: {{ trenerBg }}; color: {{ trenerFg }}; transition: background 0.2s, color 0.2s;">Jestem trenerem</button>
         </div>
         <div style="display: flex; flex-direction: column; gap: 14px;">
-          <input type="text" placeholder="Imię" onChange="{{ onName }}" style="border: 2px solid #EADCE3; border-radius: 14px; padding: 15px 18px; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 700; color: #1C1B20; outline: none;" style-focus="border-color: #C72562">
-          <input type="email" placeholder="Adres e-mail" onChange="{{ onEmail }}" style="border: 2px solid #EADCE3; border-radius: 14px; padding: 15px 18px; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 700; color: #1C1B20; outline: none;" style-focus="border-color: #C72562">
+          <label for="signup-name" style="font-size: 14px; font-weight: 800;">Imię</label>
+          <input id="signup-name" name="name" autocomplete="name" required type="text" placeholder="Wpisz imię" value="{{ name }}" onChange="{{ onName }}" style="border: 2px solid #EADCE3; border-radius: 14px; padding: 15px 18px; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 700; color: #1C1B20;" style-focus="border-color: #C72562">
+          <label for="signup-email" style="font-size: 14px; font-weight: 800;">Adres e-mail</label>
+          <input id="signup-email" name="email" autocomplete="email" required type="email" placeholder="np. imie@example.pl" value="{{ email }}" onChange="{{ onEmail }}" style="border: 2px solid #EADCE3; border-radius: 14px; padding: 15px 18px; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 700; color: #1C1B20;" style-focus="border-color: #C72562">
           <div style="display: flex; flex-direction: column; gap: 8px;">
             <span style="font-size: 14px; font-weight: 800; color: #6B6A72;">{{ discLabel }}</span>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -173,6 +220,9 @@
             <span>Wyrażam zgodę na przetwarzanie moich danych osobowych w celu kontaktu dotyczącego startu platformy (RODO). Administrator danych i pełna klauzula informacyjna zostaną podane w wiadomości powitalnej.</span>
           </label>
           <button onClick="{{ submit }}" disabled="{{ submitDisabled }}" style="border: none; border-radius: 999px; padding: 17px 0; font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; cursor: pointer; background: {{ submitBg }}; color: #FFFFFF; transition: background 0.2s;">{{ submitLabel }}</button>
+          <sc-if value="{{ hasSubmitError }}" hint-placeholder-val="{{ false }}">
+            <p role="alert" style="margin: 0; color: #9B1C1C; font-size: 14px; font-weight: 800;">{{ submitError }}</p>
+          </sc-if>
         </div>
       </sc-if>
       <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
@@ -192,7 +242,7 @@
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
           <div style="border: 2px solid #F0E2E8; border-radius: 18px; overflow: hidden;">
-            <button onClick="{{ f.toggle }}" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: #FFFFFF; border: none; padding: 18px 22px; font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 900; color: #1C1B20; cursor: pointer; text-align: left;">
+            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.expanded }}" style="width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: #FFFFFF; border: none; padding: 18px 22px; font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 900; color: #1C1B20; cursor: pointer; text-align: left;">
               {{ f.q }}
               <span style="color: #C72562; font-size: 22px; font-weight: 900; flex-shrink: 0;">{{ f.icon }}</span>
             </button>
@@ -204,6 +254,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <!-- ===== STOPKA ===== -->
   <footer data-screen-label="Stopka" style="background: #1C1B20; padding: 40px 5%; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
@@ -227,7 +278,10 @@ class Component extends DCLogic {
     disc: null,
     name: '', email: '', rodo: false,
     submitted: false,
+    submitting: false,
+    submitError: '',
     openFaq: null,
+    menuOpen: false,
   };
 
   componentDidMount() {
@@ -272,14 +326,14 @@ class Component extends DCLogic {
     const cards = defs.map((d, i) => {
       let transform;
       if (!s.deployed) {
-        transform = 'translate(20px, 30px) rotate(-8deg) scale(0.5)';
+        transform = 'translate(20px, 30px) rotate(-4deg) scale(0.94)';
       } else {
         transform = 'translate(' + (150 + i * gap) + 'px, ' + (-lift - (i % 2) * 10) + 'px) rotate(' + rots[i] + 'deg)';
       }
       return {
         ...d,
         transform,
-        delay: s.deployed ? (i * 0.22) + 's' : '0s',
+        delay: s.deployed ? (i * 0.07) + 's' : '0s',
         pick: () => this.setState({ disc: d.id, role: 'klient' }),
       };
     });
@@ -308,6 +362,7 @@ class Component extends DCLogic {
     const faqs = faqData.map((f, i) => ({
       ...f,
       open: s.openFaq === i,
+      expanded: s.openFaq === i ? 'true' : 'false',
       icon: s.openFaq === i ? '−' : '+',
       toggle: () => this.setState({ openFaq: s.openFaq === i ? null : i }),
     }));
@@ -315,6 +370,11 @@ class Component extends DCLogic {
     return {
       specRef: (el) => { this._specEl = el; },
       stageRef: (el) => { this._stageEl = el; },
+      toggleMenu: () => this.setState({ menuOpen: !s.menuOpen }),
+      menuExpanded: s.menuOpen ? 'true' : 'false',
+      menuClass: s.menuOpen ? 'menu-open' : '',
+      name: s.name,
+      email: s.email,
       cards,
       steps: [
         { nr: '1', title: 'Wybierz trenera', desc: 'Przeglądaj profile trenerów w swojej dyscyplinie i dzielnicy — z opiniami, certyfikatami, wideo i cennikiem.' },
@@ -339,10 +399,31 @@ class Component extends DCLogic {
       onName: (e) => this.setState({ name: e.target.value }),
       onEmail: (e) => this.setState({ email: e.target.value }),
       onRodo: (e) => this.setState({ rodo: e.target.checked }),
-      submit: () => { if (canSubmit) this.setState({ submitted: true }); },
-      submitDisabled: !canSubmit,
+      submit: async () => {
+        if (!canSubmit || s.submitting) return;
+        const endpoint = window.RINO_WAITLIST_ENDPOINT;
+        if (!endpoint) {
+          this.setState({ submitError: 'Formularz nie jest jeszcze podłączony do systemu zapisów. Spróbuj ponownie po uruchomieniu zapisów.' });
+          return;
+        }
+        this.setState({ submitting: true, submitError: '' });
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: s.name.trim(), email: s.email.trim(), role: s.role, discipline: s.disc }),
+          });
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+          this.setState({ submitted: true, submitting: false });
+        } catch (error) {
+          this.setState({ submitting: false, submitError: 'Nie udało się wysłać formularza. Sprawdź połączenie i spróbuj ponownie.' });
+        }
+      },
+      submitDisabled: !canSubmit || s.submitting,
       submitBg: canSubmit ? '#C72562' : '#D8A9BE',
-      submitLabel: s.role === 'trener' ? 'Zapisz mnie — jestem trenerem' : 'Zapisz mnie na listę',
+      submitLabel: s.submitting ? 'Wysyłanie…' : (s.role === 'trener' ? 'Zapisz mnie — jestem trenerem' : 'Zapisz mnie na listę'),
+      submitError: s.submitError,
+      hasSubmitError: Boolean(s.submitError),
       submitted: s.submitted,
       notSubmitted: !s.submitted,
       faqs,
