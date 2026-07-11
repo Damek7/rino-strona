@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #FFFFFF; scroll-behavior: smooth; }
+    a { color: #C72562; }
+    a:hover { color: #A8BFE9; }
+    @keyframes rino-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    @keyframes antenna-sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+  </style>
+</helmet>
+
+<div style="font-family: 'Nunito', sans-serif; color: #1C1B20; background: #FFFFFF;">
+
+  <!-- ===== NAWIGACJA ===== -->
+  <nav data-screen-label="Nawigacja" style="position: sticky; top: 0; z-index: 50; background: #C72562; display: flex; align-items: center; justify-content: space-between; padding: 14px 5%; box-shadow: 0 4px 18px rgba(28,27,32,0.18);">
+    <a href="#top" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+      <img src="assets/Rino-logo.png" alt="Rino" style="width: 42px; height: 42px; border-radius: 11px;">
+      <span style="color: #FFFFFF; font-size: 24px; font-weight: 900; letter-spacing: -0.5px;">Rino</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 28px;">
+      <a href="#specjalizacje" style="color: #FFFFFF; text-decoration: none; font-weight: 800; font-size: 15px;">Specjalizacje</a>
+      <a href="#jak-to-dziala" style="color: #FFFFFF; text-decoration: none; font-weight: 800; font-size: 15px;">Jak to działa</a>
+      <a href="#dla-trenerow" style="color: #FFFFFF; text-decoration: none; font-weight: 800; font-size: 15px;">Dla trenerów</a>
+      <a href="#faq" style="color: #FFFFFF; text-decoration: none; font-weight: 800; font-size: 15px;">FAQ</a>
+      <a href="#zapisy" style="background: #FFFFFF; color: #C72562; text-decoration: none; font-weight: 900; font-size: 15px; padding: 10px 22px; border-radius: 999px;">Dołącz do listy</a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header id="top" data-screen-label="Hero" style="background: #C72562; display: flex; align-items: center; justify-content: center; gap: 60px; flex-wrap: wrap; padding: 72px 5% 88px;">
+    <div style="max-width: 560px; display: flex; flex-direction: column; gap: 22px;">
+      <div style="align-self: flex-start; background: rgba(255,255,255,0.14); color: #FFFFFF; font-size: 14px; font-weight: 800; padding: 8px 16px; border-radius: 999px;">Startujemy w Warszawie</div>
+      <h1 style="margin: 0; color: #FFFFFF; font-size: 52px; font-weight: 900; line-height: 1.08; letter-spacing: -1px;">Najlepsi trenerzy sportów premium. W jednym miejscu.</h1>
+      <p style="margin: 0; color: #F3D9E4; font-size: 19px; font-weight: 700; line-height: 1.5;">Tenis, boks, golf, padel i squash. Sprawdzeni trenerzy z opiniami i cennikiem — rezerwujesz termin i płacisz online.</p>
+      <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+        <a href="#zapisy" style="background: #FFFFFF; color: #C72562; text-decoration: none; font-weight: 900; font-size: 18px; padding: 16px 34px; border-radius: 999px; box-shadow: 0 10px 26px rgba(28,27,32,0.28);">Znajdź trenera</a>
+        <a href="#dla-trenerow" style="background: transparent; color: #FFFFFF; text-decoration: none; font-weight: 900; font-size: 18px; padding: 14px 34px; border-radius: 999px; border: 3px solid rgba(255,255,255,0.55);">Jestem trenerem</a>
+      </div>
+      <div style="color: rgba(255,255,255,0.7); font-size: 14px; font-weight: 700;">Płatność BLIK · Polskie faktury · Zgodność z RODO</div>
+    </div>
+    <img src="assets/Rino-tenis.png" alt="Rino gra w tenisa" style="width: 340px; border-radius: 36px; transform: rotate(3deg); box-shadow: 0 24px 60px rgba(28,27,32,0.35);">
+  </header>
+
+  <!-- ===== SPECJALIZACJE: RINO Z PORTFELEM ===== -->
+  <section id="specjalizacje" data-screen-label="Specjalizacje" ref="{{ specRef }}" style="padding: 80px 5% 40px; background: #FFFFFF; overflow: hidden;">
+    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px;">
+      <h2 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: -0.8px; color: #1C1B20;">Wybierz swoją dyscyplinę</h2>
+      <p style="margin: 0; color: #6B6A72; font-size: 18px; font-weight: 700; max-width: 560px;">Rino trzyma je wszystkie w portfelu. Kliknij kartę, aby zapisać się na listę oczekujących w swojej dyscyplinie.</p>
+    </div>
+
+    <div ref="{{ stageRef }}" style="position: relative; max-width: 1160px; height: 470px; margin: 0 auto;">
+
+      <!-- Rino (owalny, z lewej) -->
+      <div style="position: absolute; left: 0; bottom: 20px; width: 290px; height: 350px; animation: rino-bob 3.8s ease-in-out infinite; z-index: 1;">
+        <svg viewBox="0 0 400 480" style="width: 100%; height: 100%; display: block;" aria-label="Maskotka Rino trzymająca portfel">
+          <g style="transform-origin: 175px 100px; animation: antenna-sway 3.8s ease-in-out infinite;">
+            <path d="M176 104 C 170 66 160 48 146 34" stroke="#A8BFE9" stroke-width="9" stroke-linecap="round" fill="none"></path>
+            <circle cx="143" cy="28" r="17" fill="#A8BFE9"></circle>
+          </g>
+          <g style="transform-origin: 226px 100px; animation: antenna-sway 3.8s ease-in-out infinite reverse;">
+            <path d="M226 104 C 234 64 246 48 262 34" stroke="#A8BFE9" stroke-width="9" stroke-linecap="round" fill="none"></path>
+            <circle cx="266" cy="28" r="17" fill="#A8BFE9"></circle>
+          </g>
+          <path d="M200 92 C 138 92 102 142 98 208 C 94 268 88 306 92 358 C 97 426 140 466 202 466 C 266 466 310 424 314 356 C 317 304 310 264 304 206 C 298 140 262 92 200 92 Z" fill="#A8BFE9"></path>
+          <ellipse cx="163" cy="212" rx="10" ry="14" fill="#1C1B20"></ellipse>
+          <ellipse cx="237" cy="212" rx="10" ry="14" fill="#1C1B20"></ellipse>
+          <path d="M172 250 Q 200 268 228 250" stroke="#1C1B20" stroke-width="9" stroke-linecap="round" fill="none"></path>
+        </svg>
+      </div>
+
+      <!-- tylna ścianka portfela -->
+      <div style="position: absolute; left: 118px; bottom: 40px; width: 250px; height: 148px; background: #26252C; border-radius: 20px; z-index: 2;"></div>
+
+      <!-- karty: wyjeżdżają z portfela w prawo, jedna po drugiej -->
+      <sc-for list="{{ cards }}" as="card" hint-placeholder-count="4">
+        <a href="#zapisy" onClick="{{ card.pick }}" style="position: absolute; left: 138px; bottom: 84px; width: 168px; text-decoration: none; z-index: 3; transform: {{ card.transform }}; transition: transform 0.9s cubic-bezier(0.3, 1.25, 0.4, 1); transition-delay: {{ card.delay }};">
+          <div style="background: #FFFFFF; border-radius: 20px; padding: 10px 10px 12px; display: flex; flex-direction: column; gap: 8px; align-items: center; border: 3px solid #F0E2E8; box-shadow: 0 16px 34px rgba(28,27,32,0.18); transition: box-shadow 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 24px 44px rgba(199,37,98,0.3); border-color: #A8BFE9">
+            <div role="img" aria-label="{{ card.name }}" style="width: 100%; aspect-ratio: 1; border-radius: 13px; background-color: #F3E2EA; background-image: url('{{ card.img }}'); background-size: cover; background-position: center;"></div>
+            <span style="color: #1C1B20; font-size: 18px; font-weight: 900;">{{ card.name }}</span>
+          </div>
+        </a>
+      </sc-for>
+
+      <!-- przednia ścianka portfela -->
+      <div style="position: absolute; left: 104px; bottom: 28px; width: 274px; height: 126px; background: #1C1B20; border-radius: 22px; z-index: 4; box-shadow: 0 16px 32px rgba(28,27,32,0.3);">
+        <div style="position: absolute; inset: 10px; border: 2px dashed rgba(168,191,233,0.4); border-radius: 15px;"></div>
+        <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: #C72562; border: 3px solid rgba(255,255,255,0.25);"></div>
+        <img src="assets/Rino-logo.png" alt="" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 8px; opacity: 0.9;">
+      </div>
+
+      <!-- łapki Rino na portfelu -->
+      <div style="position: absolute; left: 96px; bottom: 60px; width: 42px; height: 56px; background: #A8BFE9; border-radius: 21px; z-index: 5;"></div>
+      <div style="position: absolute; left: 348px; bottom: 60px; width: 42px; height: 56px; background: #A8BFE9; border-radius: 21px; z-index: 5;"></div>
+
+      <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: #F6EDF1; border-radius: 999px; z-index: 0;"></div>
+    </div>
+    <div style="max-width: 1160px; margin: 0 auto; color: #A9A7B0; font-size: 14px; font-weight: 700;">Squash i kolejne dyscypliny — wkrótce.</div>
+  </section>
+
+  <!-- ===== JAK TO DZIAŁA ===== -->
+  <section id="jak-to-dziala" data-screen-label="Jak to działa" style="padding: 80px 5%; background: #FFFFFF;">
+    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px;">
+      <h2 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: -0.8px;">Jak to działa</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+        <sc-for list="{{ steps }}" as="step" hint-placeholder-count="3">
+          <div style="background: #FBF5F8; border-radius: 24px; padding: 30px 28px; display: flex; flex-direction: column; gap: 12px;">
+            <div style="width: 46px; height: 46px; border-radius: 50%; background: #C72562; color: #FFFFFF; font-size: 20px; font-weight: 900; display: flex; align-items: center; justify-content: center;">{{ step.nr }}</div>
+            <h3 style="margin: 0; font-size: 22px; font-weight: 900;">{{ step.title }}</h3>
+            <p style="margin: 0; color: #6B6A72; font-size: 16px; font-weight: 700; line-height: 1.5;">{{ step.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DLA TRENERÓW ===== -->
+  <section id="dla-trenerow" data-screen-label="Dla trenerów" style="padding: 80px 5%; background: #1C1B20;">
+    <div style="max-width: 1160px; margin: 0 auto; display: flex; align-items: center; gap: 56px; flex-wrap: wrap;">
+      <div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 18px;">
+        <div style="align-self: flex-start; background: rgba(168,191,233,0.15); color: #A8BFE9; font-size: 14px; font-weight: 800; padding: 8px 16px; border-radius: 999px;">Program założycielski</div>
+        <h2 style="margin: 0; color: #FFFFFF; font-size: 40px; font-weight: 900; letter-spacing: -0.8px;">Trenujesz tenis, boks lub golf? Dołącz jako trener-założyciel.</h2>
+        <p style="margin: 0; color: #B9B7C0; font-size: 18px; font-weight: 700; line-height: 1.55;">Pierwszych 50 trenerów korzysta z platformy za 0 zł. Twój profil z opiniami, certyfikatami, cennikiem i kalendarzem — a klienci znajdują Cię sami.</p>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px;">
+          <sc-for list="{{ perks }}" as="perk" hint-placeholder-count="3">
+            <li style="display: flex; align-items: center; gap: 12px; color: #FFFFFF; font-size: 16px; font-weight: 800;">
+              <span style="width: 24px; height: 24px; border-radius: 50%; background: #C72562; color: #FFFFFF; font-size: 13px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</span>
+              {{ perk }}
+            </li>
+          </sc-for>
+        </ul>
+        <a href="#zapisy" onClick="{{ pickTrener }}" style="align-self: flex-start; background: #C72562; color: #FFFFFF; text-decoration: none; font-weight: 900; font-size: 18px; padding: 16px 34px; border-radius: 999px; margin-top: 6px;">Zostań trenerem-założycielem</a>
+      </div>
+      <div style="flex: 0 1 340px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <img src="assets/Rino-boks.png" alt="Rino boksuje" style="width: 100%; border-radius: 24px; transform: rotate(-2deg);">
+        <img src="assets/Rino-golf.png" alt="Rino gra w golfa" style="width: 100%; border-radius: 24px; transform: rotate(2deg) translateY(14px);">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FORMULARZ LISTY OCZEKUJĄCYCH ===== -->
+  <section id="zapisy" data-screen-label="Zapisy" style="padding: 80px 5%; background: #C72562;">
+    <div style="max-width: 620px; margin: 0 auto; background: #FFFFFF; border-radius: 28px; padding: 40px 40px 34px; box-shadow: 0 26px 60px rgba(28,27,32,0.3); display: flex; flex-direction: column; gap: 20px;">
+      <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+        <h2 style="margin: 0; font-size: 30px; font-weight: 900; letter-spacing: -0.5px;">Dołącz do listy oczekujących</h2>
+        <div style="display: flex; background: #F6EDF1; border-radius: 999px; padding: 5px; gap: 4px;">
+          <button onClick="{{ pickKlientBtn }}" style="flex: 1; border: none; border-radius: 999px; padding: 12px 0; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900; cursor: pointer; background: {{ klientBg }}; color: {{ klientFg }}; transition: background 0.2s, color 0.2s;">Szukam trenera</button>
+          <button onClick="{{ pickTrenerBtn }}" style="flex: 1; border: none; border-radius: 999px; padding: 12px 0; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900; cursor: pointer; background: {{ trenerBg }}; color: {{ trenerFg }}; transition: background 0.2s, color 0.2s;">Jestem trenerem</button>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <input type="text" placeholder="Imię" onChange="{{ onName }}" style="border: 2px solid #EADCE3; border-radius: 14px; padding: 15px 18px; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 700; color: #1C1B20; outline: none;" style-focus="border-color: #C72562">
+          <input type="email" placeholder="Adres e-mail" onChange="{{ onEmail }}" style="border: 2px solid #EADCE3; border-radius: 14px; padding: 15px 18px; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 700; color: #1C1B20; outline: none;" style-focus="border-color: #C72562">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 14px; font-weight: 800; color: #6B6A72;">{{ discLabel }}</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <sc-for list="{{ discChips }}" as="chip" hint-placeholder-count="5">
+                <button onClick="{{ chip.pick }}" style="border: 2px solid {{ chip.border }}; background: {{ chip.bg }}; color: {{ chip.fg }}; border-radius: 999px; padding: 9px 18px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 900; cursor: pointer; transition: all 0.2s;">{{ chip.name }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13px; font-weight: 700; color: #6B6A72; cursor: pointer; line-height: 1.45;">
+            <input type="checkbox" onChange="{{ onRodo }}" style="margin-top: 2px; accent-color: #C72562; width: 18px; height: 18px;">
+            <span>Wyrażam zgodę na przetwarzanie moich danych osobowych w celu kontaktu dotyczącego startu platformy (RODO). Administrator danych i pełna klauzula informacyjna zostaną podane w wiadomości powitalnej.</span>
+          </label>
+          <button onClick="{{ submit }}" disabled="{{ submitDisabled }}" style="border: none; border-radius: 999px; padding: 17px 0; font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; cursor: pointer; background: {{ submitBg }}; color: #FFFFFF; transition: background 0.2s;">{{ submitLabel }}</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; padding: 20px 0;">
+          <img src="assets/Rino-logo.png" alt="Rino" style="width: 72px; height: 72px; border-radius: 18px;">
+          <h2 style="margin: 0; font-size: 28px; font-weight: 900;">Jesteś na liście! 🎾</h2>
+          <p style="margin: 0; color: #6B6A72; font-size: 16px; font-weight: 700; max-width: 380px;">Odezwiemy się, gdy wystartujemy w Warszawie. Rino już trzyma dla Ciebie miejsce w portfelu.</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" data-screen-label="FAQ" style="padding: 80px 5%; background: #FFFFFF;">
+    <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px;">
+      <h2 style="margin: 0; font-size: 40px; font-weight: 900; letter-spacing: -0.8px;">Częste pytania</h2>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+          <div style="border: 2px solid #F0E2E8; border-radius: 18px; overflow: hidden;">
+            <button onClick="{{ f.toggle }}" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: #FFFFFF; border: none; padding: 18px 22px; font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 900; color: #1C1B20; cursor: pointer; text-align: left;">
+              {{ f.q }}
+              <span style="color: #C72562; font-size: 22px; font-weight: 900; flex-shrink: 0;">{{ f.icon }}</span>
+            </button>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; padding: 0 22px 18px; color: #6B6A72; font-size: 16px; font-weight: 700; line-height: 1.55;">{{ f.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STOPKA ===== -->
+  <footer data-screen-label="Stopka" style="background: #1C1B20; padding: 40px 5%; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="assets/Rino-logo.png" alt="Rino" style="width: 36px; height: 36px; border-radius: 9px;">
+      <span style="color: #FFFFFF; font-size: 20px; font-weight: 900;">Rino</span>
+      <span style="color: #6B6A72; font-size: 14px; font-weight: 700;">· Trenerzy sportów premium · Warszawa</span>
+    </div>
+    <div style="color: #6B6A72; font-size: 13px; font-weight: 700;">© 2026 Rino · Polityka prywatności · RODO</div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;rozstawKart&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 165, &quot;min&quot;: 120, &quot;max&quot;: 230, &quot;step&quot;: 5, &quot;unit&quot;: &quot;px&quot;, &quot;section&quot;: &quot;Animacja portfela&quot; },
+  &quot;uniesienieKart&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 60, &quot;min&quot;: 0, &quot;max&quot;: 120, &quot;step&quot;: 2, &quot;unit&quot;: &quot;px&quot;, &quot;section&quot;: &quot;Animacja portfela&quot; }
+}">
+class Component extends DCLogic {
+  state = {
+    deployed: false,
+    role: 'klient',
+    disc: null,
+    name: '', email: '', rodo: false,
+    submitted: false,
+    openFaq: null,
+  };
+
+  componentDidMount() {
+    this._measure = () => {
+      if (this._stageEl) this.setState({ stageW: this._stageEl.offsetWidth });
+    };
+    this._measure();
+    window.addEventListener('resize', this._measure);
+    const el = this._specEl;
+    if (el && 'IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((entries) => {
+        if (entries.some(e => e.isIntersecting)) {
+          this.setState({ deployed: true });
+          this._io.disconnect();
+        }
+      }, { threshold: 0.35 });
+      this._io.observe(el);
+    } else {
+      this.setState({ deployed: true });
+    }
+  }
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    window.removeEventListener('resize', this._measure);
+  }
+
+  renderVals() {
+    const stageW = this.state.stageW || 1160;
+    const maxGap = Math.max(100, (stageW - 138 - 150 - 168) / 3);
+    const gap = Math.min(this.props.rozstawKart ?? 165, maxGap);
+    const lift = this.props.uniesienieKart ?? 60;
+    const s = this.state;
+
+    const defs = [
+      { id: 'tenis', name: 'Tenis', img: 'assets/Rino-tenis.png' },
+      { id: 'boks',  name: 'Boks',  img: 'assets/Rino-boks.png' },
+      { id: 'padel', name: 'Padel', img: 'assets/Rino-padel.png' },
+      { id: 'golf',  name: 'Golf',  img: 'assets/Rino-golf.png' },
+    ];
+    const rots = [-3, 2, -2, 3];
+
+    const cards = defs.map((d, i) => {
+      let transform;
+      if (!s.deployed) {
+        transform = 'translate(20px, 30px) rotate(-8deg) scale(0.5)';
+      } else {
+        transform = 'translate(' + (150 + i * gap) + 'px, ' + (-lift - (i % 2) * 10) + 'px) rotate(' + rots[i] + 'deg)';
+      }
+      return {
+        ...d,
+        transform,
+        delay: s.deployed ? (i * 0.22) + 's' : '0s',
+        pick: () => this.setState({ disc: d.id, role: 'klient' }),
+      };
+    });
+
+    const discChips = defs.map(d => {
+      const on = s.disc === d.id;
+      return {
+        name: d.name,
+        bg: on ? '#C72562' : '#FFFFFF',
+        fg: on ? '#FFFFFF' : '#1C1B20',
+        border: on ? '#C72562' : '#EADCE3',
+        pick: () => this.setState({ disc: on ? null : d.id }),
+      };
+    });
+
+    const emailOk = s.email.includes('@') && s.email.includes('.');
+    const canSubmit = emailOk && s.rodo && s.name.trim().length > 0;
+
+    const faqData = [
+      { q: 'Ile kosztuje trening?', a: 'Stawki ustalają trenerzy — w Warszawie to zwykle 150–300 zł za godzinę, zależnie od dyscypliny i doświadczenia. Cennik każdego trenera widzisz na jego profilu przed rezerwacją.' },
+      { q: 'Jak płacę za trening?', a: 'Online, w momencie rezerwacji — BLIK, karta lub szybki przelew. Otrzymujesz polską fakturę bezpośrednio od trenera.' },
+      { q: 'Czy działacie tylko w Warszawie?', a: 'Tak, startujemy w Warszawie. Kolejne miasta dodamy, gdy zbudujemy tu najlepszą bazę trenerów.' },
+      { q: 'Szukam trenera dla dziecka — pomożecie?', a: 'Tak! Wielu naszych trenerów specjalizuje się w pracy z dziećmi i juniorami, szczególnie w tenisie. Na profilu trenera zobaczysz doświadczenie w treningu dzieci.' },
+      { q: 'Jestem trenerem — ile to kosztuje?', a: 'Pierwszych 50 trenerów-założycieli korzysta z platformy za 0 zł. Bez abonamentu i bez prowizji na start. Szczegóły wyślemy po zapisie na listę.' },
+    ];
+    const faqs = faqData.map((f, i) => ({
+      ...f,
+      open: s.openFaq === i,
+      icon: s.openFaq === i ? '−' : '+',
+      toggle: () => this.setState({ openFaq: s.openFaq === i ? null : i }),
+    }));
+
+    return {
+      specRef: (el) => { this._specEl = el; },
+      stageRef: (el) => { this._stageEl = el; },
+      cards,
+      steps: [
+        { nr: '1', title: 'Wybierz trenera', desc: 'Przeglądaj profile trenerów w swojej dyscyplinie i dzielnicy — z opiniami, certyfikatami, wideo i cennikiem.' },
+        { nr: '2', title: 'Zarezerwuj termin', desc: 'Kalendarz trenera jest zawsze aktualny. Wybierasz godzinę i miejsce — kort, klub albo dojazd.' },
+        { nr: '3', title: 'Zapłać online i trenuj', desc: 'Płatność BLIK-iem przy rezerwacji, faktura na mail. Ty przychodzisz tylko z dobrą energią.' },
+      ],
+      perks: [
+        '0 zł dla pierwszych 50 trenerów-założycieli',
+        'Profil z opiniami, certyfikatami i wideo',
+        'Kalendarz i płatności online — bez przelewów i SMS-ów',
+        'Nowi klienci z Twojej dzielnicy',
+      ],
+      pickTrener: () => this.setState({ role: 'trener' }),
+      pickKlientBtn: () => this.setState({ role: 'klient' }),
+      pickTrenerBtn: () => this.setState({ role: 'trener' }),
+      klientBg: s.role === 'klient' ? '#C72562' : 'transparent',
+      klientFg: s.role === 'klient' ? '#FFFFFF' : '#6B6A72',
+      trenerBg: s.role === 'trener' ? '#C72562' : 'transparent',
+      trenerFg: s.role === 'trener' ? '#FFFFFF' : '#6B6A72',
+      discLabel: s.role === 'trener' ? 'Jaką dyscyplinę trenujesz?' : 'Jaka dyscyplina Cię interesuje?',
+      discChips,
+      onName: (e) => this.setState({ name: e.target.value }),
+      onEmail: (e) => this.setState({ email: e.target.value }),
+      onRodo: (e) => this.setState({ rodo: e.target.checked }),
+      submit: () => { if (canSubmit) this.setState({ submitted: true }); },
+      submitDisabled: !canSubmit,
+      submitBg: canSubmit ? '#C72562' : '#D8A9BE',
+      submitLabel: s.role === 'trener' ? 'Zapisz mnie — jestem trenerem' : 'Zapisz mnie na listę',
+      submitted: s.submitted,
+      notSubmitted: !s.submitted,
+      faqs,
+    };
+  }
+}
+</script>
+</body>
+</html>
