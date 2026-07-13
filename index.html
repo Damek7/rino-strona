@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Rino pomaga znaleźć sprawdzonego trenera tenisa, boksu, golfa, padla lub squasha w Warszawie. Opinie, ceny i wolne terminy w jednym miejscu.">
+<meta name="description" content="Znajdź sprawdzonego trenera tenisa, boksu, golfa lub padla w Warszawie. Terminy, rezerwacje i płatności w jednym miejscu.">
 <meta name="theme-color" content="#FFFFFF">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
-<meta property="og:title" content="Rino — trenerzy sportów premium w Warszawie">
-<meta property="og:description" content="Znajdź sprawdzonego trenera sportowego w Warszawie. Opinie, cennik i rezerwacja online.">
+<meta property="og:title" content="RinoMove — trenerzy w Warszawie">
+<meta property="og:description" content="Sprawdzeni trenerzy. Terminy, rezerwacje i płatności w jednym miejscu.">
 <meta property="og:image" content="assets/Rino-tenis.png">
-<title>Rino — trenerzy sportów premium w Warszawie</title>
+<title>RinoMove — trenerzy w Warszawie</title>
 <link rel="icon" href="assets/Rino-logo.png" type="image/png">
 <script src="./support.js"></script>
 </head>
@@ -19,233 +19,223 @@
 <helmet>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700&display=swap" rel="stylesheet">
   <style>
-    /* ===== Tokeny (spójne z panelem + system Arco: płasko, ramki, spokojne wagi) ===== */
+    /* ===== Tokeny — powściągliwość, przestrzeń, malinowy tylko jako akcent ===== */
     :root{
-      --pink:#C72562; --pink-dark:#9E1748; --pink-wash:#FBF5F8;
-      --ink:#1C1B20; --muted:#575660; --faint:#87858F;
-      --line:#EADCE3; --line-2:#F0E7EB; --blue:#A8BFE9; --blue-wash:#EEF3FB;
-      --white:#FFFFFF; --surface:#FBFAFB;
-      --r-card:14px; --r-ctrl:11px; --r-pill:999px;
-      --shadow-sm:0 1px 2px rgba(28,27,32,.06);
-      --shadow-md:0 8px 24px rgba(28,27,32,.10);
-      --maxw:1160px;
+      --pink:#C72562; --pink-dark:#9E1748; --pink-wash:#FBF3F7;
+      --ink:#1A191E; --ink-soft:#3A3941; --muted:#565560; --faint:#8B8A94;
+      --line:#E9E7EB; --line-2:#F1EFF2;
+      --white:#FFFFFF; --surface:#FAF9FA; --surface-2:#F4F2F4;
+      --r-card:12px; --r-ctrl:9px;
+      --maxw:1120px;
+      --ease:cubic-bezier(0.34, 0.69, 0.1, 1);
     }
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin:0; padding:0; width:100%; max-width:100%; overflow-x:clip;
       background:var(--white); scroll-behavior:smooth;
       font-family:'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-      color:var(--ink); -webkit-font-smoothing:antialiased; }
+      color:var(--ink); font-weight:400; line-height:1.5;
+      -webkit-font-smoothing:antialiased; }
     img, svg { max-width:100%; display:block; }
-    a { color:var(--pink); text-decoration:none; }
+    a { color:inherit; text-decoration:none; }
     a:focus-visible, button:focus-visible, input:focus-visible {
-      outline:3px solid var(--ink); outline-offset:2px; }
-    h1,h2,h3,p { margin:0; }
+      outline:2px solid var(--ink); outline-offset:2px; }
+    h1,h2,h3,p { margin:0; font-weight:inherit; }
 
-    .wrap { max-width:var(--maxw); margin:0 auto; padding:0 24px; }
-    .eyebrow { color:var(--pink); font-size:12px; font-weight:800; letter-spacing:.12em;
-      text-transform:uppercase; }
+    .wrap { max-width:var(--maxw); margin:0 auto; padding:0 32px; }
     .muted { color:var(--muted); }
 
-    /* Przyciski — mniejsze, mniej zaokrąglone, spokojniejsze */
+    /* Przyciski — grafit jako baza, malinowy oszczędnie */
     .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      min-height:46px; padding:12px 22px; border-radius:var(--r-ctrl);
-      font-weight:800; font-size:15px; border:1.5px solid transparent; cursor:pointer;
-      font-family:inherit; transition:background .12s, border-color .12s, color .12s; white-space:nowrap; }
-    .btn-primary { background:var(--pink); color:var(--white); }
-    .btn-primary:hover { background:var(--pink-dark); color:var(--white); }
-    .btn-ghost { background:var(--white); color:var(--ink); border-color:var(--line); }
-    .btn-ghost:hover { border-color:var(--pink); color:var(--pink); }
-    .btn-light { background:var(--white); color:var(--pink); }
-    .btn-light:hover { background:var(--pink-wash); }
+      min-height:48px; padding:13px 26px; border-radius:var(--r-ctrl);
+      font-weight:600; font-size:15px; letter-spacing:.01em; border:1px solid transparent;
+      cursor:pointer; font-family:inherit; transition:background .18s var(--ease),
+      border-color .18s var(--ease), color .18s var(--ease); white-space:nowrap; }
+    .btn-primary { background:var(--ink); color:var(--white); }
+    .btn-primary:hover { background:var(--ink-soft); }
+    .btn-quiet { background:transparent; color:var(--ink); border-color:var(--line); }
+    .btn-quiet:hover { border-color:var(--ink); }
+    .btn-text { min-height:auto; padding:0; color:var(--ink); font-weight:600; }
+    .btn-text .arw { color:var(--pink); transition:transform .18s var(--ease); }
+    .btn-text:hover .arw { transform:translateX(4px); }
     .btn-block { width:100%; }
 
-    /* ===== Nawigacja — biała, malinowy tylko jako akcent ===== */
-    .site-nav { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92);
-      backdrop-filter:saturate(1.4) blur(8px); border-bottom:1px solid var(--line);
-      display:flex; align-items:center; justify-content:space-between; padding:12px 24px; }
-    .site-logo { display:flex; align-items:center; gap:10px; }
-    .site-logo img { width:38px; height:38px; border-radius:10px; }
-    .site-logo span { color:var(--ink); font-size:21px; font-weight:800; letter-spacing:-.4px; }
-    .desktop-nav { display:flex; align-items:center; gap:26px; }
-    .desktop-nav > a:not(.btn) { color:var(--muted); font-weight:700; font-size:15px; }
+    /* ===== Nawigacja ===== */
+    .site-nav { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.9);
+      backdrop-filter:saturate(1.2) blur(10px); border-bottom:1px solid var(--line-2);
+      display:flex; align-items:center; justify-content:space-between; padding:18px 32px; }
+    .site-logo { display:flex; align-items:center; gap:11px; }
+    .site-logo img { width:34px; height:34px; border-radius:9px; }
+    .site-logo span { color:var(--ink); font-size:19px; font-weight:700; letter-spacing:-.2px; }
+    .desktop-nav { display:flex; align-items:center; gap:32px; }
+    .desktop-nav > a:not(.btn) { color:var(--muted); font-weight:500; font-size:15px; }
     .desktop-nav > a:not(.btn):hover { color:var(--ink); }
-    .desktop-nav .btn { min-height:42px; padding:9px 18px; }
+    .desktop-nav .btn { min-height:42px; padding:10px 20px; }
     .mobile-menu-button { display:none; min-width:44px; min-height:44px; border:1px solid var(--line);
-      border-radius:10px; background:var(--white); color:var(--ink); font-size:22px; cursor:pointer; }
+      border-radius:8px; background:var(--white); color:var(--ink); font-size:20px; cursor:pointer; }
 
-    /* ===== Hero — biel, maskotka jako akcent ===== */
-    .hero { display:grid; grid-template-columns:1.15fr .85fr; align-items:center; gap:48px;
-      padding:72px 0 64px; }
-    .hero-copy { display:flex; flex-direction:column; gap:20px; max-width:560px; }
-    .hero h1 { font-size:clamp(2rem, 4.6vw, 3.15rem); font-weight:800; line-height:1.08;
-      letter-spacing:-1px; color:var(--ink); }
-    .hero h1 em { color:var(--pink); font-style:normal; }
-    .hero-lead { font-size:18px; line-height:1.55; color:var(--muted); }
-    .hero-cta { display:flex; gap:12px; flex-wrap:wrap; }
-    .hero-proof { display:flex; align-items:center; gap:14px; flex-wrap:wrap;
-      color:var(--muted); font-size:14px; font-weight:600; }
-    .hero-proof strong { color:var(--ink); }
-    .hero-media { position:relative; display:flex; justify-content:center; }
-    .hero-media .stage { position:relative; width:min(100%, 380px); }
-    .hero-media .mascot { width:100%; border-radius:22px; background:var(--pink-wash);
-      box-shadow:var(--shadow-md); }
-    .hero-badge { position:absolute; left:-14px; bottom:26px; background:var(--white);
-      border:1px solid var(--line); border-radius:14px; padding:12px 16px; box-shadow:var(--shadow-md);
-      display:flex; align-items:center; gap:10px; }
-    .hero-badge .num { font-size:22px; font-weight:800; color:var(--ink); line-height:1; }
-    .hero-badge .lbl { font-size:12px; color:var(--muted); font-weight:700; }
-    .trust-row { border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2);
-      padding:16px 0; display:flex; gap:28px; flex-wrap:wrap; color:var(--muted);
-      font-size:14px; font-weight:700; }
-    .trust-row span { display:inline-flex; align-items:center; gap:8px; }
-    .trust-row .tick { color:var(--pink); font-weight:800; }
+    /* ===== Hero — editorialny, dużo powietrza, maskotka jako podpis ===== */
+    .hero { display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:64px;
+      padding:104px 0 96px; }
+    .hero-copy { display:flex; flex-direction:column; gap:28px; max-width:540px; }
+    .hero-loc { color:var(--faint); font-size:14px; font-weight:600; letter-spacing:.02em; }
+    .hero h1 { font-size:clamp(2.1rem, 4.4vw, 3.1rem); font-weight:700; line-height:1.12;
+      letter-spacing:-.02em; color:var(--ink); }
+    .hero-lead { font-size:18px; line-height:1.6; color:var(--muted); max-width:440px; }
+    .hero-cta { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+    .hero-fine { color:var(--faint); font-size:14px; }
+    .hero-media { display:flex; justify-content:center; }
+    .hero-media .stage { position:relative; width:min(100%, 340px); }
+    .hero-media .mascot { width:100%; }
 
     /* ===== Sekcje ===== */
-    section { padding:64px 0; }
-    .sec-head { display:flex; flex-direction:column; gap:8px; margin-bottom:32px; }
-    .sec-head h2 { font-size:clamp(1.6rem, 3vw, 2.15rem); font-weight:800; letter-spacing:-.6px; }
-    .sec-head p { color:var(--muted); font-size:17px; max-width:560px; }
+    section { padding:96px 0; }
+    .sec-head { display:flex; flex-direction:column; gap:12px; margin-bottom:48px; max-width:600px; }
+    .sec-head h2 { font-size:clamp(1.7rem, 2.8vw, 2.1rem); font-weight:700; letter-spacing:-.015em; }
+    .sec-head p { color:var(--muted); font-size:17px; line-height:1.6; }
+    .sec-top { display:flex; align-items:flex-end; justify-content:space-between; gap:24px;
+      margin-bottom:48px; flex-wrap:wrap; }
+    .sec-top .sec-head { margin-bottom:0; }
 
-    /* Dyscypliny — kompaktowy pasek zamiast portfela */
-    .disc-strip { display:grid; grid-template-columns:repeat(5, 1fr); gap:12px; }
-    .disc { display:flex; flex-direction:column; align-items:center; gap:10px; padding:18px 12px;
-      background:var(--white); border:1px solid var(--line); border-radius:var(--r-card);
-      text-align:center; transition:border-color .12s, box-shadow .12s; }
-    .disc:hover { border-color:var(--pink); box-shadow:var(--shadow-md); }
-    .disc.soon { opacity:.6; }
-    .disc-ico { width:56px; height:56px; border-radius:14px; background:var(--pink-wash);
-      background-size:cover; background-position:center; }
-    .disc-ico.placeholder { display:grid; place-items:center; color:var(--faint); font-size:22px; }
-    .disc-name { font-weight:800; font-size:15px; color:var(--ink); }
-    .disc-price { font-size:12.5px; color:var(--muted); font-weight:700; }
+    /* Dyscypliny — czyste, typograficzne, bez maskotki i ramek */
+    .disc-strip { display:grid; grid-template-columns:repeat(5, 1fr); gap:0;
+      border-top:1px solid var(--line); }
+    .disc { display:flex; flex-direction:column; gap:6px; padding:24px 4px 24px;
+      border-bottom:1px solid var(--line); transition:color .18s var(--ease); }
+    .disc + .disc { border-left:1px solid var(--line); padding-left:24px; }
+    .disc:hover .disc-name { color:var(--pink); }
+    .disc.soon { color:var(--faint); }
+    .disc-name { font-weight:600; font-size:17px; color:var(--ink); transition:color .18s var(--ease); }
+    .disc-price { font-size:14px; color:var(--muted); }
 
-    /* Karty trenerów — wiarygodność */
+    /* Trenerzy — większe karty z miejscem na portret */
     .trainers { background:var(--surface); }
-    .trainer-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+    .trainer-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; }
     .t-card { background:var(--white); border:1px solid var(--line); border-radius:var(--r-card);
-      padding:18px; display:flex; flex-direction:column; gap:14px; color:var(--ink);
-      transition:border-color .12s, box-shadow .12s; }
-    .t-card:hover { border-color:var(--pink); box-shadow:var(--shadow-md); }
-    .t-top { display:flex; gap:12px; align-items:center; }
-    .t-avatar { width:50px; height:50px; border-radius:50%; background:var(--blue-wash);
-      color:var(--pink); display:grid; place-items:center; font-weight:800; font-size:17px; flex:0 0 auto; }
-    .t-name { font-size:16px; font-weight:800; display:flex; align-items:center; gap:6px; }
-    .t-verify { color:var(--blue); font-size:13px; }
-    .t-sub { font-size:13px; color:var(--muted); font-weight:600; margin-top:2px; }
-    .t-meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:13px; }
-    .t-rating { color:var(--ink); font-weight:800; }
-    .t-star { color:#F5A623; }
-    .t-tag { background:var(--pink-wash); color:var(--pink); font-weight:800; font-size:12px;
-      padding:4px 10px; border-radius:var(--r-pill); }
-    .t-foot { display:flex; align-items:center; justify-content:space-between; gap:10px;
-      border-top:1px solid var(--line-2); padding-top:12px; }
-    .t-price { font-weight:800; font-size:16px; }
-    .t-price small { color:var(--muted); font-weight:700; font-size:12px; }
-    .t-slot { font-size:12.5px; color:var(--muted); font-weight:700; }
+      overflow:hidden; color:var(--ink); display:flex; flex-direction:column;
+      transition:transform .28s var(--ease), border-color .18s var(--ease); }
+    .t-card:hover { transform:translateY(-3px); border-color:var(--line); }
+    .t-portrait { aspect-ratio:4/3; background:var(--surface-2); position:relative;
+      display:grid; place-items:center; overflow:hidden; }
+    .t-portrait .mono { font-size:44px; font-weight:600; color:#CBC8CE; letter-spacing:.02em; }
+    .t-portrait .verify { position:absolute; top:12px; left:12px; background:rgba(255,255,255,.92);
+      color:var(--ink-soft); font-size:12px; font-weight:600; padding:5px 10px; border-radius:6px; }
+    .t-body { padding:20px 22px 22px; display:flex; flex-direction:column; gap:14px; }
+    .t-name { font-size:18px; font-weight:700; letter-spacing:-.01em; }
+    .t-sub { font-size:14px; color:var(--muted); margin-top:3px; }
+    .t-rating { font-size:14px; color:var(--ink-soft); }
+    .t-rating b { font-weight:700; }
+    .t-foot { display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+      border-top:1px solid var(--line-2); padding-top:14px; }
+    .t-price { font-weight:700; font-size:17px; }
+    .t-price small { color:var(--muted); font-weight:500; font-size:13px; }
+    .t-slot { font-size:13px; color:var(--muted); text-align:right; }
+    .trainers-cta { margin-top:48px; display:flex; justify-content:center; }
 
-    /* Jak to działa */
-    .steps { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
-    .step { background:var(--white); border:1px solid var(--line); border-radius:var(--r-card);
-      padding:24px; display:flex; flex-direction:column; gap:10px; }
-    .step .n { width:36px; height:36px; border-radius:10px; background:var(--pink-wash);
-      color:var(--pink); font-weight:800; display:grid; place-items:center; }
-    .step h3 { font-size:18px; font-weight:800; }
-    .step p { color:var(--muted); font-size:15px; line-height:1.5; }
+    /* Jak to działa — cienkie numery, bez plakietek */
+    .steps { display:grid; grid-template-columns:repeat(3, 1fr); gap:48px; }
+    .step { display:flex; flex-direction:column; gap:12px; }
+    .step .n { font-size:15px; font-weight:600; color:var(--pink); font-variant-numeric:tabular-nums; }
+    .step h3 { font-size:19px; font-weight:700; letter-spacing:-.01em; }
+    .step p { color:var(--muted); font-size:15px; line-height:1.6; }
+    .step-line { height:1px; background:var(--line); margin-bottom:4px; }
 
-    /* Dla trenerów — ciemna, ale spokojna */
+    /* Dla trenerów — jedna spokojna, ciemna sekcja */
     .coaches { background:var(--ink); }
-    .coaches .split { display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center; }
-    .coaches h2 { color:var(--white); }
-    .coaches .lead { color:#C6C4CD; font-size:17px; line-height:1.6; }
-    .coaches .eyebrow { color:var(--blue); }
-    .perks { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
-    .perks li { display:flex; gap:11px; align-items:center; color:#EDECEF; font-size:15px; font-weight:700; }
-    .perks .tick { width:22px; height:22px; border-radius:6px; background:var(--pink); color:#fff;
-      font-size:12px; font-weight:800; display:grid; place-items:center; flex:0 0 auto; }
-    .coaches-media { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .coaches-media img { width:100%; border-radius:16px; }
+    .coaches .split { display:grid; grid-template-columns:1.1fr .9fr; gap:72px; align-items:center; }
+    .coaches h2 { color:var(--white); font-size:clamp(1.7rem, 2.8vw, 2.1rem); font-weight:700;
+      letter-spacing:-.015em; }
+    .coaches .lead { color:#B9B7C0; font-size:17px; line-height:1.65; margin-top:18px; }
+    .perks { list-style:none; margin:24px 0 0; padding:0; display:flex; flex-direction:column; }
+    .perks li { color:#D9D8DD; font-size:15px; padding:14px 0; border-top:1px solid #2C2B31; }
+    .perks li:last-child { border-bottom:1px solid #2C2B31; }
+    .coaches-media { display:flex; justify-content:center; }
+    .coaches-media img { width:min(100%, 300px); }
+    .coaches .btn-primary { background:var(--white); color:var(--ink); margin-top:30px; }
+    .coaches .btn-primary:hover { background:#EDECEF; }
 
     /* Zapisy */
-    .signup { background:var(--pink-wash); }
-    .signup-card { max-width:600px; margin:0 auto; background:var(--white);
-      border:1px solid var(--line); border-radius:18px; padding:32px; box-shadow:var(--shadow-md);
-      display:flex; flex-direction:column; gap:18px; }
-    .signup-card h2 { font-size:24px; font-weight:800; }
-    .seg { display:flex; background:var(--pink-wash); border-radius:var(--r-ctrl); padding:4px; gap:4px; }
-    .seg button { flex:1; border:none; border-radius:8px; padding:11px 0; font-family:inherit;
-      font-size:15px; font-weight:800; cursor:pointer; background:transparent; color:var(--muted);
-      transition:background .15s, color .15s; }
-    .field { display:flex; flex-direction:column; gap:6px; }
-    .field label { font-size:13px; font-weight:800; color:var(--ink); }
-    .field input { border:1.5px solid var(--line); border-radius:var(--r-ctrl); padding:13px 15px;
-      font-family:inherit; font-size:15px; font-weight:600; color:var(--ink); background:var(--white); }
-    .field input:focus { outline:none; border-color:var(--pink); }
+    .signup { background:var(--surface); }
+    .signup-card { max-width:560px; margin:0 auto; background:var(--white);
+      border:1px solid var(--line); border-radius:var(--r-card); padding:44px 44px 40px;
+      display:flex; flex-direction:column; gap:22px; }
+    .signup-card h2 { font-size:23px; font-weight:700; letter-spacing:-.01em; }
+    .signup-card .sub { color:var(--muted); font-size:15px; margin-top:6px; }
+    .seg { display:flex; border:1px solid var(--line); border-radius:var(--r-ctrl); overflow:hidden; }
+    .seg button { flex:1; border:none; padding:12px 0; font-family:inherit; font-size:14px;
+      font-weight:600; cursor:pointer; background:var(--white); color:var(--muted);
+      transition:background .18s var(--ease), color .18s var(--ease); }
+    .seg button + button { border-left:1px solid var(--line); }
+    .field { display:flex; flex-direction:column; gap:7px; }
+    .field label { font-size:13px; font-weight:600; color:var(--ink-soft); }
+    .field input { border:1px solid var(--line); border-radius:var(--r-ctrl); padding:13px 15px;
+      font-family:inherit; font-size:15px; color:var(--ink); background:var(--white); }
+    .field input:focus { outline:none; border-color:var(--ink); }
     .chips { display:flex; gap:8px; flex-wrap:wrap; }
-    .chip { border:1.5px solid var(--line); background:var(--white); color:var(--ink);
-      border-radius:var(--r-pill); padding:8px 16px; font-family:inherit; font-size:14px;
-      font-weight:800; cursor:pointer; transition:all .15s; }
-    .rodo { display:flex; align-items:flex-start; gap:10px; font-size:13px; font-weight:600;
-      color:var(--muted); line-height:1.45; cursor:pointer; }
-    .rodo input { margin-top:2px; accent-color:var(--pink); width:18px; height:18px; }
-    .success { display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;
-      padding:16px 0; }
-    .success img { width:64px; height:64px; border-radius:16px; }
+    .chip { border:1px solid var(--line); background:var(--white); color:var(--ink-soft);
+      border-radius:7px; padding:8px 15px; font-family:inherit; font-size:14px;
+      font-weight:500; cursor:pointer; transition:all .18s var(--ease); }
+    .rodo { display:flex; align-items:flex-start; gap:10px; font-size:13px;
+      color:var(--muted); line-height:1.5; cursor:pointer; }
+    .rodo input { margin-top:2px; accent-color:var(--ink); width:17px; height:17px; }
+    .success { display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center;
+      padding:20px 0; }
+    .success img { width:56px; height:56px; }
 
     /* FAQ */
-    .faq-list { display:flex; flex-direction:column; gap:10px; max-width:760px; }
-    .faq-item { border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--white); }
+    .faq-list { border-top:1px solid var(--line); max-width:760px; }
+    .faq-item { border-bottom:1px solid var(--line); }
     .faq-q { width:100%; min-height:44px; display:flex; align-items:center; justify-content:space-between;
-      gap:16px; background:var(--white); border:none; padding:16px 20px; font-family:inherit;
-      font-size:16px; font-weight:800; color:var(--ink); cursor:pointer; text-align:left; }
-    .faq-q .ico { color:var(--pink); font-size:20px; font-weight:800; flex:0 0 auto; }
-    .faq-a { padding:0 20px 16px; color:var(--muted); font-size:15px; line-height:1.55; }
+      gap:20px; background:transparent; border:none; padding:22px 4px; font-family:inherit;
+      font-size:16px; font-weight:600; color:var(--ink); cursor:pointer; text-align:left; }
+    .faq-q .ico { color:var(--faint); font-size:20px; font-weight:400; flex:0 0 auto; }
+    .faq-a { padding:0 4px 24px; color:var(--muted); font-size:15px; line-height:1.65; max-width:640px; }
 
     /* Stopka */
-    footer { background:var(--ink); padding:32px 0; }
+    footer { border-top:1px solid var(--line); padding:40px 0; }
     footer .row { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
     footer .brand { display:flex; align-items:center; gap:10px; }
-    footer .brand img { width:32px; height:32px; border-radius:8px; }
-    footer .brand span { color:var(--white); font-size:18px; font-weight:800; }
-    footer .brand small { color:var(--faint); font-size:13px; font-weight:600; }
-    footer .legal { color:var(--faint); font-size:13px; font-weight:600; }
+    footer .brand img { width:28px; height:28px; border-radius:7px; }
+    footer .brand span { color:var(--ink); font-size:16px; font-weight:700; }
+    footer .brand small { color:var(--faint); font-size:14px; }
+    footer .legal { color:var(--faint); font-size:13px; }
 
     .skip-link { position:fixed; left:12px; top:-80px; z-index:1000; background:var(--white);
-      color:var(--ink); padding:12px 16px; border-radius:8px; }
+      color:var(--ink); padding:12px 16px; border-radius:8px; border:1px solid var(--line); }
     .skip-link:focus { top:12px; }
 
-    /* ===== Mobile ===== */
-    @media (max-width:900px){
-      .hero { grid-template-columns:1fr; gap:32px; padding:48px 0; }
-      .hero-media { order:-1; }
-      .hero-media .stage { width:min(72%, 300px); }
-      .coaches .split { grid-template-columns:1fr; gap:32px; }
-      .trainer-grid, .steps { grid-template-columns:repeat(2, 1fr); }
-      .disc-strip { grid-template-columns:repeat(3, 1fr); }
+    /* ===== Responsywność ===== */
+    @media (max-width:920px){
+      .hero { grid-template-columns:1fr; gap:44px; padding:72px 0 64px; }
+      .hero-media { order:-1; justify-content:flex-start; }
+      .hero-media .stage { width:min(58%, 240px); }
+      .coaches .split { grid-template-columns:1fr; gap:44px; }
+      .coaches-media { justify-content:flex-start; }
+      .trainer-grid { grid-template-columns:repeat(2, 1fr); gap:20px; }
+      .steps { grid-template-columns:1fr; gap:36px; }
     }
     @media (max-width:640px){
-      .wrap { padding:0 16px; }
-      section { padding:48px 0; }
-      .desktop-nav { display:none; position:absolute; top:63px; left:0; right:0; background:var(--white);
+      .wrap { padding:0 20px; }
+      section { padding:64px 0; }
+      .sec-head { margin-bottom:36px; }
+      .desktop-nav { display:none; position:absolute; top:69px; left:0; right:0; background:var(--white);
         border-bottom:1px solid var(--line); flex-direction:column; align-items:stretch; gap:2px;
-        padding:8px 16px 16px; }
+        padding:8px 20px 18px; }
       .desktop-nav.menu-open { display:flex; }
       .desktop-nav > a { min-height:44px; display:flex; align-items:center; }
-      .desktop-nav .btn { margin-top:6px; }
+      .desktop-nav .btn { margin-top:8px; }
       .mobile-menu-button { display:inline-flex; align-items:center; justify-content:center; }
-      .site-nav { position:sticky; }
       .hero h1 { overflow-wrap:anywhere; }
-      .hero-cta { flex-direction:column; }
-      .hero-cta .btn { width:100%; }
-      .trainer-grid, .steps { grid-template-columns:1fr; }
-      .disc-strip { grid-template-columns:repeat(3, 1fr); gap:8px; }
-      .disc { padding:12px 8px; gap:7px; }
-      .disc-ico { width:40px; height:40px; border-radius:11px; }
-      .disc-name { font-size:13px; }
-      .disc-price { font-size:11px; }
-      .signup-card { padding:24px 18px; }
-      section[id]{ scroll-margin-top:72px; }
+      .hero-cta { gap:16px; }
+      .disc-strip { grid-template-columns:repeat(2, 1fr); border-top:none; }
+      .disc { padding:18px 4px; border-top:1px solid var(--line); }
+      .disc + .disc { border-left:none; padding-left:4px; }
+      .disc:nth-child(odd) { border-right:1px solid var(--line); padding-right:16px; }
+      .disc:nth-child(even) { padding-left:16px; }
+      .trainer-grid { grid-template-columns:1fr; }
+      .signup-card { padding:28px 22px; }
+      section[id]{ scroll-margin-top:80px; }
     }
     @media (prefers-reduced-motion: reduce){
       html, body { scroll-behavior:auto; }
@@ -279,35 +269,19 @@
   <header id="top" data-screen-label="Hero">
     <div class="wrap hero">
       <div class="hero-copy">
-        <span class="eyebrow">Warszawa · sporty premium</span>
-        <h1>Sprawdzeni trenerzy tenisa, boksu i golfa — <em>w jednym miejscu</em>.</h1>
-        <p class="hero-lead">Przeglądaj profile z opiniami i cennikiem, rezerwuj termin i płać online. Bez dzwonienia, bez SMS-owego chaosu.</p>
+        <span class="hero-loc">Warszawa</span>
+        <h1>Sprawdzeni trenerzy. Terminy, rezerwacje i płatności w jednym miejscu.</h1>
+        <p class="hero-lead">Przeglądasz profil, wybierasz termin, płacisz online. Bez telefonów i SMS-ów.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="panel.html">Znajdź trenera</a>
-          <a class="btn btn-ghost" href="#dla-trenerow">Jestem trenerem</a>
+          <a class="btn-text" href="#dla-trenerow">Jestem trenerem <span class="arw">→</span></a>
         </div>
-        <div class="hero-proof">
-          <span><strong>4,9/5</strong> średnia ocena trenerów</span>
-          <span aria-hidden="true">·</span>
-          <span><strong>150–300 zł</strong> za godzinę treningu</span>
-        </div>
+        <p class="hero-fine">BLIK i karta · Faktura · Rezerwacja online</p>
       </div>
       <div class="hero-media">
         <div class="stage">
-          <img class="mascot" src="assets/Rino-tenis.png" alt="Maskotka Rino z rakietą tenisową" width="380" height="380" fetchpriority="high">
-          <div class="hero-badge">
-            <span class="num">40+</span>
-            <span class="lbl">sprawdzonych<br>trenerów</span>
-          </div>
+          <img class="mascot" src="assets/Rino-tenis.png" alt="Rino — maskotka RinoMove" width="340" height="340" fetchpriority="high">
         </div>
-      </div>
-    </div>
-    <div class="wrap">
-      <div class="trust-row">
-        <span><span class="tick">✓</span> Płatność BLIK i kartą</span>
-        <span><span class="tick">✓</span> Polskie faktury</span>
-        <span><span class="tick">✓</span> Zgodność z RODO</span>
-        <span><span class="tick">✓</span> Rezerwacja online 24/7</span>
       </div>
     </div>
   </header>
@@ -316,19 +290,12 @@
   <section id="specjalizacje" data-screen-label="Dyscypliny">
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">Dyscypliny</span>
-        <h2>Wybierz swój sport</h2>
-        <p>Pięć dyscyplin premium na start. Każdy trener ma zweryfikowany profil, opinie i aktualny kalendarz.</p>
+        <h2>Dyscypliny</h2>
+        <p>Tenis, boks, golf, padel i squash — z trenerami zweryfikowanymi na miejscu.</p>
       </div>
       <div class="disc-strip">
         <sc-for list="{{ disciplines }}" as="d" hint-placeholder-count="5">
           <a class="disc {{ d.soonClass }}" href="{{ d.href }}">
-            <sc-if value="{{ d.hasImg }}" hint-placeholder-val="{{ true }}">
-              <span class="disc-ico" style="background-image:url('{{ d.img }}')"></span>
-            </sc-if>
-            <sc-if value="{{ d.noImg }}" hint-placeholder-val="{{ false }}">
-              <span class="disc-ico placeholder">+</span>
-            </sc-if>
             <span class="disc-name">{{ d.name }}</span>
             <span class="disc-price">{{ d.price }}</span>
           </a>
@@ -337,41 +304,39 @@
     </div>
   </section>
 
-  <!-- ===== TRENERZY (wiarygodność) ===== -->
+  <!-- ===== TRENERZY ===== -->
   <section id="trenerzy" class="trainers" data-screen-label="Trenerzy">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Poznaj trenerów</span>
-        <h2>Trenerzy dostępni w tym tygodniu</h2>
-        <p>Prawdziwe profile z ocenami, cennikiem i najbliższym wolnym terminem. Pełną wyszukiwarkę znajdziesz w panelu.</p>
+      <div class="sec-top">
+        <div class="sec-head">
+          <h2>Trenerzy w tym tygodniu</h2>
+          <p>Zweryfikowane profile z aktualnymi terminami.</p>
+        </div>
+        <a class="btn-text" href="panel.html">Zobacz wszystkich <span class="arw">→</span></a>
       </div>
       <div class="trainer-grid">
         <sc-for list="{{ trainers }}" as="t" hint-placeholder-count="6">
           <a class="t-card" href="panel.html">
-            <div class="t-top">
-              <span class="t-avatar">{{ t.initials }}</span>
+            <div class="t-portrait">
+              <span class="mono">{{ t.initials }}</span>
+              <span class="verify">Zweryfikowany</span>
+            </div>
+            <div class="t-body">
               <div>
-                <div class="t-name">{{ t.name }} <span class="t-verify" title="Zweryfikowany">✓</span></div>
+                <div class="t-name">{{ t.name }}</div>
                 <div class="t-sub">{{ t.sub }}</div>
               </div>
-            </div>
-            <div class="t-meta">
-              <span class="t-rating"><span class="t-star">★</span> {{ t.rating }}</span>
-              <span class="muted">({{ t.reviews }} opinii)</span>
-              <span class="t-tag">{{ t.level }}</span>
-            </div>
-            <div class="t-foot">
-              <div>
+              <div class="t-rating"><b>{{ t.rating }}</b> · {{ t.reviews }} opinii · {{ t.level }}</div>
+              <div class="t-foot">
                 <div class="t-price">{{ t.price }} <small>/ godz.</small></div>
-                <div class="t-slot">Najbliżej: {{ t.slot }}</div>
+                <div class="t-slot">Wolny termin<br>{{ t.slot }}</div>
               </div>
-              <span class="btn btn-ghost" style="min-height:38px; padding:8px 14px;">Profil</span>
             </div>
           </a>
         </sc-for>
       </div>
-      <div style="display:flex; justify-content:center; margin-top:28px;">
-        <a class="btn btn-primary" href="panel.html">Zobacz wszystkich trenerów</a>
+      <div class="trainers-cta">
+        <a class="btn btn-quiet" href="panel.html">Zobacz wszystkich trenerów</a>
       </div>
     </div>
   </section>
@@ -380,12 +345,12 @@
   <section id="jak-to-dziala" data-screen-label="Jak to działa">
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">Prosto</span>
         <h2>Jak to działa</h2>
       </div>
       <div class="steps">
         <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
           <div class="step">
+            <div class="step-line"></div>
             <span class="n">{{ s.nr }}</span>
             <h3>{{ s.title }}</h3>
             <p>{{ s.desc }}</p>
@@ -398,20 +363,18 @@
   <!-- ===== DLA TRENERÓW ===== -->
   <section id="dla-trenerow" class="coaches" data-screen-label="Dla trenerów">
     <div class="wrap split">
-      <div style="display:flex; flex-direction:column; gap:18px;">
-        <span class="eyebrow">Program założycielski</span>
-        <h2 class="sec-head" style="margin:0;"><span style="font-size:clamp(1.6rem,3vw,2.15rem); font-weight:800; letter-spacing:-.6px; color:#fff;">Trenujesz? Dołącz jako trener-założyciel.</span></h2>
-        <p class="lead">Pierwszych 50 trenerów korzysta z platformy za 0 zł. Profil z opiniami, certyfikatami, cennikiem i kalendarzem — a klienci znajdują Cię sami.</p>
+      <div>
+        <h2>Trenujesz? Dołącz jako trener-założyciel.</h2>
+        <p class="lead">Pierwszych 50 trenerów korzysta z platformy za 0 zł. Profil, cennik i kalendarz — a klienci znajdują Cię sami.</p>
         <ul class="perks">
           <sc-for list="{{ perks }}" as="perk" hint-placeholder-count="4">
-            <li><span class="tick">✓</span> {{ perk }}</li>
+            <li>{{ perk }}</li>
           </sc-for>
         </ul>
-        <a href="#zapisy" onClick="{{ pickTrener }}" class="btn btn-primary" style="align-self:flex-start; margin-top:4px;">Zostań trenerem-założycielem</a>
+        <a href="#zapisy" onClick="{{ pickTrener }}" class="btn btn-primary">Zostań trenerem-założycielem</a>
       </div>
       <div class="coaches-media">
-        <img src="assets/Rino-boks.png" alt="Maskotka Rino w rękawicach bokserskich">
-        <img src="assets/Rino-golf.png" alt="Maskotka Rino z kijem golfowym" style="margin-top:24px;">
+        <img src="assets/Rino-boks.png" alt="Rino — maskotka RinoMove">
       </div>
     </div>
   </section>
@@ -422,8 +385,8 @@
       <div class="signup-card">
         <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
           <div>
-            <span class="eyebrow">Lista oczekujących</span>
-            <h2 style="margin-top:6px;">Bądź pierwszy, gdy startujemy</h2>
+            <h2>Bądź pierwszy, gdy startujemy</h2>
+            <p class="sub">Zostaw kontakt — odezwiemy się przed startem w Warszawie.</p>
           </div>
           <div class="seg">
             <button onClick="{{ pickKlientBtn }}" style="background:{{ klientBg }}; color:{{ klientFg }};">Szukam trenera</button>
@@ -449,15 +412,15 @@
             <input type="checkbox" onChange="{{ onRodo }}">
             <span>Wyrażam zgodę na przetwarzanie moich danych osobowych w celu kontaktu dotyczącego startu platformy (RODO). Administrator danych i pełna klauzula informacyjna zostaną podane w wiadomości powitalnej.</span>
           </label>
-          <button onClick="{{ submit }}" disabled="{{ submitDisabled }}" class="btn btn-primary btn-block" style="background:{{ submitBg }};">{{ submitLabel }}</button>
+          <button onClick="{{ submit }}" disabled="{{ submitDisabled }}" class="btn btn-primary btn-block" style="{{ submitStyle }}">{{ submitLabel }}</button>
           <sc-if value="{{ hasSubmitError }}" hint-placeholder-val="{{ false }}">
-            <p role="alert" style="color:#9B1C1C; font-size:14px; font-weight:800;">{{ submitError }}</p>
+            <p role="alert" style="color:#9B1C1C; font-size:14px; font-weight:600;">{{ submitError }}</p>
           </sc-if>
         </sc-if>
         <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
           <div class="success">
-            <img src="assets/Rino-logo.png" alt="Rino">
-            <h2 style="margin:0;">Jesteś na liście</h2>
+            <img src="assets/Rino-logo.png" alt="RinoMove">
+            <h2 style="font-size:22px; font-weight:700;">Jesteś na liście</h2>
             <p class="muted" style="max-width:380px;">Odezwiemy się, gdy wystartujemy w Warszawie. Dziękujemy za zaufanie.</p>
           </div>
         </sc-if>
@@ -469,7 +432,6 @@
   <section id="faq" data-screen-label="FAQ">
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">FAQ</span>
         <h2>Częste pytania</h2>
       </div>
       <div class="faq-list">
@@ -495,9 +457,9 @@
       <div class="brand">
         <img src="assets/Rino-logo.png" alt="RinoMove">
         <span>RinoMove</span>
-        <small>· Trenerzy sportów premium · Warszawa</small>
+        <small>· Warszawa</small>
       </div>
-      <div class="legal">© 2026 Rino · Polityka prywatności · RODO</div>
+      <div class="legal">© 2026 RinoMove · Polityka prywatności · RODO</div>
     </div>
   </footer>
 </div>
@@ -519,30 +481,27 @@ class Component extends DCLogic {
     const s = this.state;
 
     const discDefs = [
-      { id: 'tenis', name: 'Tenis', img: 'assets/Rino-tenis.png', price: 'od 190 zł' },
-      { id: 'boks',  name: 'Boks',  img: 'assets/Rino-boks.png',  price: 'od 170 zł' },
-      { id: 'padel', name: 'Padel', img: 'assets/Rino-padel.png', price: 'od 240 zł' },
-      { id: 'golf',  name: 'Golf',  img: 'assets/Rino-golf.png',  price: 'od 300 zł' },
-      { id: 'squash', name: 'Squash', img: null, price: 'wkrótce', soon: true },
+      { id: 'tenis', name: 'Tenis', price: 'od 190 zł' },
+      { id: 'boks',  name: 'Boks',  price: 'od 170 zł' },
+      { id: 'padel', name: 'Padel', price: 'od 240 zł' },
+      { id: 'golf',  name: 'Golf',  price: 'od 300 zł' },
+      { id: 'squash', name: 'Squash', price: 'wkrótce', soon: true },
     ];
     const disciplines = discDefs.map(d => ({
       name: d.name,
       price: d.price,
-      img: d.img || '',
-      hasImg: !!d.img,
-      noImg: !d.img,
       soonClass: d.soon ? 'soon' : '',
       href: d.soon ? '#zapisy' : '#trenerzy',
     }));
 
     // Trenerzy — spójne z danymi w server.js (/api/trainers)
     const trainerDefs = [
-      { initials: 'MK', name: 'Marek Kowalski', discipline: 'Tenis', district: 'Śródmieście', level: 'Każdy poziom', price: 220, rating: '4,9', reviews: 38, slot: 'jutro 09:30' },
-      { initials: 'AS', name: 'Anna Sowa', discipline: 'Padel', district: 'Wilanów', level: 'Każdy poziom', price: 240, rating: '4,9', reviews: 31, slot: 'sob. 10:00' },
-      { initials: 'PW', name: 'Paweł Wrona', discipline: 'Boks', district: 'Wola', level: 'Początkujący', price: 180, rating: '5,0', reviews: 19, slot: 'dziś 18:30' },
-      { initials: 'JN', name: 'Julia Nowak', discipline: 'Tenis', district: 'Mokotów', level: 'Dzieci i juniorzy', price: 190, rating: '4,8', reviews: 24, slot: 'pon. 17:00' },
-      { initials: 'KZ', name: 'Karolina Zielińska', discipline: 'Boks', district: 'Praga-Południe', level: 'Kobiety i juniorzy', price: 170, rating: '4,9', reviews: 27, slot: 'śr. 16:00' },
-      { initials: 'TL', name: 'Tomasz Lis', discipline: 'Golf', district: 'Ursynów', level: 'Początkujący', price: 300, rating: '4,7', reviews: 15, slot: 'czw. 12:00' },
+      { initials: 'MK', name: 'Marek Kowalski', discipline: 'Tenis', district: 'Śródmieście', level: 'każdy poziom', price: 220, rating: '4,9', reviews: 38, slot: 'jutro 09:30' },
+      { initials: 'AS', name: 'Anna Sowa', discipline: 'Padel', district: 'Wilanów', level: 'każdy poziom', price: 240, rating: '4,9', reviews: 31, slot: 'sob. 10:00' },
+      { initials: 'PW', name: 'Paweł Wrona', discipline: 'Boks', district: 'Wola', level: 'początkujący', price: 180, rating: '5,0', reviews: 19, slot: 'dziś 18:30' },
+      { initials: 'JN', name: 'Julia Nowak', discipline: 'Tenis', district: 'Mokotów', level: 'dzieci i juniorzy', price: 190, rating: '4,8', reviews: 24, slot: 'pon. 17:00' },
+      { initials: 'KZ', name: 'Karolina Zielińska', discipline: 'Boks', district: 'Praga-Południe', level: 'kobiety i juniorzy', price: 170, rating: '4,9', reviews: 27, slot: 'śr. 16:00' },
+      { initials: 'TL', name: 'Tomasz Lis', discipline: 'Golf', district: 'Ursynów', level: 'początkujący', price: 300, rating: '4,7', reviews: 15, slot: 'czw. 12:00' },
     ];
     const trainers = trainerDefs.map(t => ({
       initials: t.initials,
@@ -559,9 +518,9 @@ class Component extends DCLogic {
       const on = s.disc === d.id;
       return {
         name: d.name,
-        bg: on ? '#C72562' : '#FFFFFF',
-        fg: on ? '#FFFFFF' : '#1C1B20',
-        border: on ? '#C72562' : '#EADCE3',
+        bg: on ? '#1A191E' : '#FFFFFF',
+        fg: on ? '#FFFFFF' : '#3A3941',
+        border: on ? '#1A191E' : '#E9E7EB',
         pick: () => this.setState({ disc: on ? null : d.id }),
       };
     });
@@ -580,7 +539,7 @@ class Component extends DCLogic {
       ...f,
       open: s.openFaq === i,
       expanded: s.openFaq === i ? 'true' : 'false',
-      icon: s.openFaq === i ? '−' : '+',
+      icon: s.openFaq === i ? '–' : '+',
       toggle: () => this.setState({ openFaq: s.openFaq === i ? null : i }),
     }));
 
@@ -593,23 +552,23 @@ class Component extends DCLogic {
       disciplines,
       trainers,
       steps: [
-        { nr: '1', title: 'Wybierz trenera', desc: 'Przeglądaj profile w swojej dyscyplinie i dzielnicy — z opiniami, certyfikatami i cennikiem.' },
-        { nr: '2', title: 'Zarezerwuj termin', desc: 'Kalendarz trenera jest zawsze aktualny. Wybierasz godzinę i miejsce — kort, klub albo dojazd.' },
-        { nr: '3', title: 'Zapłać online i trenuj', desc: 'Płatność BLIK-iem przy rezerwacji, faktura na mail. Reszta należy do Ciebie i trenera.' },
+        { nr: '01', title: 'Wybierz trenera', desc: 'Przeglądasz profile w swojej dyscyplinie i dzielnicy — z opiniami, doświadczeniem i cennikiem.' },
+        { nr: '02', title: 'Zarezerwuj termin', desc: 'Kalendarz trenera jest aktualny. Wybierasz godzinę i miejsce — kort, klub albo dojazd.' },
+        { nr: '03', title: 'Zapłać online', desc: 'Płatność przy rezerwacji, faktura na mail. Reszta należy do Ciebie i trenera.' },
       ],
       perks: [
         '0 zł dla pierwszych 50 trenerów-założycieli',
-        'Profil z opiniami, certyfikatami i wideo',
-        'Kalendarz i płatności online — bez przelewów i SMS-ów',
+        'Profil z opiniami i doświadczeniem',
+        'Kalendarz i płatności online',
         'Nowi klienci z Twojej dzielnicy',
       ],
       pickTrener: () => this.setState({ role: 'trener' }),
       pickKlientBtn: () => this.setState({ role: 'klient' }),
       pickTrenerBtn: () => this.setState({ role: 'trener' }),
-      klientBg: s.role === 'klient' ? '#FFFFFF' : 'transparent',
-      klientFg: s.role === 'klient' ? '#C72562' : '#6B6A72',
-      trenerBg: s.role === 'trener' ? '#FFFFFF' : 'transparent',
-      trenerFg: s.role === 'trener' ? '#C72562' : '#6B6A72',
+      klientBg: s.role === 'klient' ? '#1A191E' : 'transparent',
+      klientFg: s.role === 'klient' ? '#FFFFFF' : '#565560',
+      trenerBg: s.role === 'trener' ? '#1A191E' : 'transparent',
+      trenerFg: s.role === 'trener' ? '#FFFFFF' : '#565560',
       discLabel: s.role === 'trener' ? 'Jaką dyscyplinę trenujesz?' : 'Jaka dyscyplina Cię interesuje?',
       discChips,
       onName: (e) => this.setState({ name: e.target.value }),
@@ -636,7 +595,7 @@ class Component extends DCLogic {
         }
       },
       submitDisabled: !canSubmit || s.submitting,
-      submitBg: canSubmit ? '#C72562' : '#D8A9BE',
+      submitStyle: canSubmit ? '' : 'background:#B7B6BD;',
       submitLabel: s.submitting ? 'Wysyłanie…' : (s.role === 'trener' ? 'Zapisz mnie — jestem trenerem' : 'Zapisz mnie na listę'),
       submitError: s.submitError,
       hasSubmitError: Boolean(s.submitError),
