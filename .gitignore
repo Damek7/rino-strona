@@ -1,3 +1,7 @@
 *.zip
 .DS_Store
 .playwright-cli/
+
+# lokalne artefakty
+index.html.bak
+output/
