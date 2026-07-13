@@ -24,7 +24,7 @@
     /* ===== Tokeny (spójne z panelem + system Arco: płasko, ramki, spokojne wagi) ===== */
     :root{
       --pink:#C72562; --pink-dark:#9E1748; --pink-wash:#FBF5F8;
-      --ink:#1C1B20; --muted:#6B6A72; --faint:#9A98A2;
+      --ink:#1C1B20; --muted:#575660; --faint:#87858F;
       --line:#EADCE3; --line-2:#F0E7EB; --blue:#A8BFE9; --blue-wash:#EEF3FB;
       --white:#FFFFFF; --surface:#FBFAFB;
       --r-card:14px; --r-ctrl:11px; --r-pill:999px;
@@ -125,7 +125,7 @@
     .trainers { background:var(--surface); }
     .trainer-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
     .t-card { background:var(--white); border:1px solid var(--line); border-radius:var(--r-card);
-      padding:18px; display:flex; flex-direction:column; gap:14px;
+      padding:18px; display:flex; flex-direction:column; gap:14px; color:var(--ink);
       transition:border-color .12s, box-shadow .12s; }
     .t-card:hover { border-color:var(--pink); box-shadow:var(--shadow-md); }
     .t-top { display:flex; gap:12px; align-items:center; }
@@ -238,7 +238,12 @@
       .hero h1 { overflow-wrap:anywhere; }
       .hero-cta { flex-direction:column; }
       .hero-cta .btn { width:100%; }
-      .trainer-grid, .steps, .disc-strip { grid-template-columns:1fr; }
+      .trainer-grid, .steps { grid-template-columns:1fr; }
+      .disc-strip { grid-template-columns:repeat(3, 1fr); gap:8px; }
+      .disc { padding:12px 8px; gap:7px; }
+      .disc-ico { width:40px; height:40px; border-radius:11px; }
+      .disc-name { font-size:13px; }
+      .disc-price { font-size:11px; }
       .signup-card { padding:24px 18px; }
       section[id]{ scroll-margin-top:72px; }
     }
@@ -255,8 +260,8 @@
   <!-- ===== NAWIGACJA ===== -->
   <nav class="site-nav" aria-label="Główna nawigacja" data-screen-label="Nawigacja">
     <a class="site-logo" href="#top">
-      <img src="assets/Rino-logo.png" alt="Rino">
-      <span>Rino</span>
+      <img src="assets/Rino-logo.png" alt="RinoMove">
+      <span>RinoMove</span>
     </a>
     <button class="mobile-menu-button" type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuExpanded }}" aria-controls="main-menu" aria-label="Otwórz lub zamknij menu">☰</button>
     <div id="main-menu" class="desktop-nav {{ menuClass }}">
@@ -364,6 +369,9 @@
             </div>
           </a>
         </sc-for>
+      </div>
+      <div style="display:flex; justify-content:center; margin-top:28px;">
+        <a class="btn btn-primary" href="panel.html">Zobacz wszystkich trenerów</a>
       </div>
     </div>
   </section>
@@ -485,8 +493,8 @@
   <footer data-screen-label="Stopka">
     <div class="wrap row">
       <div class="brand">
-        <img src="assets/Rino-logo.png" alt="Rino">
-        <span>Rino</span>
+        <img src="assets/Rino-logo.png" alt="RinoMove">
+        <span>RinoMove</span>
         <small>· Trenerzy sportów premium · Warszawa</small>
       </div>
       <div class="legal">© 2026 Rino · Polityka prywatności · RODO</div>
