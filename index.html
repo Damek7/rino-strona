@@ -7,10 +7,10 @@
 <meta name="theme-color" content="#FFFFFF">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
-<meta property="og:title" content="RinoMove — trenerzy w Warszawie">
+<meta property="og:title" content="RinoMove. Trenerzy w Warszawie">
 <meta property="og:description" content="Sprawdzeni trenerzy. Terminy, rezerwacje i płatności w jednym miejscu.">
 <meta property="og:image" content="assets/Rino-tenis.png">
-<title>RinoMove — trenerzy w Warszawie</title>
+<title>RinoMove. Trenerzy w Warszawie</title>
 <link rel="icon" href="assets/Rino-logo-v9.png" type="image/png">
 <script src="./support.js"></script>
 </head>
@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700&display=swap" rel="stylesheet">
   <style>
-    /* ===== Tokeny — powściągliwość, przestrzeń, malinowy tylko jako akcent ===== */
+    /* ===== Tokeny: powściągliwość, przestrzeń, malinowy tylko jako akcent ===== */
     :root{
       --pink:#C72562; --pink-dark:#9E1748; --pink-wash:#FBF3F7;
       --ink:#1A191E; --ink-soft:#3A3941; --muted:#565560; --faint:#8B8A94;
@@ -46,7 +46,7 @@
     .wrap { max-width:var(--maxw); margin:0 auto; padding:0 32px; }
     .muted { color:var(--muted); }
 
-    /* Przyciski — grafit jako baza, malinowy oszczędnie */
+    /* Przyciski: grafit jako baza, malinowy oszczędnie */
     .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px;
       min-height:48px; padding:13px 26px; border-radius:var(--r-ctrl);
       font-weight:600; font-size:15px; letter-spacing:.01em; border:1px solid transparent;
@@ -75,7 +75,7 @@
     .mobile-menu-button { display:none; min-width:44px; min-height:44px; border:1px solid var(--line);
       border-radius:8px; background:var(--white); color:var(--ink); font-size:20px; cursor:pointer; }
 
-    /* ===== Hero — editorialny, dużo powietrza, maskotka jako podpis ===== */
+    /* ===== Hero: editorialny, dużo powietrza, maskotka jako podpis ===== */
     .hero { display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:64px;
       padding:104px 0 96px; }
     .hero-copy { display:flex; flex-direction:column; gap:28px; max-width:540px; }
@@ -98,7 +98,7 @@
       margin-bottom:48px; flex-wrap:wrap; }
     .sec-top .sec-head { margin-bottom:0; }
 
-    /* Dyscypliny — czyste, typograficzne, bez maskotki i ramek */
+    /* Dyscypliny: czyste, typograficzne, bez maskotki i ramek */
     .disc-strip { display:grid; grid-template-columns:repeat(5, 1fr); gap:0;
       border-top:1px solid var(--line); }
     .disc { display:flex; flex-direction:column; gap:6px; padding:24px 4px 24px;
@@ -109,7 +109,7 @@
     .disc-name { font-weight:600; font-size:17px; color:var(--ink); transition:color .18s var(--ease); }
     .disc-price { font-size:14px; color:var(--muted); }
 
-    /* Trenerzy — większe karty z miejscem na portret */
+    /* Trenerzy: większe karty z miejscem na portret */
     .trainers { background:var(--surface); }
     .trainer-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; }
     .t-card { background:var(--white); border:1px solid var(--line); border-radius:var(--r-card);
@@ -133,7 +133,7 @@
     .t-slot { font-size:13px; color:var(--muted); text-align:right; }
     .trainers-cta { margin-top:48px; display:flex; justify-content:center; }
 
-    /* Jak to działa — cienkie numery, bez plakietek */
+    /* Jak to działa: cienkie numery, bez plakietek */
     .steps { display:grid; grid-template-columns:repeat(3, 1fr); gap:48px; }
     .step { display:flex; flex-direction:column; gap:12px; }
     .step .n { font-size:15px; font-weight:600; color:var(--pink); font-variant-numeric:tabular-nums; }
@@ -141,7 +141,7 @@
     .step p { color:var(--muted); font-size:15px; line-height:1.6; }
     .step-line { height:1px; background:var(--line); margin-bottom:4px; }
 
-    /* Dla trenerów — jedna spokojna, ciemna sekcja */
+    /* Dla trenerów: jedna spokojna, ciemna sekcja */
     .coaches { background:var(--ink); }
     .coaches .split { display:grid; grid-template-columns:1.1fr .9fr; gap:72px; align-items:center; }
     .coaches h2 { color:var(--white); font-size:clamp(1.7rem, 2.8vw, 2.1rem); font-weight:700;
@@ -175,7 +175,7 @@
     .chips { display:flex; gap:8px; flex-wrap:wrap; }
     .chip { border:1px solid var(--line); background:var(--white); color:var(--ink-soft);
       border-radius:7px; padding:8px 15px; font-family:inherit; font-size:14px;
-      font-weight:500; cursor:pointer; transition:all .18s var(--ease); }
+      font-weight:500; cursor:pointer; transition:background-color .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease); }
     .rodo { display:flex; align-items:flex-start; gap:10px; font-size:13px;
       color:var(--muted); line-height:1.5; cursor:pointer; }
     .rodo input { margin-top:2px; accent-color:var(--ink); width:17px; height:17px; }
@@ -242,6 +242,61 @@
       *, *::before, *::after { transition-duration:.01ms !important; }
     }
   </style>
+  <style>
+    /* RinoMove editorial motion layer */
+    :root{--ink:#17161B;--paper:#FCFBFC;--rose:#C72562;--lavender:#A8BFE9;--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1);--maxw:1240px}
+    body{background:var(--paper)}
+    .wrap{max-width:var(--maxw);padding-inline:clamp(20px,4vw,56px)}
+    .site-nav{height:72px;padding:14px clamp(20px,3vw,44px);background:rgba(252,251,252,.88);border-color:rgba(23,22,27,.08)}
+    .desktop-nav{gap:clamp(18px,2.4vw,34px)}
+    .btn{transition:transform 160ms var(--ease-out),background-color 180ms ease,border-color 180ms ease,color 180ms ease}
+    .btn:active,.btn-text:active{transform:scale(.97)}
+    .btn-primary{background:var(--ink)}
+    .hero{min-height:calc(100dvh - 72px);grid-template-columns:minmax(0,1.45fr) minmax(280px,.55fr);gap:clamp(32px,5vw,88px);padding-block:clamp(56px,8vh,96px)}
+    .hero-copy{max-width:none;gap:clamp(24px,3.5vh,38px)}
+    .hero-loc{font-size:15px;color:var(--muted);letter-spacing:0;text-transform:none}
+    .hero h1{max-width:900px;font-size:clamp(4rem,7.6vw,7.2rem);line-height:.92;letter-spacing:-.058em;font-weight:700;text-wrap:balance}
+    .hero-lead{max-width:520px;font-size:clamp(18px,1.65vw,23px);line-height:1.42;color:var(--ink-soft);text-wrap:pretty}
+    .hero-cta{gap:22px}.hero-media{align-self:end;justify-content:flex-end}
+    .hero-media .stage{width:min(100%,390px);overflow:hidden;border-radius:clamp(18px,2vw,30px);background:var(--rose)}
+    .hero-media .mascot{transform:scale(1.035);transition:transform 900ms var(--ease-out)}
+    .hero-media:hover .mascot{transform:scale(1.075) rotate(1deg)}
+    section{padding-block:clamp(96px,13vw,180px)}
+    .sec-head{max-width:820px;gap:18px;margin-bottom:clamp(48px,7vw,88px)}
+    .sec-head h2,.sec-top h2{font-size:clamp(3rem,6vw,6rem);line-height:.96;letter-spacing:-.052em;text-wrap:balance}
+    .sec-head p{font-size:clamp(17px,1.8vw,22px);max-width:620px}
+    #specjalizacje{overflow:hidden}
+    .disc-strip{display:grid;grid-template-columns:repeat(4,minmax(260px,1fr));gap:18px;border:0;overflow:visible}
+    .disc{position:relative;min-height:520px;padding:0;border:0!important;border-radius:18px;overflow:hidden;background:var(--surface-2);isolation:isolate;color:white}
+    .disc+.disc{padding-left:0}.disc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 750ms var(--ease-out)}
+    .disc::after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(16,15,19,.76));z-index:1}
+    .disc-copy{position:absolute;left:24px;right:24px;bottom:24px;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+    .disc-name{font-size:clamp(28px,2.4vw,40px);line-height:1;color:white;letter-spacing:-.035em;font-weight:700}
+    .disc-price{color:rgba(255,255,255,.8);white-space:nowrap}.disc:hover .disc-name{color:white}.disc:hover img{transform:scale(1.045)}.disc.soon{display:none}
+    .trainers{background:var(--ink);color:var(--paper)}
+    .trainers .sec-head h2,.trainers .sec-head p,.trainers .btn-text{color:var(--paper)}.trainers .btn-text .arw{color:var(--lavender)}
+    .trainer-grid{display:block;border-top:1px solid rgba(255,255,255,.18)}
+    .t-card{display:grid;grid-template-columns:minmax(220px,1.4fr) minmax(150px,.7fr) minmax(130px,.5fr) 32px;align-items:center;gap:28px;min-height:126px;padding:24px 0;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.18);border-radius:0;color:var(--paper);overflow:visible;transition:padding 300ms var(--ease-out),color 180ms ease}
+    .t-card:hover{transform:none;padding-left:16px;padding-right:16px;border-color:rgba(255,255,255,.18);color:white}
+    .t-card::after{content:"\2197";font-size:24px;color:var(--lavender);transition:transform 220ms var(--ease-out)}.t-card:hover::after{transform:translate(4px,-4px)}
+    .t-name{font-size:clamp(25px,3vw,40px);line-height:1;letter-spacing:-.035em;font-weight:600}.t-sub{font-size:15px;color:rgba(255,255,255,.62);margin-top:9px}
+    .t-rating{font-size:15px;color:rgba(255,255,255,.72)}.t-foot{display:block;border:0;padding:0}.t-price{font-size:19px}.t-price small,.t-slot{color:rgba(255,255,255,.6)}.t-slot{text-align:left;margin-top:6px}
+    #jak-to-dziala .steps{grid-template-columns:1.25fr .9fr .75fr;gap:18px;align-items:start}
+    .step{min-height:360px;padding:30px;border-top:1px solid var(--ink);justify-content:space-between;background:var(--paper)}.step:nth-child(2){margin-top:88px;background:var(--pink-wash)}.step:nth-child(3){margin-top:176px;background:#EEF2FA}
+    .step-line{display:none}.step .n{font-size:14px;color:var(--muted)}.step h3{font-size:clamp(28px,3vw,42px);line-height:1.02;letter-spacing:-.035em}.step p{font-size:16px}
+    .coaches{background:var(--rose);min-height:90dvh;display:flex;align-items:center;overflow:hidden}.coaches .split{grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:clamp(48px,8vw,120px)}
+    .coaches h2{font-size:clamp(3.2rem,6.5vw,6.6rem);line-height:.94;letter-spacing:-.055em;max-width:820px}.coaches .lead{font-size:clamp(18px,1.7vw,22px);max-width:640px;color:rgba(255,255,255,.78)}
+    .perks{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}.perks li{color:white;border-color:rgba(255,255,255,.25)}.coaches-media img{width:min(100%,430px);transform:rotate(2deg)}
+    .signup{background:var(--paper)}.signup-card{max-width:760px;padding:clamp(32px,6vw,72px);border-radius:18px;box-shadow:none}.signup-card h2{font-size:clamp(2.5rem,5vw,4.8rem);line-height:.98;letter-spacing:-.045em}
+    .faq-list{max-width:none}.faq-q{font-size:clamp(18px,2vw,24px);padding-block:28px}
+    .reveal{opacity:0;transform:translateY(34px);transition:opacity 800ms var(--ease-out),transform 800ms var(--ease-out)}.reveal.is-visible{opacity:1;transform:translateY(0)}
+    .hero-copy>*{opacity:0;transform:translateY(24px);animation:hero-in 850ms var(--ease-out) forwards}.hero-copy>*:nth-child(2){animation-delay:80ms}.hero-copy>*:nth-child(3){animation-delay:150ms}.hero-copy>*:nth-child(4){animation-delay:220ms}
+    .hero-media{opacity:0;transform:translateY(24px) scale(.985);animation:hero-media-in 1050ms var(--ease-out) 260ms forwards}@keyframes hero-in{to{opacity:1;transform:translateY(0)}}@keyframes hero-media-in{to{opacity:1;transform:translateY(0) scale(1)}}
+    @media(max-width:920px){.hero{grid-template-columns:1fr;min-height:auto;padding-block:64px 88px}.hero-media{order:0;justify-content:flex-start}.hero-media .stage{width:min(72vw,360px)}.disc-strip{grid-template-columns:repeat(4,78vw);overflow-x:auto;scroll-snap-type:x mandatory;padding-right:20px;scrollbar-width:none}.disc{scroll-snap-align:start}.t-card{grid-template-columns:1fr .75fr .55fr 28px}#jak-to-dziala .steps{grid-template-columns:1fr}.step,.step:nth-child(2),.step:nth-child(3){margin-top:0;min-height:260px}}
+    @media(max-width:640px){.site-nav{height:68px}.hero{padding-top:48px;gap:44px}.hero h1{font-size:clamp(3.3rem,15vw,4.5rem);line-height:.93}.hero-lead{font-size:18px}.hero-media .stage{width:100%;max-height:380px}.hero-media .mascot{height:100%;object-fit:cover}section{padding-block:92px}.sec-head h2,.sec-top h2{font-size:clamp(3rem,14vw,4.2rem)}.disc{min-height:440px}.t-card{grid-template-columns:1fr auto;gap:18px;min-height:164px}.t-card .t-rating{grid-column:1}.t-card .t-foot{grid-column:1}.t-card::after{grid-column:2;grid-row:1/4}.t-name{font-size:30px}.coaches{min-height:auto}.coaches .split{grid-template-columns:1fr}.coaches h2{font-size:clamp(3.3rem,15vw,4.7rem)}.perks{grid-template-columns:1fr}.coaches-media{justify-content:flex-end}.coaches-media img{width:75vw}.signup-card{padding-inline:24px}}
+    @media(hover:hover) and (pointer:fine){.btn-text:hover .arw{transform:translateX(5px)}}
+    @media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-media{opacity:1;transform:none;animation:none}.reveal{opacity:1;transform:none}.disc img,.t-card,.t-card::after{transition:none}}
+  </style>
 </helmet>
 
 <div>
@@ -270,17 +325,16 @@
     <div class="wrap hero">
       <div class="hero-copy">
         <span class="hero-loc">Warszawa</span>
-        <h1>Sprawdzeni trenerzy. Terminy, rezerwacje i płatności w jednym miejscu.</h1>
-        <p class="hero-lead">Przeglądasz profil, wybierasz termin, płacisz online. Bez telefonów i SMS-ów.</p>
+        <h1>Trening zaczyna się od właściwej osoby.</h1>
+        <p class="hero-lead">Znajdź sprawdzonego trenera, wybierz termin i zarezerwuj trening online.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="panel.html">Znajdź trenera</a>
           <a class="btn-text" href="#dla-trenerow">Jestem trenerem <span class="arw">→</span></a>
         </div>
-        <p class="hero-fine">BLIK i karta · Faktura · Rezerwacja online</p>
       </div>
       <div class="hero-media">
         <div class="stage">
-          <img class="mascot" src="assets/Rino-tenis.png" alt="Rino — maskotka RinoMove" width="340" height="340" fetchpriority="high">
+          <img class="mascot" src="assets/Rino-tenis.png" alt="Rino, maskotka RinoMove z rakietą tenisową" width="340" height="340" fetchpriority="high">
         </div>
       </div>
     </div>
@@ -291,13 +345,13 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>Dyscypliny</h2>
-        <p>Tenis, boks, golf, padel i squash — z trenerami zweryfikowanymi na miejscu.</p>
+        <p>Każda dyscyplina ma własny rytm. Zacznij od tej, która jest Twoja.</p>
       </div>
       <div class="disc-strip">
         <sc-for list="{{ disciplines }}" as="d" hint-placeholder-count="5">
-          <a class="disc {{ d.soonClass }}" href="{{ d.href }}">
-            <span class="disc-name">{{ d.name }}</span>
-            <span class="disc-price">{{ d.price }}</span>
+          <a class="disc {{ d.soonClass }} reveal" href="{{ d.href }}">
+            <img src="{{ d.image }}" alt="{{ d.alt }}">
+            <span class="disc-copy"><span class="disc-name">{{ d.name }}</span><span class="disc-price">{{ d.price }}</span></span>
           </a>
         </sc-for>
       </div>
@@ -316,27 +370,12 @@
       </div>
       <div class="trainer-grid">
         <sc-for list="{{ trainers }}" as="t" hint-placeholder-count="6">
-          <a class="t-card" href="panel.html">
-            <div class="t-portrait">
-              <span class="mono">{{ t.initials }}</span>
-              <span class="verify">Zweryfikowany</span>
-            </div>
-            <div class="t-body">
-              <div>
-                <div class="t-name">{{ t.name }}</div>
-                <div class="t-sub">{{ t.sub }}</div>
-              </div>
-              <div class="t-rating"><b>{{ t.rating }}</b> · {{ t.reviews }} opinii · {{ t.level }}</div>
-              <div class="t-foot">
-                <div class="t-price">{{ t.price }} <small>/ godz.</small></div>
-                <div class="t-slot">Wolny termin<br>{{ t.slot }}</div>
-              </div>
-            </div>
+          <a class="t-card reveal" href="panel.html">
+            <div><div class="t-name">{{ t.name }}</div><div class="t-sub">{{ t.sub }}</div></div>
+            <div class="t-rating"><b>{{ t.rating }}</b>, {{ t.reviews }} opinii<br>{{ t.level }}</div>
+            <div class="t-foot"><div class="t-price">{{ t.price }} <small>/ godz.</small></div><div class="t-slot">{{ t.slot }}</div></div>
           </a>
         </sc-for>
-      </div>
-      <div class="trainers-cta">
-        <a class="btn btn-quiet" href="panel.html">Zobacz wszystkich trenerów</a>
       </div>
     </div>
   </section>
@@ -365,7 +404,7 @@
     <div class="wrap split">
       <div>
         <h2>Trenujesz? Dołącz jako trener-założyciel.</h2>
-        <p class="lead">Pierwszych 50 trenerów korzysta z platformy za 0 zł. Profil, cennik i kalendarz — a klienci znajdują Cię sami.</p>
+        <p class="lead">Pierwszych 50 trenerów korzysta z platformy za 0 zł. Profil, cennik i kalendarz pomagają klientom trafić właśnie do Ciebie.</p>
         <ul class="perks">
           <sc-for list="{{ perks }}" as="perk" hint-placeholder-count="4">
             <li>{{ perk }}</li>
@@ -374,7 +413,7 @@
         <a href="#zapisy" onClick="{{ pickTrener }}" class="btn btn-primary">Zostań trenerem-założycielem</a>
       </div>
       <div class="coaches-media">
-        <img src="assets/Rino-boks.png" alt="Rino — maskotka RinoMove">
+        <img src="assets/Rino-boks.png" alt="Rino, maskotka RinoMove w rękawicach bokserskich">
       </div>
     </div>
   </section>
@@ -386,7 +425,7 @@
         <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
           <div>
             <h2>Bądź pierwszy, gdy startujemy</h2>
-            <p class="sub">Zostaw kontakt — odezwiemy się przed startem w Warszawie.</p>
+            <p class="sub">Zostaw kontakt. Odezwiemy się przed startem w Warszawie.</p>
           </div>
           <div class="seg">
             <button onClick="{{ pickKlientBtn }}" style="background:{{ klientBg }}; color:{{ klientFg }};">Szukam trenera</button>
@@ -481,20 +520,22 @@ class Component extends DCLogic {
     const s = this.state;
 
     const discDefs = [
-      { id: 'tenis', name: 'Tenis', price: 'od 190 zł' },
-      { id: 'boks',  name: 'Boks',  price: 'od 170 zł' },
-      { id: 'padel', name: 'Padel', price: 'od 240 zł' },
-      { id: 'golf',  name: 'Golf',  price: 'od 300 zł' },
-      { id: 'squash', name: 'Squash', price: 'wkrótce', soon: true },
+      { id: 'tenis', name: 'Tenis', price: 'od 190 zł', image: 'assets/Rino-tenis.png', alt: 'Rino gra w tenisa' },
+      { id: 'boks',  name: 'Boks',  price: 'od 170 zł', image: 'assets/Rino-boks.png', alt: 'Rino trenuje boks' },
+      { id: 'padel', name: 'Padel', price: 'od 240 zł', image: 'assets/Rino-padel.png', alt: 'Rino gra w padla' },
+      { id: 'golf',  name: 'Golf',  price: 'od 300 zł', image: 'assets/Rino-golf.png', alt: 'Rino gra w golfa' },
+      { id: 'squash', name: 'Squash', price: 'wkrótce', image: 'assets/Rino-logo-v9.png', alt: 'RinoMove', soon: true },
     ];
     const disciplines = discDefs.map(d => ({
       name: d.name,
       price: d.price,
+      image: d.image,
+      alt: d.alt,
       soonClass: d.soon ? 'soon' : '',
       href: d.soon ? '#zapisy' : '#trenerzy',
     }));
 
-    // Trenerzy — spójne z danymi w server.js (/api/trainers)
+    // Trenerzy spójne z danymi w server.js (/api/trainers)
     const trainerDefs = [
       { initials: 'MK', name: 'Marek Kowalski', discipline: 'Tenis', district: 'Śródmieście', level: 'każdy poziom', price: 220, rating: '4,9', reviews: 38, slot: 'jutro 09:30' },
       { initials: 'AS', name: 'Anna Sowa', discipline: 'Padel', district: 'Wilanów', level: 'każdy poziom', price: 240, rating: '4,9', reviews: 31, slot: 'sob. 10:00' },
@@ -506,7 +547,7 @@ class Component extends DCLogic {
     const trainers = trainerDefs.map(t => ({
       initials: t.initials,
       name: t.name,
-      sub: t.discipline + ' · ' + t.district,
+      sub: t.discipline + ', ' + t.district,
       level: t.level,
       price: t.price + ' zł',
       rating: t.rating,
@@ -529,17 +570,17 @@ class Component extends DCLogic {
     const canSubmit = emailOk && s.rodo && s.name.trim().length > 0;
 
     const faqData = [
-      { q: 'Ile kosztuje trening?', a: 'Stawki ustalają trenerzy — w Warszawie to zwykle 150–300 zł za godzinę, zależnie od dyscypliny i doświadczenia. Cennik każdego trenera widzisz na jego profilu przed rezerwacją.' },
-      { q: 'Jak płacę za trening?', a: 'Online, w momencie rezerwacji — BLIK, karta lub szybki przelew. Otrzymujesz polską fakturę bezpośrednio od trenera.' },
+      { q: 'Ile kosztuje trening?', a: 'Stawki ustalają trenerzy. W Warszawie to zwykle 150-300 zł za godzinę, zależnie od dyscypliny i doświadczenia. Cennik każdego trenera widzisz na jego profilu przed rezerwacją.' },
+      { q: 'Jak płacę za trening?', a: 'Online, w momencie rezerwacji: BLIK, karta lub szybki przelew. Otrzymujesz polską fakturę bezpośrednio od trenera.' },
       { q: 'Czy działacie tylko w Warszawie?', a: 'Tak, startujemy w Warszawie. Kolejne miasta dodamy, gdy zbudujemy tu najlepszą bazę trenerów.' },
-      { q: 'Szukam trenera dla dziecka — pomożecie?', a: 'Tak. Wielu trenerów specjalizuje się w pracy z dziećmi i juniorami, szczególnie w tenisie. Na profilu trenera zobaczysz doświadczenie w treningu dzieci.' },
-      { q: 'Jestem trenerem — ile to kosztuje?', a: 'Pierwszych 50 trenerów-założycieli korzysta z platformy za 0 zł. Bez abonamentu i bez prowizji na start. Szczegóły wyślemy po zapisie na listę.' },
+      { q: 'Szukam trenera dla dziecka. Pomożecie?', a: 'Tak. Wielu trenerów specjalizuje się w pracy z dziećmi i juniorami, szczególnie w tenisie. Na profilu trenera zobaczysz doświadczenie w treningu dzieci.' },
+      { q: 'Jestem trenerem. Ile to kosztuje?', a: 'Pierwszych 50 trenerów-założycieli korzysta z platformy za 0 zł. Bez abonamentu i bez prowizji na start. Szczegóły wyślemy po zapisie na listę.' },
     ];
     const faqs = faqData.map((f, i) => ({
       ...f,
       open: s.openFaq === i,
       expanded: s.openFaq === i ? 'true' : 'false',
-      icon: s.openFaq === i ? '–' : '+',
+      icon: s.openFaq === i ? '−' : '+',
       toggle: () => this.setState({ openFaq: s.openFaq === i ? null : i }),
     }));
 
@@ -552,8 +593,8 @@ class Component extends DCLogic {
       disciplines,
       trainers,
       steps: [
-        { nr: '01', title: 'Wybierz trenera', desc: 'Przeglądasz profile w swojej dyscyplinie i dzielnicy — z opiniami, doświadczeniem i cennikiem.' },
-        { nr: '02', title: 'Zarezerwuj termin', desc: 'Kalendarz trenera jest aktualny. Wybierasz godzinę i miejsce — kort, klub albo dojazd.' },
+        { nr: '01', title: 'Wybierz trenera', desc: 'Przeglądasz profile w swojej dyscyplinie i dzielnicy. Widzisz opinie, doświadczenie i cennik.' },
+        { nr: '02', title: 'Zarezerwuj termin', desc: 'Kalendarz trenera jest aktualny. Wybierasz godzinę i miejsce: kort, klub albo dojazd.' },
         { nr: '03', title: 'Zapłać online', desc: 'Płatność przy rezerwacji, faktura na mail. Reszta należy do Ciebie i trenera.' },
       ],
       perks: [
@@ -596,7 +637,7 @@ class Component extends DCLogic {
       },
       submitDisabled: !canSubmit || s.submitting,
       submitStyle: canSubmit ? '' : 'background:#B7B6BD;',
-      submitLabel: s.submitting ? 'Wysyłanie…' : (s.role === 'trener' ? 'Zapisz mnie — jestem trenerem' : 'Zapisz mnie na listę'),
+      submitLabel: s.submitting ? 'Wysyłanie…' : (s.role === 'trener' ? 'Zapisz mnie jako trenera' : 'Zapisz mnie na listę'),
       submitError: s.submitError,
       hasSubmitError: Boolean(s.submitError),
       submitted: s.submitted,
@@ -605,6 +646,38 @@ class Component extends DCLogic {
     };
   }
 }
+</script>
+<script>
+  (() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+    const observed = new WeakSet();
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+
+    const connectReveals = () => {
+      document.querySelectorAll('.reveal').forEach((element, index) => {
+        if (observed.has(element)) return;
+        observed.add(element);
+        element.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+        revealObserver.observe(element);
+      });
+    };
+
+    connectReveals();
+    const renderObserver = new MutationObserver(connectReveals);
+    renderObserver.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener('pagehide', () => {
+      renderObserver.disconnect();
+      revealObserver.disconnect();
+    }, { once: true });
+  })();
 </script>
 </body>
 </html>
