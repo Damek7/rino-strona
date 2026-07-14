@@ -28,11 +28,16 @@ test('trainer landing uses the mascot and wordmark logo assets', () => {
   assert.equal((html.match(/assets\/rino-move-wordmark\.png/g) || []).length, 2)
 })
 
-test('trainer landing returns to the homepage and uses the homepage hero visual', () => {
+test('trainer landing returns to the homepage and uses the trainer mascot hero visual', () => {
   const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
 
   assert.equal((html.match(/href="index\.html"/g) || []).length >= 3, true)
   assert.match(html, /Wróć na stronę główną/)
   assert.match(html, /class="hero trainer-home-hero"/)
-  assert.match(html, /class="hero-racket-stage"/)
+  assert.match(html, /class="hero-mascot-stage"/)
+  assert.match(html, /class="hero-trainer-mascot"/)
+  assert.match(html, /assets\/Rino-trener-3d-blue\.png/)
+  assert.match(html, /Maskotka Rino w za dużej bordowej czapce z napisem TRENER/)
+  assert.equal((html.match(/hero-racket--/g) || []).length, 0)
+  assert.equal(fs.existsSync(path.join(root, 'assets', 'Rino-trener-3d-blue.png')), true)
 })
