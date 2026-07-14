@@ -30,7 +30,7 @@ test('feature cards are responsive and reduced-motion safe', () => {
   assert.equal(fs.existsSync(cssPath), true)
   const css = fs.readFileSync(cssPath, 'utf8')
   assert.match(css, /\.feature-grid/)
-  assert.match(css, /\.has-js\s+\.feature-card\.reveal:not\(\.is-visible\)/)
+  assert.match(css, /\.motion-ready\s+\.feature-card\.reveal:not\(\.is-visible\)/)
   assert.match(css, /@media\s*\(max-width:\s*700px\)/)
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/)
 })

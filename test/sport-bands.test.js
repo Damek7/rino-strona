@@ -50,7 +50,7 @@ test('sport choice uses all required Rino assets', () => {
 test('sport motion is progressive, accessible and reduced-motion safe', () => {
   assert.equal(fs.existsSync(sportsCssPath), true)
   const css = fs.readFileSync(sportsCssPath, 'utf8')
-  assert.match(css, /\.has-js\s+\.sport-band:not\(\.is-visible\)/)
+  assert.match(css, /\.motion-ready\s+\.sport-band:not\(\.is-visible\)/)
   assert.match(css, /clip-path:/)
   assert.match(css, /\.sport-band:focus-visible/)
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/)

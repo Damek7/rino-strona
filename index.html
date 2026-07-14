@@ -847,6 +847,7 @@ class Component extends DCLogic {
     document.documentElement.classList.add('has-js');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion || !('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('motion-ready');
 
     const observed = new WeakSet();
     const revealObserver = new IntersectionObserver((entries) => {
@@ -872,6 +873,7 @@ class Component extends DCLogic {
     window.addEventListener('pagehide', () => {
       renderObserver.disconnect();
       revealObserver.disconnect();
+      document.documentElement.classList.remove('motion-ready');
     }, { once: true });
   })();
 </script>

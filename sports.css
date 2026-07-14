@@ -205,27 +205,27 @@
     background-color 180ms ease, border-color 180ms ease;
 }
 
-.has-js .sport-band:not(.is-visible) .sport-band-media {
-  opacity: 0;
-  transform: translateX(var(--enter-x)) rotate(var(--enter-rotate)) scale(.92);
+.motion-ready .sport-band:not(.is-visible) .sport-band-media {
+  opacity: .82;
+  transform: translateX(calc(var(--enter-x) * .2)) rotate(var(--enter-rotate)) scale(.98);
 }
 
-.has-js .sport-band:not(.is-visible) .sport-band-number,
-.has-js .sport-band:not(.is-visible) .sport-band-badge {
-  opacity: 0;
+.motion-ready .sport-band:not(.is-visible) .sport-band-number,
+.motion-ready .sport-band:not(.is-visible) .sport-band-badge {
+  opacity: .72;
 }
 
-.has-js .sport-band:not(.is-visible) .sport-band-copy strong,
-.has-js .sport-band:not(.is-visible) .sport-band-copy > span:not(.sport-band-badge) {
-  opacity: 0;
-  filter: blur(4px);
-  clip-path: inset(0 100% 0 0);
-  transform: translateY(18px);
+.motion-ready .sport-band:not(.is-visible) .sport-band-copy strong,
+.motion-ready .sport-band:not(.is-visible) .sport-band-copy > span:not(.sport-band-badge) {
+  opacity: .88;
+  filter: blur(1.5px);
+  clip-path: inset(0);
+  transform: translateY(10px);
 }
 
-.has-js .sport-band:not(.is-visible) .sport-band-arrow {
-  opacity: 0;
-  transform: translateX(-8px) scale(.86);
+.motion-ready .sport-band:not(.is-visible) .sport-band-arrow {
+  opacity: .72;
+  transform: translateX(-4px) scale(.94);
 }
 
 .sport-band:hover .sport-band-media img {
@@ -371,12 +371,12 @@
     animation: none !important;
   }
 
-  .has-js .sport-band:not(.is-visible) .sport-band-media,
-  .has-js .sport-band:not(.is-visible) .sport-band-number,
-  .has-js .sport-band:not(.is-visible) .sport-band-badge,
-  .has-js .sport-band:not(.is-visible) .sport-band-copy strong,
-  .has-js .sport-band:not(.is-visible) .sport-band-copy > span:not(.sport-band-badge),
-  .has-js .sport-band:not(.is-visible) .sport-band-arrow {
+  .motion-ready .sport-band:not(.is-visible) .sport-band-media,
+  .motion-ready .sport-band:not(.is-visible) .sport-band-number,
+  .motion-ready .sport-band:not(.is-visible) .sport-band-badge,
+  .motion-ready .sport-band:not(.is-visible) .sport-band-copy strong,
+  .motion-ready .sport-band:not(.is-visible) .sport-band-copy > span:not(.sport-band-badge),
+  .motion-ready .sport-band:not(.is-visible) .sport-band-arrow {
     opacity: 1;
     filter: none;
     clip-path: none;

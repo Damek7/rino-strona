@@ -42,3 +42,11 @@ test('journey stylesheet is responsive and motion safe', () => {
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/)
   assert.doesNotMatch(css, /transition:\s*all\b/)
 })
+
+test('reveal motion never makes homepage content depend on JavaScript', () => {
+  const sports = fs.readFileSync(path.join(root, 'sports.css'), 'utf8')
+  const features = fs.readFileSync(path.join(root, 'features.css'), 'utf8')
+  assert.doesNotMatch(sports, /\.has-js\s+\.sport-band:not\(\.is-visible\)/)
+  assert.doesNotMatch(features, /\.has-js\s+\.feature-card\.reveal:not\(\.is-visible\)/)
+  assert.match(html, /classList\.add\('motion-ready'\)/)
+})
