@@ -7,11 +7,12 @@ const root = path.join(__dirname, '..')
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
 const cssPath = path.join(root, 'features.css')
 
-test('client benefits sit between sports and how it works', () => {
-  const sports = html.indexOf('id="specjalizacje"')
+test('client benefits sit after trust proof and before the trainer route', () => {
+  const trust = html.indexOf('id="zaufanie"')
   const benefits = html.indexOf('id="korzysci"')
-  const steps = html.indexOf('id="jak-to-dziala"')
-  assert.ok(sports < benefits && benefits < steps)
+  const trainers = html.indexOf('id="dla-trenerow"')
+  assert.ok(trust >= 0, 'trust proof should exist')
+  assert.ok(trust < benefits && benefits < trainers)
   assert.match(html, /href="features\.css"/)
 })
 
