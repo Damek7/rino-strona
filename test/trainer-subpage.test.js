@@ -20,3 +20,10 @@ test('trainer landing assets are present in the main project', () => {
   assert.equal(fs.existsSync(path.join(root, 'assets', 'rino-logo.png')), true)
   assert.equal(fs.existsSync(path.join(root, 'assets', 'tennis-back-serve.png')), true)
 })
+
+test('trainer landing uses the mascot and wordmark logo assets', () => {
+  const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
+
+  assert.equal((html.match(/assets\/Rino-logo-v9\.png/g) || []).length, 2)
+  assert.equal((html.match(/assets\/rino-move-wordmark\.png/g) || []).length, 2)
+})
