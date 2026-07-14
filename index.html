@@ -317,6 +317,7 @@
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="hero.css">
   <link rel="stylesheet" href="sports.css">
+  <link rel="stylesheet" href="journey.css">
   <link rel="stylesheet" href="features.css">
   <link rel="stylesheet" href="cta.css">
   <link rel="stylesheet" href="trainer-section.css">
@@ -427,6 +428,91 @@
     </div>
   </section>
 
+  <!-- ===== JAK TO DZIAŁA ===== -->
+  <section id="jak-to-dziala" class="journey" data-screen-label="Jak to działa">
+    <div class="wrap">
+      <div class="journey-head">
+        <div>
+          <span class="journey-eyebrow">Od wyboru do treningu</span>
+          <h2>Trzy kroki. Jedna spokojna decyzja.</h2>
+        </div>
+        <p>Bez telefonów, przeklejania linków i niejasnych cen.</p>
+      </div>
+
+      <div class="journey-track">
+        <article class="journey-step journey-step--profile">
+          <span class="journey-number" aria-hidden="true">01</span>
+          <h3>Porównaj właściwe osoby</h3>
+          <p>Sport, dzielnica, doświadczenie, certyfikaty i opinie masz w jednym widoku.</p>
+          <div class="journey-preview journey-preview--profile" aria-hidden="true">
+            <div class="mini-profile-head">
+              <span class="mini-avatar">AK</span>
+              <span><b>Anna Kowalska</b><small>Tenis · Mokotów</small></span>
+              <i>Zweryfikowana</i>
+            </div>
+            <div class="mini-tags"><span>Dorośli</span><span>Początkujący</span></div>
+            <div class="mini-rating"><b>4,9 ★</b><span>38 opinii</span></div>
+          </div>
+        </article>
+
+        <article class="journey-step journey-step--calendar">
+          <span class="journey-number" aria-hidden="true">02</span>
+          <h3>Wybierz wolny termin</h3>
+          <p>Aktualny kalendarz pokazuje dostępne godziny bez wymiany wiadomości.</p>
+          <div class="journey-preview journey-preview--calendar" aria-hidden="true">
+            <div class="mini-calendar-head"><b>Najbliższe terminy</b><span>Lipiec</span></div>
+            <div class="mini-calendar-days">
+              <span>Śr<small>16</small></span>
+              <span class="is-selected">Czw<small>17</small></span>
+              <span>Pt<small>18</small></span>
+            </div>
+            <div class="mini-slots"><span>17:00</span><span class="is-selected">18:30</span><span>20:00</span></div>
+          </div>
+        </article>
+
+        <article class="journey-step journey-step--payment">
+          <span class="journey-number" aria-hidden="true">03</span>
+          <h3>Zapłać i przyjdź na trening</h3>
+          <p>Jasna cena, płatność online i potwierdzenie trafiają w jedno miejsce.</p>
+          <div class="journey-preview journey-preview--payment" aria-hidden="true">
+            <span class="mini-status">✓ Rezerwacja potwierdzona</span>
+            <div class="mini-payment-row"><span>Tenis · 60 min</span><b>220 zł</b></div>
+            <div class="mini-payment-row"><span>Czwartek, 18:30</span><small>Opłacono online</small></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ZAUFANIE ===== -->
+  <section id="zaufanie" class="trust-proof" data-screen-label="Dlaczego RinoMove">
+    <div class="wrap trust-proof-shell">
+      <div class="trust-proof-copy">
+        <span class="trust-proof-eyebrow">Pewny pierwszy krok</span>
+        <h2>Nie musisz znać się na sporcie, żeby dobrze wybrać.</h2>
+        <p>RinoMove porządkuje informacje, które zwykle są rozrzucone po profilach, wiadomościach i stronach klubów.</p>
+        <a class="btn btn-primary" href="panel.html">Zobacz trenerów</a>
+      </div>
+      <div class="trust-proof-list">
+        <div>
+          <span aria-hidden="true">01</span>
+          <strong>Profil zweryfikowany</strong>
+          <p>Certyfikaty i doświadczenie w jednym miejscu.</p>
+        </div>
+        <div>
+          <span aria-hidden="true">02</span>
+          <strong>Cena widoczna przed rezerwacją</strong>
+          <p>Wiesz, ile zapłacisz, zanim wybierzesz termin.</p>
+        </div>
+        <div>
+          <span aria-hidden="true">03</span>
+          <strong>Opinia po odbytym treningu</strong>
+          <p>Recenzję może dodać klient po zakończonej rezerwacji.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== KORZYŚCI DLA KLIENTA ===== -->
   <section id="korzysci" class="client-features" data-screen-label="Korzyści">
     <div class="wrap feature-head">
@@ -488,25 +574,6 @@
           <span class="app-row app-row--payment"><i>↗</i><b>Płatność zakończona</b><em>220 zł</em></span>
         </div>
       </article>
-    </div>
-  </section>
-
-  <!-- ===== JAK TO DZIAŁA ===== -->
-  <section id="jak-to-dziala" data-screen-label="Jak to działa">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Jak to działa</h2>
-      </div>
-      <div class="steps">
-        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
-          <div class="step">
-            <div class="step-line"></div>
-            <span class="n">{{ s.nr }}</span>
-            <h3>{{ s.title }}</h3>
-            <p>{{ s.desc }}</p>
-          </div>
-        </sc-for>
-      </div>
     </div>
   </section>
 
@@ -723,11 +790,6 @@ class Component extends DCLogic {
       name: s.name,
       email: s.email,
       disciplines,
-      steps: [
-        { nr: '01', title: 'Wybierz trenera', desc: 'Przeglądasz profile w swojej dyscyplinie i dzielnicy. Widzisz opinie, doświadczenie i cennik.' },
-        { nr: '02', title: 'Zarezerwuj termin', desc: 'Kalendarz trenera jest aktualny. Wybierasz godzinę i miejsce: kort, klub albo dojazd.' },
-        { nr: '03', title: 'Zapłać online', desc: 'Płatność przy rezerwacji, faktura na mail. Reszta należy do Ciebie i trenera.' },
-      ],
       perks: [
         '0 zł dla trenerów-założycieli',
         'Profil z opiniami i doświadczeniem',
