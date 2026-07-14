@@ -1,0 +1,361 @@
+#top.client-hero {
+  position: relative;
+  min-height: calc(100dvh - 82px);
+  overflow: clip;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 87% 74%, rgba(169, 212, 234, 0.2), transparent 31%),
+    radial-gradient(circle at 7% 30%, rgba(199, 37, 98, 0.09), transparent 27%),
+    linear-gradient(135deg, #fffaf6 0%, #ffffff 52%, #f4f9fc 100%);
+}
+
+#top.client-hero .hero {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100dvh - 82px);
+  display: grid;
+  grid-template-columns: minmax(480px, 0.92fr) minmax(500px, 1.08fr);
+  align-items: center;
+  gap: clamp(30px, 4vw, 66px);
+  padding-block: clamp(64px, 7vh, 92px);
+}
+
+#top.client-hero .hero-copy {
+  max-width: 600px;
+  gap: 25px;
+}
+
+#top.client-hero .hero-eyebrow {
+  width: fit-content;
+  color: #9e1748;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.065em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+#top.client-hero .hero h1 {
+  max-width: 610px;
+  font-family: "Manrope", system-ui, sans-serif;
+  font-size: clamp(3.15rem, 4.3vw, 4.65rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.047em;
+  text-wrap: balance;
+}
+
+#top.client-hero .hero-lead {
+  max-width: 570px;
+  color: #565560;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: clamp(17px, 1.35vw, 20px);
+  line-height: 1.62;
+  text-wrap: pretty;
+}
+
+#top.client-hero .hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+#top.client-hero .hero-cta .btn,
+#top.client-hero .hero-cta .btn-text {
+  min-height: 44px;
+}
+
+#top.client-hero .hero-cta .btn-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#top.client-hero .hero-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  color: #3a3941;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#top.client-hero .hero-proof span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+#top.client-hero .hero-proof span::before {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #c72562;
+  box-shadow: 0 0 0 4px rgba(199, 37, 98, 0.1);
+  content: "";
+}
+
+#top.client-hero .hero-media {
+  display: flex;
+  align-self: stretch;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+#top.client-hero .hero-racket-stage {
+  position: relative;
+  width: min(60vw, 720px);
+  min-width: 620px;
+  height: clamp(650px, 75vh, 770px);
+  margin-right: clamp(-116px, -7vw, -54px);
+}
+
+#top.client-hero .hero-racket {
+  position: absolute;
+  height: auto;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 28px 25px rgba(35, 32, 42, 0.16));
+  transform-origin: 50% 88%;
+  animation-duration: 720ms;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#top.client-hero .hero-racket--squash {
+  z-index: 1;
+  top: -48px;
+  left: -10%;
+  width: 82%;
+  transform: rotate(-9deg);
+  animation-name: racket-enter-squash;
+}
+
+#top.client-hero .hero-racket--padel {
+  z-index: 2;
+  top: -58px;
+  right: -12%;
+  width: 84%;
+  transform: rotate(8deg);
+  animation-name: racket-enter-padel;
+  animation-delay: 140ms;
+}
+
+#top.client-hero .hero-racket--tennis {
+  z-index: 3;
+  top: -104px;
+  left: 7%;
+  width: 96%;
+  transform: rotate(2deg);
+  animation-name: racket-enter-tennis;
+  animation-delay: 280ms;
+}
+
+@keyframes racket-enter-squash {
+  0% {
+    opacity: 0;
+    transform: translate(-80px, 70px) rotate(-18deg) scale(0.74);
+  }
+
+  72% {
+    opacity: 1;
+    transform: translate(5px, -5px) rotate(-8deg) scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(-9deg) scale(1);
+  }
+}
+
+@keyframes racket-enter-padel {
+  0% {
+    opacity: 0;
+    transform: translate(90px, 65px) rotate(18deg) scale(0.74);
+  }
+
+  72% {
+    opacity: 1;
+    transform: translate(-5px, -4px) rotate(7deg) scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(8deg) scale(1);
+  }
+}
+
+@keyframes racket-enter-tennis {
+  0% {
+    opacity: 0;
+    transform: translateY(110px) rotate(4deg) scale(0.72);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(-8px) rotate(1deg) scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(2deg) scale(1);
+  }
+}
+
+#top.client-hero .hero-dot {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#top.client-hero .hero-dot--pink {
+  top: 23%;
+  left: clamp(-195px, -10vw, -112px);
+  width: clamp(210px, 21vw, 330px);
+  background: #c72562;
+  filter: blur(1px);
+  opacity: 0.13;
+}
+
+#top.client-hero .hero-dot--blue {
+  right: clamp(-210px, -11vw, -126px);
+  bottom: 11%;
+  width: clamp(230px, 23vw, 360px);
+  background: #a9d4ea;
+  filter: blur(1px);
+  opacity: 0.34;
+}
+
+@media (max-width: 1120px) {
+  #top.client-hero .hero {
+    grid-template-columns: minmax(0, 0.9fr) minmax(460px, 1.1fr);
+  }
+
+  #top.client-hero .hero-racket-stage {
+    min-width: 570px;
+    margin-right: -80px;
+  }
+}
+
+@media (max-width: 920px) {
+  #top.client-hero,
+  #top.client-hero .hero {
+    min-height: auto;
+  }
+
+  #top.client-hero .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+    padding-block: 68px 56px;
+  }
+
+  #top.client-hero .hero-copy {
+    max-width: 720px;
+  }
+
+  #top.client-hero .hero h1 {
+    max-width: 720px;
+    font-size: clamp(3.25rem, 9vw, 5.2rem);
+  }
+
+  #top.client-hero .hero-media {
+    justify-content: center;
+  }
+
+  #top.client-hero .hero-racket-stage {
+    width: min(100%, 720px);
+    min-width: 0;
+    height: 620px;
+    margin-right: 0;
+  }
+
+  #top.client-hero .hero-dot--pink {
+    left: -150px;
+    width: 250px;
+  }
+
+  #top.client-hero .hero-dot--blue {
+    right: -155px;
+    bottom: 7%;
+    width: 280px;
+  }
+}
+
+@media (max-width: 600px) {
+  #top.client-hero .hero {
+    gap: 22px;
+    padding-block: 52px 38px;
+  }
+
+  #top.client-hero .hero-copy {
+    gap: 21px;
+  }
+
+  #top.client-hero .hero h1 {
+    max-width: 350px;
+    font-size: clamp(2.75rem, 12.4vw, 3.35rem);
+    line-height: 1.03;
+    letter-spacing: -0.042em;
+  }
+
+  #top.client-hero .hero-lead {
+    font-size: 17px;
+    line-height: 1.58;
+  }
+
+  #top.client-hero .hero-cta {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #top.client-hero .hero-cta .btn {
+    width: 100%;
+  }
+
+  #top.client-hero .hero-cta .btn-text {
+    justify-content: center;
+  }
+
+  #top.client-hero .hero-proof {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #top.client-hero .hero-racket-stage {
+    width: calc(100% + 40px);
+    height: 440px;
+    margin-inline: -20px;
+  }
+
+  #top.client-hero .hero-racket--squash {
+    top: -40px;
+    left: -7%;
+    width: 83%;
+  }
+
+  #top.client-hero .hero-racket--padel {
+    top: -37px;
+    right: -10%;
+    width: 84%;
+  }
+
+  #top.client-hero .hero-racket--tennis {
+    top: -55px;
+    left: 3%;
+    width: 94%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #top.client-hero .hero-racket {
+    animation: none;
+    opacity: 1;
+  }
+}

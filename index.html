@@ -19,7 +19,7 @@
 <helmet>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ===== Tokeny: powściągliwość, przestrzeń, malinowy tylko jako akcent ===== */
     :root{
@@ -34,7 +34,7 @@
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin:0; padding:0; width:100%; max-width:100%; overflow-x:clip;
       background:var(--white); scroll-behavior:smooth;
-      font-family:'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      font-family:'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
       color:var(--ink); font-weight:400; line-height:1.5;
       -webkit-font-smoothing:antialiased; }
     img, svg { max-width:100%; display:block; }
@@ -42,6 +42,7 @@
     a:focus-visible, button:focus-visible, input:focus-visible {
       outline:2px solid var(--ink); outline-offset:2px; }
     h1,h2,h3,p { margin:0; font-weight:inherit; }
+    h1,h2,h3,.site-logo span,.btn { font-family:'Manrope', system-ui, sans-serif; }
 
     .wrap { max-width:var(--maxw); margin:0 auto; padding:0 32px; }
     .muted { color:var(--muted); }
@@ -258,9 +259,11 @@
     .hero h1{max-width:900px;font-size:clamp(4rem,7.6vw,7.2rem);line-height:.92;letter-spacing:-.058em;font-weight:700;text-wrap:balance}
     .hero-lead{max-width:520px;font-size:clamp(18px,1.65vw,23px);line-height:1.42;color:var(--ink-soft);text-wrap:pretty}
     .hero-cta{gap:22px}.hero-media{align-self:end;justify-content:flex-end}
-    .hero-media .stage{width:min(100%,390px);overflow:hidden;border-radius:clamp(18px,2vw,30px);background:var(--rose)}
-    .hero-media .mascot{transform:scale(1.035);transition:transform 900ms var(--ease-out)}
-    .hero-media:hover .mascot{transform:scale(1.075) rotate(1deg)}
+    .hero-media .stage{position:relative;width:min(100%,440px);aspect-ratio:4/5;overflow:hidden;border-radius:clamp(22px,2.4vw,36px);background:var(--rose);box-shadow:0 30px 80px rgba(23,22,27,.14)}
+    .hero-media .mascot{width:100%;height:100%;object-fit:cover;object-position:50% 42%;transform:scale(1.01);transition:transform 900ms var(--ease-out);outline:1px solid rgba(23,22,27,.08);outline-offset:-1px}
+    .hero-media:hover .mascot{transform:scale(1.045)}
+    .photo-note{position:absolute;left:18px;right:18px;bottom:18px;z-index:2;padding:14px 16px;border-radius:14px;background:rgba(252,251,252,.9);box-shadow:0 12px 30px rgba(23,22,27,.14);backdrop-filter:blur(12px);font-size:13px;color:var(--muted)}
+    .photo-note b{display:block;margin-bottom:2px;font-family:'Manrope',sans-serif;font-size:15px;color:var(--ink)}
     section{padding-block:clamp(96px,13vw,180px)}
     .sec-head{max-width:820px;gap:18px;margin-bottom:clamp(48px,7vw,88px)}
     .sec-head h2,.sec-top h2{font-size:clamp(3rem,6vw,6rem);line-height:.96;letter-spacing:-.052em;text-wrap:balance}
@@ -286,7 +289,7 @@
     .step-line{display:none}.step .n{font-size:14px;color:var(--muted)}.step h3{font-size:clamp(28px,3vw,42px);line-height:1.02;letter-spacing:-.035em}.step p{font-size:16px}
     .coaches{background:var(--rose);min-height:90dvh;display:flex;align-items:center;overflow:hidden}.coaches .split{grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:clamp(48px,8vw,120px)}
     .coaches h2{font-size:clamp(3.2rem,6.5vw,6.6rem);line-height:.94;letter-spacing:-.055em;max-width:820px}.coaches .lead{font-size:clamp(18px,1.7vw,22px);max-width:640px;color:rgba(255,255,255,.78)}
-    .perks{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}.perks li{color:white;border-color:rgba(255,255,255,.25)}.coaches-media img{width:min(100%,430px);transform:rotate(2deg)}
+    .perks{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}.perks li{color:white;border-color:rgba(255,255,255,.25)}.coaches-media{position:relative}.coaches-media img{width:min(100%,460px);aspect-ratio:4/5;object-fit:cover;border-radius:28px;box-shadow:0 30px 80px rgba(23,22,27,.22);outline:1px solid rgba(255,255,255,.2);outline-offset:-1px}
     .signup{background:var(--paper)}.signup-card{max-width:760px;padding:clamp(32px,6vw,72px);border-radius:18px;box-shadow:none}.signup-card h2{font-size:clamp(2.5rem,5vw,4.8rem);line-height:.98;letter-spacing:-.045em}
     .faq-list{max-width:none}.faq-q{font-size:clamp(18px,2vw,24px);padding-block:28px}
     .reveal{opacity:0;transform:translateY(34px);transition:opacity 800ms var(--ease-out),transform 800ms var(--ease-out)}.reveal.is-visible{opacity:1;transform:translateY(0)}
@@ -296,87 +299,195 @@
     @media(max-width:640px){.site-nav{height:68px}.hero{padding-top:48px;gap:44px}.hero h1{font-size:clamp(3.3rem,15vw,4.5rem);line-height:.93}.hero-lead{font-size:18px}.hero-media .stage{width:100%;max-height:380px}.hero-media .mascot{height:100%;object-fit:cover}section{padding-block:92px}.sec-head h2,.sec-top h2{font-size:clamp(3rem,14vw,4.2rem)}.disc{min-height:440px}.t-card{grid-template-columns:1fr auto;gap:18px;min-height:164px}.t-card .t-rating{grid-column:1}.t-card .t-foot{grid-column:1}.t-card::after{grid-column:2;grid-row:1/4}.t-name{font-size:30px}.coaches{min-height:auto}.coaches .split{grid-template-columns:1fr}.coaches h2{font-size:clamp(3.3rem,15vw,4.7rem)}.perks{grid-template-columns:1fr}.coaches-media{justify-content:flex-end}.coaches-media img{width:75vw}.signup-card{padding-inline:24px}}
     @media(hover:hover) and (pointer:fine){.btn-text:hover .arw{transform:translateX(5px)}}
     @media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-media{opacity:1;transform:none;animation:none}.reveal{opacity:1;transform:none}.disc img,.t-card,.t-card::after{transition:none}}
+    /* Trainer conversion layer */
+    .founder-pill{display:inline-flex;align-items:center;gap:9px;width:max-content;padding:9px 13px;border-radius:999px;background:var(--pink-wash);color:var(--pink-dark);font-size:13px;font-weight:700}
+    .founder-pill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 5px rgba(199,37,98,.1)}
+    .hero-proof{display:flex;gap:10px 24px;flex-wrap:wrap;color:var(--muted);font-size:13px;font-weight:600}
+    .hero-proof span{display:flex;align-items:center;gap:7px}.hero-proof span::before{content:"✓";color:var(--rose);font-weight:800}
+    .coach-eyebrow{display:block;margin-bottom:20px;color:rgba(255,255,255,.72);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .coaches .lead strong{color:white;font-weight:700}
+    .founder-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:38px;background:rgba(255,255,255,.2)}
+    .founder-step{padding:20px 18px;background:var(--rose)}.founder-step b{display:block;color:white;font-size:14px}.founder-step span{display:block;margin-top:5px;color:rgba(255,255,255,.7);font-size:13px;line-height:1.45}
+    .signup-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px}.signup-trust span{padding:12px;border-radius:12px;background:var(--surface);color:var(--muted);font-size:12px;text-align:center;font-weight:700}
+    .btn:active,.btn-text:active,.chip:active{transform:scale(.96)}
+    h1,h2,h3{text-wrap:balance}p{text-wrap:pretty}.reveal{opacity:1;transform:none}.reveal.is-visible{opacity:1;transform:none}
+    .hero-copy>*,.hero-media{opacity:1;transform:none;animation:none}
+    @media(max-width:640px){.hero-proof{display:grid;grid-template-columns:1fr}.founder-steps,.signup-trust{grid-template-columns:1fr}.founder-step{padding:16px 0}.coaches .btn-primary{width:100%}.founder-pill{white-space:normal}}
   </style>
+  <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="hero.css">
+  <link rel="stylesheet" href="sports.css">
+  <link rel="stylesheet" href="features.css">
+  <link rel="stylesheet" href="cta.css">
+  <link rel="stylesheet" href="trainer-section.css">
 </helmet>
 
 <div>
   <a class="skip-link" href="#main-content">Przejdź do treści</a>
 
   <!-- ===== NAWIGACJA ===== -->
-  <nav class="site-nav" aria-label="Główna nawigacja" data-screen-label="Nawigacja">
-    <a class="site-logo" href="#top">
-      <img src="assets/Rino-logo-v9.png" alt="RinoMove">
-      <span>RinoMove</span>
-    </a>
-    <button class="mobile-menu-button" type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuExpanded }}" aria-controls="main-menu" aria-label="Otwórz lub zamknij menu">☰</button>
-    <div id="main-menu" class="desktop-nav {{ menuClass }}">
-      <a href="#trenerzy">Trenerzy</a>
-      <a href="#specjalizacje">Dyscypliny</a>
-      <a href="#jak-to-dziala">Jak to działa</a>
-      <a href="#dla-trenerow">Dla trenerów</a>
-      <a href="panel.html">Panel</a>
-      <a class="btn btn-primary" href="#zapisy">Dołącz do listy</a>
-    </div>
-  </nav>
+  <div class="nav-shell">
+    <nav class="site-nav liquid-glass-nav" aria-label="Główna nawigacja" data-screen-label="Nawigacja">
+      <a class="site-logo" href="#top" aria-label="RinoMove — strona główna">
+        <img src="assets/Rino-logo-v9.png" alt="">
+        <img class="site-wordmark" src="assets/rino-move-wordmark.png" alt="Rino Move">
+      </a>
+      <div id="main-menu" class="desktop-nav {{ menuClass }}">
+        <a href="panel.html" onClick="{{ closeMenu }}">Znajdź trenera</a>
+        <a href="#jak-to-dziala" onClick="{{ closeMenu }}">Jak to działa</a>
+        <a href="dla-trenerow.html" onClick="{{ closeMenu }}">Dla trenerów</a>
+        <a href="panel.html#login" onClick="{{ closeMenu }}">Zaloguj się</a>
+        <a class="btn btn-primary nav-register" href="panel.html#register">Załóż konto</a>
+      </div>
+      <a class="btn nav-mobile-cta" href="panel.html#register">Załóż konto</a>
+      <button class="mobile-menu-button" type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuExpanded }}" aria-controls="main-menu" aria-label="Otwórz lub zamknij menu">☰</button>
+    </nav>
+  </div>
 
   <main id="main-content">
   <!-- ===== HERO ===== -->
-  <header id="top" data-screen-label="Hero">
+  <header id="top" class="client-hero" data-screen-label="Hero">
+    <span class="hero-dot hero-dot--pink" aria-hidden="true"></span>
+    <span class="hero-dot hero-dot--blue" aria-hidden="true"></span>
     <div class="wrap hero">
       <div class="hero-copy">
-        <span class="hero-loc">Warszawa</span>
-        <h1>Trening zaczyna się od właściwej osoby.</h1>
-        <p class="hero-lead">Znajdź sprawdzonego trenera, wybierz termin i zarezerwuj trening online.</p>
+        <span class="hero-eyebrow">Ruch zaczyna się od właściwej osoby</span>
+        <h1>Znajdź trenera, z którym naprawdę zaczniesz.</h1>
+        <p class="hero-lead">Wybierz sport, porównaj zweryfikowane profile i zarezerwuj pierwszy trening — bez telefonów i szukania po całym internecie.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="panel.html">Znajdź trenera</a>
-          <a class="btn-text" href="#dla-trenerow">Jestem trenerem <span class="arw">→</span></a>
+          <a class="btn-text" href="#jak-to-dziala">Zobacz, jak to działa <span class="arw">→</span></a>
         </div>
+        <div class="hero-proof" aria-label="Korzyści dla klienta"><span>Zweryfikowane profile</span><span>Jasna cena</span><span>Rezerwacja online</span></div>
       </div>
       <div class="hero-media">
-        <div class="stage">
-          <img class="mascot" src="assets/Rino-tenis.png" alt="Rino, maskotka RinoMove z rakietą tenisową" width="340" height="340" fetchpriority="high">
+        <div class="hero-racket-stage" role="img" aria-label="Trzy rakiety 3D: squashowa, padlowa i tenisowa">
+          <img class="hero-racket hero-racket--squash" src="assets/hero-racket-squash.png" alt="" width="1003" height="1568" aria-hidden="true">
+          <img class="hero-racket hero-racket--padel" src="assets/hero-racket-padel.png" alt="" width="1003" height="1568" aria-hidden="true">
+          <img class="hero-racket hero-racket--tennis" src="assets/hero-racket-tennis.png" alt="" width="1003" height="1568" aria-hidden="true" fetchpriority="high">
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ===== DYSCYPLINY ===== -->
-  <section id="specjalizacje" data-screen-label="Dyscypliny">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Dyscypliny</h2>
-        <p>Każda dyscyplina ma własny rytm. Zacznij od tej, która jest Twoja.</p>
+  <!-- ===== WYBÓR SPORTU ===== -->
+  <section id="specjalizacje" class="sport-choice" data-screen-label="Wybór sportu">
+    <div class="wrap sport-choice-head">
+      <span class="sport-choice-eyebrow">Wybierz swój ruch</span>
+      <h2>Od czego chcesz zacząć?</h2>
+      <p>Sześć dyscyplin, jeden prosty początek: wybierz sport i znajdź osobę, z którą naprawdę ruszysz.</p>
+    </div>
+
+    <div class="wrap sport-screens">
+      <div class="sport-screen" aria-label="Sporty 1 z 2">
+        <a class="sport-band sport-band--tenis sport-band--media-left reveal" href="panel.html" aria-label="Tenis — znajdź trenera">
+          <span class="sport-band-number" aria-hidden="true">01</span>
+          <span class="sport-band-media" aria-hidden="true"><img src="assets/Rino-tenis-serve-3d-blue.png" alt="" loading="lazy"></span>
+          <span class="sport-band-copy"><strong>Tenis</strong><span>Od pierwszego odbicia do pewnej gry na korcie.</span></span>
+          <span class="sport-band-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="sport-band sport-band--padel sport-band--media-right reveal" href="panel.html" aria-label="Padel — znajdź trenera">
+          <span class="sport-band-number" aria-hidden="true">02</span>
+          <span class="sport-band-media" aria-hidden="true"><img src="assets/Rino-padel-3d-blue.png" alt="" loading="lazy"></span>
+          <span class="sport-band-copy"><strong>Padel</strong><span>Poznaj zasady, złap rytm i wejdź do gry.</span></span>
+          <span class="sport-band-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="sport-band sport-band--squash sport-band--media-left reveal" href="#zapisy" aria-label="Squash — zapisz się na start">
+          <span class="sport-band-number" aria-hidden="true">03</span>
+          <span class="sport-band-media" aria-hidden="true"><img src="assets/Rino-squash-3d-blue.png" alt="" loading="lazy"></span>
+          <span class="sport-band-copy"><span class="sport-band-badge">Wkrótce</span><strong>Squash</strong><span>Technika i intensywność dopasowane do Twojego poziomu.</span></span>
+          <span class="sport-band-arrow" aria-hidden="true">↗</span>
+        </a>
       </div>
-      <div class="disc-strip">
-        <sc-for list="{{ disciplines }}" as="d" hint-placeholder-count="5">
-          <a class="disc {{ d.soonClass }} reveal" href="{{ d.href }}">
-            <img src="{{ d.image }}" alt="{{ d.alt }}">
-            <span class="disc-copy"><span class="disc-name">{{ d.name }}</span><span class="disc-price">{{ d.price }}</span></span>
-          </a>
-        </sc-for>
+
+      <div class="sport-screen" aria-label="Sporty 2 z 2">
+        <a class="sport-band sport-band--golf sport-band--media-right reveal" href="panel.html" aria-label="Golf — znajdź trenera">
+          <span class="sport-band-number" aria-hidden="true">04</span>
+          <span class="sport-band-media" aria-hidden="true"><img src="assets/Rino-golf-3d-blue.png" alt="" loading="lazy"></span>
+          <span class="sport-band-copy"><strong>Golf</strong><span>Spokojny start, lepszy swing i więcej pewności.</span></span>
+          <span class="sport-band-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="sport-band sport-band--plywanie sport-band--media-left reveal" href="#zapisy" aria-label="Pływanie — zapisz się na start">
+          <span class="sport-band-number" aria-hidden="true">05</span>
+          <span class="sport-band-media" aria-hidden="true"><img src="assets/Rino-plywanie-3d-blue.png" alt="" loading="lazy"></span>
+          <span class="sport-band-copy"><span class="sport-band-badge">Wkrótce</span><strong>Pływanie</strong><span>Technika, oddech i swoboda w wodzie.</span></span>
+          <span class="sport-band-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="sport-band sport-band--boks sport-band--media-right reveal" href="panel.html" aria-label="Boks — znajdź trenera">
+          <span class="sport-band-number" aria-hidden="true">06</span>
+          <span class="sport-band-media" aria-hidden="true"><img src="assets/Rino-boks-3d-blue.png" alt="" loading="lazy"></span>
+          <span class="sport-band-copy"><strong>Boks</strong><span>Praca nóg, technika i kondycja bez chaosu.</span></span>
+          <span class="sport-band-arrow" aria-hidden="true">↗</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ===== TRENERZY ===== -->
-  <section id="trenerzy" class="trainers" data-screen-label="Trenerzy">
-    <div class="wrap">
-      <div class="sec-top">
-        <div class="sec-head">
-          <h2>Trenerzy w tym tygodniu</h2>
-          <p>Zweryfikowane profile z aktualnymi terminami.</p>
+  <!-- ===== KORZYŚCI DLA KLIENTA ===== -->
+  <section id="korzysci" class="client-features" data-screen-label="Korzyści">
+    <div class="wrap feature-head">
+      <span class="feature-eyebrow">Po prostu łatwiej</span>
+      <h2>Wszystko, czego potrzebujesz, żeby po prostu zacząć.</h2>
+      <p>Od pierwszego porównania do potwierdzonego terminu — bez szukania informacji w pięciu różnych miejscach.</p>
+    </div>
+
+    <div class="wrap feature-grid">
+      <article class="feature-card feature-card--profile reveal">
+        <div class="feature-copy">
+          <span class="feature-index" aria-hidden="true">01</span>
+          <h3>Sprawdzone profile</h3>
+          <p>Certyfikaty, doświadczenie i opinie widzisz w jednym miejscu, zanim podejmiesz decyzję.</p>
         </div>
-        <a class="btn-text" href="panel.html">Zobacz wszystkich <span class="arw">→</span></a>
-      </div>
-      <div class="trainer-grid">
-        <sc-for list="{{ trainers }}" as="t" hint-placeholder-count="6">
-          <a class="t-card reveal" href="panel.html">
-            <div><div class="t-name">{{ t.name }}</div><div class="t-sub">{{ t.sub }}</div></div>
-            <div class="t-rating"><b>{{ t.rating }}</b>, {{ t.reviews }} opinii<br>{{ t.level }}</div>
-            <div class="t-foot"><div class="t-price">{{ t.price }} <small>/ godz.</small></div><div class="t-slot">{{ t.slot }}</div></div>
-          </a>
-        </sc-for>
-      </div>
+        <div class="feature-visual profile-preview" aria-hidden="true">
+          <span class="profile-avatar"><img src="assets/Rino-logo-v9.png" alt=""></span>
+          <span class="profile-lines"><i></i><i></i><i></i></span>
+          <span class="verified-pill"><b>✓</b> Certyfikat zweryfikowany</span>
+          <span class="rating-pill">4,9 <b>★★★★★</b></span>
+        </div>
+      </article>
+
+      <article class="feature-card feature-card--calendar reveal">
+        <div class="feature-copy">
+          <span class="feature-index" aria-hidden="true">02</span>
+          <h3>Terminy bez telefonu</h3>
+          <p>Wybierasz wolną godzinę w kalendarzu trenera i rezerwujesz ją samodzielnie.</p>
+        </div>
+        <div class="feature-visual calendar-preview" aria-hidden="true">
+          <span class="calendar-top"><b>Najbliższe terminy</b><i>lipiec</i></span>
+          <span class="calendar-days"><i>16</i><i class="is-picked">17</i><i>18</i><i>19</i></span>
+          <span class="calendar-slot">17 lipca · 18:30 <b>Wolny</b></span>
+        </div>
+      </article>
+
+      <article class="feature-card feature-card--price reveal">
+        <div class="feature-copy">
+          <span class="feature-index" aria-hidden="true">03</span>
+          <h3>Jasna cena przed rezerwacją</h3>
+          <p>Stawkę i zakres treningu znasz wcześniej. Bez niespodzianek po spotkaniu.</p>
+        </div>
+        <div class="feature-visual price-preview" aria-hidden="true">
+          <span class="price-label">Trening indywidualny</span>
+          <span class="price-value"><b>220 zł</b><i>/ 60 min</i></span>
+          <span class="price-note">Płatność online po wyborze terminu</span>
+        </div>
+      </article>
+
+      <article class="feature-card feature-card--all-in-one reveal">
+        <div class="feature-copy">
+          <span class="feature-index" aria-hidden="true">04</span>
+          <h3>Cały trening pod ręką</h3>
+          <p>Wiadomości, płatność i szczegóły spotkania masz w jednym miejscu — zawsze pod ręką.</p>
+        </div>
+        <div class="feature-visual all-in-one-preview" aria-hidden="true">
+          <span class="app-row app-row--message"><i>●</i><b>Nowa wiadomość od trenera</b><em>teraz</em></span>
+          <span class="app-row app-row--booking"><i>✓</i><b>Trening potwierdzony</b><em>czw. 18:30</em></span>
+          <span class="app-row app-row--payment"><i>↗</i><b>Płatność zakończona</b><em>220 zł</em></span>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -400,20 +511,38 @@
   </section>
 
   <!-- ===== DLA TRENERÓW ===== -->
-  <section id="dla-trenerow" class="coaches" data-screen-label="Dla trenerów">
-    <div class="wrap split">
-      <div>
-        <h2>Trenujesz? Dołącz jako trener-założyciel.</h2>
-        <p class="lead">Pierwszych 50 trenerów korzysta z platformy za 0 zł. Profil, cennik i kalendarz pomagają klientom trafić właśnie do Ciebie.</p>
-        <ul class="perks">
-          <sc-for list="{{ perks }}" as="perk" hint-placeholder-count="4">
-            <li>{{ perk }}</li>
-          </sc-for>
-        </ul>
-        <a href="#zapisy" onClick="{{ pickTrener }}" class="btn btn-primary">Zostań trenerem-założycielem</a>
+  <section id="dla-trenerow" class="trainer-product" data-screen-label="Dla trenerów">
+    <div class="wrap trainer-product-layout">
+      <div class="trainer-product-copy reveal">
+        <span class="coach-eyebrow">Program założycielski · Warszawa</span>
+        <h2>Więcej czasu na trening. Mniej na wiadomości i przelewy.</h2>
+        <p class="lead"><strong>Nie budujemy kolejnego katalogu trenerów.</strong> Dajemy Ci jedno miejsce do pozyskiwania klientów i obsługi całego treningu — bez podawania prywatnego numeru.</p>
+        <div class="trainer-product-actions">
+          <a href="dla-trenerow.html" class="btn btn-primary">Zobacz stronę dla trenerów</a>
+          <a href="#zapisy" onClick="{{ pickTrener }}" class="trainer-text-link">Dołącz bez opłat <span aria-hidden="true">→</span></a>
+        </div>
       </div>
-      <div class="coaches-media">
-        <img src="assets/Rino-boks.png" alt="Rino, maskotka RinoMove w rękawicach bokserskich">
+      <div class="trainer-benefit-grid reveal" aria-label="Korzyści dla trenerów">
+        <article class="trainer-benefit">
+          <span>01</span>
+          <h3>Profil, który buduje zaufanie</h3>
+          <p>Certyfikaty, doświadczenie i opinie w jednym czytelnym miejscu.</p>
+        </article>
+        <article class="trainer-benefit">
+          <span>02</span>
+          <h3>Kalendarz bez chaosu</h3>
+          <p>Aktualne terminy i rezerwacje bez wymiany dziesiątek wiadomości.</p>
+        </article>
+        <article class="trainer-benefit">
+          <span>03</span>
+          <h3>Płatności pod kontrolą</h3>
+          <p>Klient płaci online, a Ty widzisz status każdej rezerwacji.</p>
+        </article>
+        <article class="trainer-benefit">
+          <span>04</span>
+          <h3>Nowi klienci z okolicy</h3>
+          <p>Docierasz do osób, które naprawdę szukają treningu w Twojej dyscyplinie.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -421,11 +550,32 @@
   <!-- ===== ZAPISY ===== -->
   <section id="zapisy" class="signup" data-screen-label="Zapisy">
     <div class="wrap">
+      <div id="konto" class="account-entry reveal">
+        <div class="account-entry-copy">
+          <span class="account-eyebrow">Twoje konto RinoMove</span>
+          <h2>Zacznij jako klient.<br>Rozwijaj się jako trener.</h2>
+          <p>Jedno miejsce do szukania treningów, rezerwacji i prowadzenia sportowej pracy.</p>
+        </div>
+        <div class="account-paths">
+          <a class="account-path account-path--client" href="panel.html#register">
+            <span class="account-path-tag">Klient</span>
+            <strong>Chcę znaleźć trenera</strong>
+            <span>Porównuj profile, wybieraj terminy i trzymaj wszystkie treningi pod ręką.</span>
+            <b>Załóż konto klienta <span aria-hidden="true">→</span></b>
+          </a>
+          <a class="account-path account-path--trainer" href="panel.html?role=trainer#register">
+            <span class="account-path-tag">Trener</span>
+            <strong>Chcę prowadzić treningi</strong>
+            <span>Po utworzeniu konta poprosimy Cię o certyfikaty do weryfikacji.</span>
+            <b>Załóż konto trenera <span aria-hidden="true">→</span></b>
+          </a>
+        </div>
+      </div>
       <div class="signup-card">
         <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
           <div>
-            <h2>Bądź pierwszy, gdy startujemy</h2>
-            <p class="sub">Zostaw kontakt. Odezwiemy się przed startem w Warszawie.</p>
+            <h2>{{ signupTitle }}</h2>
+            <p class="sub">{{ signupSubtitle }}</p>
           </div>
           <div class="seg">
             <button onClick="{{ pickKlientBtn }}" style="background:{{ klientBg }}; color:{{ klientFg }};">Szukam trenera</button>
@@ -452,6 +602,7 @@
             <span>Wyrażam zgodę na przetwarzanie moich danych osobowych w celu kontaktu dotyczącego startu platformy (RODO). Administrator danych i pełna klauzula informacyjna zostaną podane w wiadomości powitalnej.</span>
           </label>
           <button onClick="{{ submit }}" disabled="{{ submitDisabled }}" class="btn btn-primary btn-block" style="{{ submitStyle }}">{{ submitLabel }}</button>
+          <div class="signup-trust" aria-label="Informacje o zapisie"><span>Bez zobowiązań</span><span>Zero spamu</span><span>Kontakt przed startem</span></div>
           <sc-if value="{{ hasSubmitError }}" hint-placeholder-val="{{ false }}">
             <p role="alert" style="color:#9B1C1C; font-size:14px; font-weight:600;">{{ submitError }}</p>
           </sc-if>
@@ -532,27 +683,7 @@ class Component extends DCLogic {
       image: d.image,
       alt: d.alt,
       soonClass: d.soon ? 'soon' : '',
-      href: d.soon ? '#zapisy' : '#trenerzy',
-    }));
-
-    // Trenerzy spójne z danymi w server.js (/api/trainers)
-    const trainerDefs = [
-      { initials: 'MK', name: 'Marek Kowalski', discipline: 'Tenis', district: 'Śródmieście', level: 'każdy poziom', price: 220, rating: '4,9', reviews: 38, slot: 'jutro 09:30' },
-      { initials: 'AS', name: 'Anna Sowa', discipline: 'Padel', district: 'Wilanów', level: 'każdy poziom', price: 240, rating: '4,9', reviews: 31, slot: 'sob. 10:00' },
-      { initials: 'PW', name: 'Paweł Wrona', discipline: 'Boks', district: 'Wola', level: 'początkujący', price: 180, rating: '5,0', reviews: 19, slot: 'dziś 18:30' },
-      { initials: 'JN', name: 'Julia Nowak', discipline: 'Tenis', district: 'Mokotów', level: 'dzieci i juniorzy', price: 190, rating: '4,8', reviews: 24, slot: 'pon. 17:00' },
-      { initials: 'KZ', name: 'Karolina Zielińska', discipline: 'Boks', district: 'Praga-Południe', level: 'kobiety i juniorzy', price: 170, rating: '4,9', reviews: 27, slot: 'śr. 16:00' },
-      { initials: 'TL', name: 'Tomasz Lis', discipline: 'Golf', district: 'Ursynów', level: 'początkujący', price: 300, rating: '4,7', reviews: 15, slot: 'czw. 12:00' },
-    ];
-    const trainers = trainerDefs.map(t => ({
-      initials: t.initials,
-      name: t.name,
-      sub: t.discipline + ', ' + t.district,
-      level: t.level,
-      price: t.price + ' zł',
-      rating: t.rating,
-      reviews: t.reviews,
-      slot: t.slot,
+      href: d.soon ? '#zapisy' : 'panel.html',
     }));
 
     const discChips = discDefs.map(d => {
@@ -574,7 +705,7 @@ class Component extends DCLogic {
       { q: 'Jak płacę za trening?', a: 'Online, w momencie rezerwacji: BLIK, karta lub szybki przelew. Otrzymujesz polską fakturę bezpośrednio od trenera.' },
       { q: 'Czy działacie tylko w Warszawie?', a: 'Tak, startujemy w Warszawie. Kolejne miasta dodamy, gdy zbudujemy tu najlepszą bazę trenerów.' },
       { q: 'Szukam trenera dla dziecka. Pomożecie?', a: 'Tak. Wielu trenerów specjalizuje się w pracy z dziećmi i juniorami, szczególnie w tenisie. Na profilu trenera zobaczysz doświadczenie w treningu dzieci.' },
-      { q: 'Jestem trenerem. Ile to kosztuje?', a: 'Pierwszych 50 trenerów-założycieli korzysta z platformy za 0 zł. Bez abonamentu i bez prowizji na start. Szczegóły wyślemy po zapisie na listę.' },
+      { q: 'Jestem trenerem. Ile to kosztuje?', a: 'Trenerzy-założyciele korzystają z platformy za 0 zł. Bez abonamentu i bez prowizji na start. Szczegóły wyślemy po zapisie na listę.' },
     ];
     const faqs = faqData.map((f, i) => ({
       ...f,
@@ -586,19 +717,19 @@ class Component extends DCLogic {
 
     return {
       toggleMenu: () => this.setState({ menuOpen: !s.menuOpen }),
+      closeMenu: () => this.setState({ menuOpen: false }),
       menuExpanded: s.menuOpen ? 'true' : 'false',
       menuClass: s.menuOpen ? 'menu-open' : '',
       name: s.name,
       email: s.email,
       disciplines,
-      trainers,
       steps: [
         { nr: '01', title: 'Wybierz trenera', desc: 'Przeglądasz profile w swojej dyscyplinie i dzielnicy. Widzisz opinie, doświadczenie i cennik.' },
         { nr: '02', title: 'Zarezerwuj termin', desc: 'Kalendarz trenera jest aktualny. Wybierasz godzinę i miejsce: kort, klub albo dojazd.' },
         { nr: '03', title: 'Zapłać online', desc: 'Płatność przy rezerwacji, faktura na mail. Reszta należy do Ciebie i trenera.' },
       ],
       perks: [
-        '0 zł dla pierwszych 50 trenerów-założycieli',
+        '0 zł dla trenerów-założycieli',
         'Profil z opiniami i doświadczeniem',
         'Kalendarz i płatności online',
         'Nowi klienci z Twojej dzielnicy',
@@ -611,6 +742,8 @@ class Component extends DCLogic {
       trenerBg: s.role === 'trener' ? '#1A191E' : 'transparent',
       trenerFg: s.role === 'trener' ? '#FFFFFF' : '#565560',
       discLabel: s.role === 'trener' ? 'Jaką dyscyplinę trenujesz?' : 'Jaka dyscyplina Cię interesuje?',
+      signupTitle: s.role === 'trener' ? 'Dołącz do programu założycielskiego' : 'Bądź pierwszy, gdy startujemy',
+      signupSubtitle: s.role === 'trener' ? 'Dołącz do programu założycielskiego za 0 zł. Najpierw krótko poznamy Twój sposób pracy.' : 'Zostaw kontakt. Odezwiemy się przed startem w Warszawie.',
       discChips,
       onName: (e) => this.setState({ name: e.target.value }),
       onEmail: (e) => this.setState({ email: e.target.value }),
@@ -649,6 +782,7 @@ class Component extends DCLogic {
 </script>
 <script>
   (() => {
+    document.documentElement.classList.add('has-js');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion || !('IntersectionObserver' in window)) return;
 

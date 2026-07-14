@@ -1,0 +1,178 @@
+.signup .wrap {
+  display: grid;
+  gap: clamp(48px, 7vw, 88px);
+}
+
+.account-entry {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  gap: clamp(36px, 6vw, 76px);
+  align-items: center;
+  padding: clamp(32px, 5vw, 64px);
+  border-radius: 32px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(204, 255, 72, .14), transparent 31%),
+    #1a191e;
+  color: #fff;
+}
+
+.account-entry-copy {
+  display: grid;
+  gap: 20px;
+  align-content: center;
+}
+
+.account-eyebrow {
+  width: max-content;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, .72);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.account-entry h2 {
+  max-width: 620px;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 4.7vw, 5.25rem);
+  font-weight: 700;
+  line-height: .94;
+  letter-spacing: -.055em;
+}
+
+.account-entry-copy p {
+  max-width: 440px;
+  color: rgba(255, 255, 255, .64);
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.55;
+}
+
+.account-paths {
+  display: grid;
+  gap: 14px;
+}
+
+.account-path {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 24px;
+  min-height: 210px;
+  padding: clamp(24px, 3vw, 34px);
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 22px;
+  color: #1a191e;
+  transition: transform 320ms cubic-bezier(.2, .8, .2, 1), box-shadow 320ms ease;
+}
+
+.account-path--client {
+  background: #dff9e7;
+}
+
+.account-path--trainer {
+  background: #e7e3ff;
+}
+
+.account-path-tag {
+  grid-column: 1;
+  width: max-content;
+  align-self: start;
+  padding: 6px 10px;
+  border: 1px solid rgba(26, 25, 30, .16);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.account-path > strong {
+  grid-column: 1 / -1;
+  align-self: end;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(1.45rem, 2.3vw, 2rem);
+  line-height: 1.06;
+  letter-spacing: -.035em;
+}
+
+.account-path > span:not(.account-path-tag) {
+  grid-column: 1;
+  max-width: 430px;
+  color: rgba(26, 25, 30, .68);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.account-path > b {
+  grid-column: 2;
+  grid-row: 3;
+  align-self: end;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.account-path > b span {
+  display: inline-block;
+  margin-left: 4px;
+  transition: transform 240ms ease;
+}
+
+@media (hover: hover) {
+  .account-path:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, .17);
+  }
+
+  .account-path:hover > b span {
+    transform: translateX(4px);
+  }
+}
+
+@media (max-width: 900px) {
+  .account-entry {
+    grid-template-columns: 1fr;
+  }
+
+  .account-entry h2 {
+    font-size: clamp(2.8rem, 10vw, 4.8rem);
+  }
+}
+
+@media (max-width: 700px) {
+  .account-entry {
+    margin-inline: -14px;
+    padding: 30px 18px 18px;
+    border-radius: 24px;
+  }
+
+  .account-entry-copy {
+    padding-inline: 6px;
+  }
+
+  .account-entry h2 {
+    font-size: clamp(2.55rem, 13vw, 3.7rem);
+  }
+
+  .account-path {
+    grid-template-columns: 1fr;
+    min-height: 220px;
+    padding: 24px;
+  }
+
+  .account-path > b {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .account-path,
+  .account-path > b span {
+    transition: none;
+  }
+}

@@ -1,5 +1,6 @@
 *.zip
 .DS_Store
+._*
 .playwright-cli/
 
 # lokalne artefakty

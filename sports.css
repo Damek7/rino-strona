@@ -1,0 +1,385 @@
+.sport-choice {
+  position: relative;
+  overflow: clip;
+  padding: 112px 0 88px;
+  background: #fff;
+}
+
+.sport-choice-head {
+  display: flex;
+  max-width: 780px;
+  margin-bottom: 58px;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.sport-choice-eyebrow {
+  color: #9e1748;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.sport-choice-head h2 {
+  color: #19181d;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(2.35rem, 5vw, 4.8rem);
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+
+.sport-choice-head p {
+  max-width: 620px;
+  color: #5c5962;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.65;
+}
+
+.sport-screens {
+  display: grid;
+  gap: 28px;
+}
+
+.sport-screen {
+  display: grid;
+  height: calc(100svh - 96px);
+  min-height: calc(100svh - 96px);
+  grid-template-rows: repeat(3, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.sport-band {
+  --enter-x: -60px;
+  --enter-rotate: -3deg;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  grid-template-columns: 58px minmax(210px, .82fr) minmax(0, 1.35fr) 52px;
+  grid-template-areas: "number media copy arrow";
+  align-items: center;
+  gap: 20px;
+  padding: 24px 28px;
+  border: 1px solid rgba(26, 25, 30, .055);
+  border-radius: 32px;
+  color: #1a191e;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .62);
+  transform: translateZ(0);
+}
+
+.sport-band--media-right {
+  --enter-x: 60px;
+  --enter-rotate: 3deg;
+  grid-template-columns: 58px minmax(0, 1.35fr) minmax(210px, .82fr) 52px;
+  grid-template-areas: "number copy media arrow";
+}
+
+.sport-band::before,
+.sport-band::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sport-band::before {
+  width: 210px;
+  height: 210px;
+  top: -112px;
+  right: 12%;
+  border: 1px solid rgba(255, 255, 255, .62);
+}
+
+.sport-band::after {
+  width: 380px;
+  height: 380px;
+  left: -190px;
+  bottom: -300px;
+  background: rgba(255, 255, 255, .28);
+}
+
+.sport-band--tenis { background: #dff4e9; }
+.sport-band--padel { background: #dcecf8; }
+.sport-band--squash { background: #ebe5f7; }
+.sport-band--golf { background: #f8edb9; }
+.sport-band--plywanie { background: #d9f2f1; }
+.sport-band--boks { background: #f7dfe7; }
+
+.sport-band-number {
+  grid-area: number;
+  align-self: start;
+  color: #c72562;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sport-band-media {
+  grid-area: media;
+  align-self: stretch;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  align-items: center;
+  justify-content: center;
+  transform-origin: 50% 88%;
+  transition: opacity 420ms ease, transform 650ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.sport-band-media img {
+  width: auto;
+  height: auto;
+  max-height: calc(100% + 40px);
+  max-width: 118%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 18px rgba(49, 34, 57, .12));
+  transition: transform 260ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.sport-band--golf .sport-band-media img,
+.sport-band--boks .sport-band-media img {
+  max-height: calc(100% + 24px);
+}
+
+.sport-band-copy {
+  grid-area: copy;
+  display: flex;
+  min-width: 0;
+  max-width: 600px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.sport-band-copy strong {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(3rem, 5.6vw, 5.4rem);
+  font-weight: 700;
+  line-height: .88;
+  letter-spacing: -.065em;
+  transition: opacity 380ms ease 90ms, transform 520ms cubic-bezier(.22, 1, .36, 1) 90ms,
+    filter 420ms ease 90ms, clip-path 520ms cubic-bezier(.22, 1, .36, 1) 90ms;
+}
+
+.sport-band-copy > span:not(.sport-band-badge) {
+  max-width: 430px;
+  color: rgba(26, 25, 30, .69);
+  font-size: clamp(.9rem, 1.3vw, 1.06rem);
+  line-height: 1.48;
+  transition: opacity 380ms ease 150ms, transform 520ms cubic-bezier(.22, 1, .36, 1) 150ms,
+    filter 420ms ease 150ms, clip-path 520ms cubic-bezier(.22, 1, .36, 1) 150ms;
+}
+
+.sport-band-badge {
+  display: inline-flex;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .62);
+  color: #8c1642;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.sport-band-arrow {
+  grid-area: arrow;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(26, 25, 30, .12);
+  border-radius: 50%;
+  color: #c72562;
+  font-size: 23px;
+  transition: opacity 300ms ease 250ms, transform 300ms cubic-bezier(.22, 1, .36, 1) 250ms,
+    background-color 180ms ease, border-color 180ms ease;
+}
+
+.has-js .sport-band:not(.is-visible) .sport-band-media {
+  opacity: 0;
+  transform: translateX(var(--enter-x)) rotate(var(--enter-rotate)) scale(.92);
+}
+
+.has-js .sport-band:not(.is-visible) .sport-band-number,
+.has-js .sport-band:not(.is-visible) .sport-band-badge {
+  opacity: 0;
+}
+
+.has-js .sport-band:not(.is-visible) .sport-band-copy strong,
+.has-js .sport-band:not(.is-visible) .sport-band-copy > span:not(.sport-band-badge) {
+  opacity: 0;
+  filter: blur(4px);
+  clip-path: inset(0 100% 0 0);
+  transform: translateY(18px);
+}
+
+.has-js .sport-band:not(.is-visible) .sport-band-arrow {
+  opacity: 0;
+  transform: translateX(-8px) scale(.86);
+}
+
+.sport-band:hover .sport-band-media img {
+  transform: translateX(8px) rotate(1deg);
+}
+
+.sport-band--media-right:hover .sport-band-media img {
+  transform: translateX(-8px) rotate(-1deg);
+}
+
+.sport-band:hover .sport-band-arrow {
+  border-color: rgba(26, 25, 30, .2);
+  background: rgba(255, 255, 255, .55);
+  transform: translate(4px, -2px);
+}
+
+.sport-band:focus-visible {
+  outline: 3px solid #1a191e;
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .sport-choice {
+    padding-top: 96px;
+  }
+
+  .sport-screen {
+    height: auto;
+    min-height: auto;
+    grid-template-rows: repeat(3, minmax(200px, 1fr));
+  }
+
+  .sport-band,
+  .sport-band--media-right {
+    grid-template-columns: 42px minmax(155px, .82fr) minmax(0, 1.15fr) 40px;
+    gap: 14px;
+    padding: 20px;
+  }
+
+  .sport-band--media-right {
+    grid-template-columns: 42px minmax(0, 1.15fr) minmax(155px, .82fr) 40px;
+  }
+
+  .sport-band-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 640px) {
+  .sport-choice {
+    padding: 78px 0 64px;
+  }
+
+  .sport-choice-head {
+    margin-bottom: 38px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .sport-choice-head h2 {
+    font-size: clamp(2.5rem, 12vw, 3.7rem);
+  }
+
+  .sport-screens {
+    gap: 12px;
+    padding-inline: 14px;
+  }
+
+  .sport-screen {
+    gap: 10px;
+    grid-template-rows: repeat(3, 172px);
+  }
+
+  .sport-band,
+  .sport-band--media-right {
+    min-height: 172px;
+    grid-template-columns: 28px minmax(104px, 39%) minmax(0, 1fr) 28px;
+    gap: 8px;
+    padding: 14px 12px;
+    border-radius: 24px;
+  }
+
+  .sport-band--media-right {
+    grid-template-columns: 28px minmax(0, 1fr) minmax(104px, 39%) 28px;
+  }
+
+  .sport-band {
+    height: 172px;
+  }
+
+  .sport-band-number {
+    font-size: 10px;
+  }
+
+  .sport-band-copy {
+    gap: 7px;
+  }
+
+  .sport-band-copy strong {
+    font-size: clamp(1.85rem, 8.7vw, 2.7rem);
+    line-height: .94;
+  }
+
+  .sport-band--plywanie .sport-band-copy strong {
+    font-size: clamp(1.55rem, 7vw, 2.1rem);
+  }
+
+  .sport-band-copy > span:not(.sport-band-badge) {
+    font-size: 11.5px;
+    line-height: 1.32;
+  }
+
+  .sport-band-badge {
+    padding: 4px 7px;
+    font-size: 8px;
+  }
+
+  .sport-band-media img,
+  .sport-band--golf .sport-band-media img,
+  .sport-band--boks .sport-band-media img {
+    height: auto;
+    max-height: 188px;
+    max-width: 132%;
+  }
+
+  .sport-band-arrow {
+    width: 28px;
+    height: 28px;
+    border: 0;
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sport-band,
+  .sport-band *,
+  .sport-band::before,
+  .sport-band::after {
+    scroll-behavior: auto;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .has-js .sport-band:not(.is-visible) .sport-band-media,
+  .has-js .sport-band:not(.is-visible) .sport-band-number,
+  .has-js .sport-band:not(.is-visible) .sport-band-badge,
+  .has-js .sport-band:not(.is-visible) .sport-band-copy strong,
+  .has-js .sport-band:not(.is-visible) .sport-band-copy > span:not(.sport-band-badge),
+  .has-js .sport-band:not(.is-visible) .sport-band-arrow {
+    opacity: 1;
+    filter: none;
+    clip-path: none;
+    transform: none;
+  }
+}
