@@ -41,3 +41,15 @@ test('trainer landing returns to the homepage and uses the trainer mascot hero v
   assert.equal((html.match(/hero-racket--/g) || []).length, 0)
   assert.equal(fs.existsSync(path.join(root, 'assets', 'Rino-trener-3d-blue.png')), true)
 })
+
+test('trainer hero keeps the calendar, rating and profile cards visible above the mascot', () => {
+  const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
+
+  assert.match(html, /class="availability-card"/)
+  assert.match(html, /class="rating-card"/)
+  assert.match(html, /class="trainer-card"/)
+  assert.doesNotMatch(
+    html,
+    /\.trainer-home-hero \.availability-card,\.trainer-home-hero \.rating-card,\.trainer-home-hero \.trainer-card\{display:none\}/
+  )
+})
