@@ -13,7 +13,7 @@
 - The calendar, rating, and trainer profile cards stay visible with unchanged HTML content.
 - The mascot replaces only the former racket layer.
 - The burgundy `TRENER` cap is approximately 20–30% wider than the mascot's head, slightly low-set, and does not dominate the body or hide the face and antennae.
-- The cap physically rests on the head without a visible gap or floating effect.
+- The cap physically rests low on the forehead without a visible gap or floating effect, while keeping both eyes unobstructed.
 - The mascot's open, relaxed left hand only touches the brim with its fingertips; it does not grip, support, or lift the cap.
 - Preserve unrelated worktree changes.
 
@@ -31,7 +31,7 @@
 
 - [ ] **Step 1: Edit the current mascot with built-in ImageGen**
 
-Change only the cap-to-head contact and the left-hand gesture. Lower the cap so it visibly rests on the head. Open and relax the left hand so only the fingertips lightly touch the brim without gripping, supporting, or lifting it. Preserve the moderately oversized scale, body, face, two antennae, colors, `TRENER` spelling, lighting, framing, and 3D style. Render on uniform `#00ff00` for local background removal.
+Change only the cap-to-head contact and the left-hand gesture. Lower the cap so it visibly rests on the head and covers more of the upper forehead without covering the eyes. Open and relax the left hand so only the fingertips lightly touch the brim without gripping, supporting, or lifting it. Preserve the moderately oversized scale, body, face, two antennae, colors, `TRENER` spelling, lighting, framing, and 3D style. Render on uniform `#00ff00` for local background removal.
 
 - [ ] **Step 2: Inspect and remove the chroma key**
 
