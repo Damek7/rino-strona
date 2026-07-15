@@ -30,3 +30,9 @@ test('mobile navigation keeps account creation outside the collapsed menu', () =
   assert.match(html, /class="btn nav-mobile-cta"[^>]*href="panel\.html#register"/)
   assert.match(html, /aria-controls="main-menu"/)
 })
+
+test('floating navigation does not reserve a white strip above the hero', () => {
+  const css = fs.readFileSync(cssPath, 'utf8')
+  assert.match(css, /\.nav-shell\s*\{[^}]*height:\s*64px;[^}]*margin-bottom:\s*-64px;/s)
+  assert.match(css, /@media\s*\(max-width:\s*820px\)\s*\{[\s\S]*?\.nav-shell\s*\{[^}]*height:\s*58px;[^}]*margin-bottom:\s*-58px;/)
+})
