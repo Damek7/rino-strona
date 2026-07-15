@@ -26,11 +26,11 @@
 
 **Interfaces:**
 - Consumes: existing `.trainer-home-hero .availability-card`, `.trainer-card`, and mobile media-query rules.
-- Produces: content-height calendar and a trainer card positioned 20 px below it on desktop/tablet, with existing mobile placement restored at 620 px and below.
+- Produces: content-height calendar and a trainer card positioned 21 px below it on desktop/tablet, with existing mobile placement restored at 620 px and below.
 
 - [ ] **Step 1: Add a failing contract test**
 
-Add a test that requires the trainer-specific availability rule to use `bottom:auto`, the trainer card to use `top:390px;bottom:auto`, the tablet rule to use `top:372px`, and the mobile rule to restore `top:auto;bottom:0`.
+Add a test that requires the trainer-specific availability rule to use `bottom:auto`, the trainer card to use `top:400px;bottom:auto`, the tablet rule to use `top:382px`, and the mobile rule to restore `top:auto;bottom:0`.
 
 - [ ] **Step 2: Verify RED**
 
@@ -38,7 +38,7 @@ Run `node --test test/trainer-subpage.test.js`. Expected: the new compact-layout
 
 - [ ] **Step 3: Implement the minimal CSS change**
 
-In `dla-trenerow.html`, change the desktop availability inset to `78px 210px auto 0`; add `.trainer-home-hero .trainer-card{top:390px;bottom:auto}`; change the tablet availability inset to `60px 180px auto 0` and trainer top to `372px`; restore `.trainer-home-hero .trainer-card{top:auto;bottom:0}` inside the max-620px query.
+In `dla-trenerow.html`, change the desktop availability inset to `78px 210px auto 0`; add `.trainer-home-hero .trainer-card{top:400px;bottom:auto}`; change the tablet availability inset to `60px 180px auto 0` and trainer top to `382px`; restore `.trainer-home-hero .trainer-card{top:auto;bottom:0}` inside the max-620px query.
 
 - [ ] **Step 4: Verify GREEN**
 

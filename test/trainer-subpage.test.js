@@ -53,3 +53,13 @@ test('trainer hero keeps the calendar, rating and profile cards visible above th
     /\.trainer-home-hero \.availability-card,\.trainer-home-hero \.rating-card,\.trainer-home-hero \.trainer-card\{display:none\}/
   )
 })
+
+test('trainer hero compacts the calendar stack without changing the mobile card position', () => {
+  const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
+
+  assert.match(html, /\.trainer-home-hero \.availability-card\{z-index:2;inset:78px 210px auto 0;/)
+  assert.match(html, /\.trainer-home-hero \.trainer-card\{top:400px;bottom:auto\}/)
+  assert.match(html, /\.trainer-home-hero \.availability-card\{inset:60px 180px auto 0\}/)
+  assert.match(html, /\.trainer-home-hero \.trainer-card\{top:382px\}/)
+  assert.match(html, /\.trainer-home-hero \.trainer-card\{top:auto;bottom:0\}/)
+})
