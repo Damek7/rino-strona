@@ -2,6 +2,11 @@
 .DS_Store
 ._*
 .playwright-cli/
+.env
+!.env.example
+node_modules/
+supabase/.temp/
+supabase/.branches/
 
 # lokalne artefakty
 index.html.bak

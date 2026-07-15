@@ -25,6 +25,19 @@ const types = {
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
 }
+const rootPublicExtensions = new Set(['.html', '.css', '.js', '.ico'])
+const assetExtensions = new Set(['.png', '.jpg', '.jpeg', '.svg', '.ico', '.webp'])
+
+function isPublicFile(file) {
+  const relative = path.relative(ROOT, file)
+  const parts = relative.split(path.sep)
+  const extension = path.extname(file).toLowerCase()
+  if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || parts.some(part => part.startsWith('.'))) return false
+  if (parts.length === 1) return rootPublicExtensions.has(extension) && parts[0] !== 'server.js'
+  if (parts[0] === 'assets') return assetExtensions.has(extension)
+  if (parts[0] === 'lib') return extension === '.js'
+  return false
+}
 
 function json(res, status, data) {
   res.writeHead(status, { 'Content-Type': types['.json'], 'Cache-Control': 'no-store' })
@@ -65,7 +78,7 @@ const server = http.createServer((req, res) => {
 
     const relative = decodeURIComponent(url.pathname === '/' ? '/index.html' : url.pathname)
     const file = path.resolve(ROOT, `.${relative}`)
-    if (!(file === ROOT || file.startsWith(`${ROOT}${path.sep}`)) || file.includes(`${path.sep}data${path.sep}`) || file.includes(`${path.sep}node_modules${path.sep}`)) return json(res, 403, { error: 'Brak dostępu.' })
+    if (!(file === ROOT || file.startsWith(`${ROOT}${path.sep}`)) || !isPublicFile(file)) return json(res, 403, { error: 'Brak dostępu.' })
     return sendFile(res, file)
   } catch (error) {
     if (!res.headersSent) json(res, 500, { error: 'Błąd serwera.' })

@@ -1,4 +1,5 @@
 create extension if not exists pgcrypto;
+create extension if not exists btree_gist;
 
 create schema if not exists private;
 revoke all on schema private from public;
@@ -39,12 +40,16 @@ create table public.availability_slots (
   status text not null default 'available' check (status in ('available', 'booked', 'blocked', 'cancelled')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  check (ends_at > starts_at)
+  check (ends_at > starts_at),
+  constraint availability_slots_no_overlap exclude using gist (
+    trainer_id with =,
+    tstzrange(starts_at, ends_at, '[)') with &&
+  ) where (status <> 'cancelled')
 );
 
 create table public.bookings (
   id uuid primary key default gen_random_uuid(),
-  slot_id uuid not null unique references public.availability_slots(id),
+  slot_id uuid not null references public.availability_slots(id),
   client_id uuid not null constraint bookings_client_id_fkey references public.profiles(id),
   trainer_id uuid not null constraint bookings_trainer_id_fkey references public.profiles(id),
   starts_at timestamptz not null,
@@ -102,10 +107,14 @@ create table public.notification_preferences (
 );
 
 create index availability_slots_trainer_starts_idx on public.availability_slots (trainer_id, starts_at);
+create unique index bookings_active_slot_unique on public.bookings (slot_id) where (status <> 'cancelled');
 create index bookings_client_starts_idx on public.bookings (client_id, starts_at desc);
 create index bookings_trainer_starts_idx on public.bookings (trainer_id, starts_at desc);
 create index messages_conversation_created_idx on public.messages (conversation_id, created_at);
 create index reviews_trainer_created_idx on public.reviews (trainer_id, created_at desc);
+create index conversation_members_user_idx on public.conversation_members (user_id);
+create index messages_sender_idx on public.messages (sender_id);
+create index reviews_client_idx on public.reviews (client_id);
 
 create function private.touch_updated_at()
 returns trigger
@@ -155,25 +164,6 @@ begin
 end;
 $$;
 
-create function private.prevent_slot_overlap()
-returns trigger
-language plpgsql
-set search_path = ''
-as $$
-begin
-  if exists (
-    select 1 from public.availability_slots existing
-    where existing.trainer_id = new.trainer_id
-      and existing.id <> new.id
-      and existing.status not in ('cancelled')
-      and tstzrange(existing.starts_at, existing.ends_at, '[)') && tstzrange(new.starts_at, new.ends_at, '[)')
-  ) then
-    raise exception 'availability slot overlaps an existing slot';
-  end if;
-  return new;
-end;
-$$;
-
 create function private.prepare_booking()
 returns trigger
 language plpgsql
@@ -193,6 +183,7 @@ begin
   if selected_slot.id is null or selected_slot.status <> 'available' then
     raise exception 'slot is not available';
   end if;
+  if selected_slot.starts_at <= now() then raise exception 'slot is in the past'; end if;
   select * into selected_trainer from public.trainer_profiles where user_id = selected_slot.trainer_id and published = true;
   if selected_trainer.user_id is null then raise exception 'trainer profile is not published'; end if;
 
@@ -205,6 +196,24 @@ begin
   new.price := selected_trainer.hourly_rate;
   new.platform_fee := round(selected_trainer.hourly_rate * 0.10);
   new.location := selected_trainer.district || ', Warszawa';
+  return new;
+end;
+$$;
+
+create function private.validate_availability_write()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  -- Direct trainer writes must not publish past slots or mutate a booked slot.
+  -- Internal booking/cancellation triggers run at a greater trigger depth.
+  if pg_trigger_depth() = 1 and new.starts_at <= now() then
+    raise exception 'slot must start in the future';
+  end if;
+  if tg_op = 'UPDATE' and pg_trigger_depth() = 1 and old.status = 'booked' then
+    raise exception 'booked slots cannot be changed';
+  end if;
   return new;
 end;
 $$;
@@ -308,11 +317,11 @@ $$;
 
 create trigger profiles_touch_updated before update on public.profiles for each row execute function private.touch_updated_at();
 create trigger trainer_profiles_touch_updated before update on public.trainer_profiles for each row execute function private.touch_updated_at();
+create trigger availability_validate_write before insert or update on public.availability_slots for each row execute function private.validate_availability_write();
 create trigger availability_touch_updated before update on public.availability_slots for each row execute function private.touch_updated_at();
 create trigger bookings_touch_updated before update on public.bookings for each row execute function private.touch_updated_at();
 create trigger preferences_touch_updated before update on public.notification_preferences for each row execute function private.touch_updated_at();
 create trigger auth_user_created after insert on auth.users for each row execute function private.create_profile_for_new_user();
-create trigger availability_prevent_overlap before insert or update on public.availability_slots for each row execute function private.prevent_slot_overlap();
 create trigger booking_prepare before insert on public.bookings for each row execute function private.prepare_booking();
 create trigger booking_finalize after insert on public.bookings for each row execute function private.finalize_booking();
 create trigger booking_validate_update before update on public.bookings for each row execute function private.validate_booking_update();
@@ -335,8 +344,8 @@ revoke all on public.profiles, public.trainer_profiles, public.availability_slot
   public.reviews, public.notification_preferences from anon, authenticated;
 revoke all on function private.touch_updated_at() from public;
 revoke all on function private.create_profile_for_new_user() from public;
-revoke all on function private.prevent_slot_overlap() from public;
 revoke all on function private.prepare_booking() from public;
+revoke all on function private.validate_availability_write() from public;
 revoke all on function private.finalize_booking() from public;
 revoke all on function private.validate_booking_update() from public;
 revoke all on function private.reopen_cancelled_slot() from public;
@@ -344,7 +353,7 @@ revoke all on function private.validate_review() from public;
 revoke all on function private.refresh_trainer_rating() from public;
 
 grant select (id, full_name, avatar_url) on public.profiles to anon;
-grant select (id, full_name, email, role, phone, avatar_url, created_at, updated_at) on public.profiles to authenticated;
+grant select (id, full_name, role, avatar_url, created_at, updated_at) on public.profiles to authenticated;
 grant update (full_name, phone, avatar_url) on public.profiles to authenticated;
 
 grant select on public.trainer_profiles to anon, authenticated;
@@ -397,11 +406,12 @@ create policy "Available published slots are public"
 create policy "Trainers can view their own slots"
   on public.availability_slots for select to authenticated using ((select auth.uid()) = trainer_id);
 create policy "Trainers can add their own slots"
-  on public.availability_slots for insert to authenticated with check ((select auth.uid()) = trainer_id);
+  on public.availability_slots for insert to authenticated
+  with check ((select auth.uid()) = trainer_id and status in ('available', 'blocked') and starts_at > now());
 create policy "Trainers can update their own slots"
   on public.availability_slots for update to authenticated
-  using ((select auth.uid()) = trainer_id)
-  with check ((select auth.uid()) = trainer_id);
+  using ((select auth.uid()) = trainer_id and status <> 'booked')
+  with check ((select auth.uid()) = trainer_id and status in ('available', 'blocked') and starts_at > now());
 create policy "Trainers can delete their own free slots"
   on public.availability_slots for delete to authenticated
   using ((select auth.uid()) = trainer_id and status in ('available', 'blocked', 'cancelled'));
@@ -432,8 +442,8 @@ create policy "Conversation members can send messages"
   with check (sender_id = (select auth.uid()) and exists (select 1 from public.conversations c join public.bookings b on b.id = c.booking_id where c.id = messages.conversation_id and (select auth.uid()) in (b.client_id, b.trainer_id)));
 create policy "Conversation members can mark messages read"
   on public.messages for update to authenticated
-  using (exists (select 1 from public.conversations c join public.bookings b on b.id = c.booking_id where c.id = messages.conversation_id and (select auth.uid()) in (b.client_id, b.trainer_id)))
-  with check (exists (select 1 from public.conversations c join public.bookings b on b.id = c.booking_id where c.id = messages.conversation_id and (select auth.uid()) in (b.client_id, b.trainer_id)));
+  using (sender_id <> (select auth.uid()) and exists (select 1 from public.conversations c join public.bookings b on b.id = c.booking_id where c.id = messages.conversation_id and (select auth.uid()) in (b.client_id, b.trainer_id)))
+  with check (sender_id <> (select auth.uid()) and exists (select 1 from public.conversations c join public.bookings b on b.id = c.booking_id where c.id = messages.conversation_id and (select auth.uid()) in (b.client_id, b.trainer_id)));
 
 create policy "Reviews are public"
   on public.reviews for select to anon, authenticated using (true);

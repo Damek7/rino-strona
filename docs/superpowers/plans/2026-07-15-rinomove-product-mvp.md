@@ -6,7 +6,7 @@
 
 **Architecture:** Istniejący statyczny projekt pozostaje bez frameworka. Widoki korzystają ze wspólnego kontraktu danych, którego implementacją jest trwały magazyn demo albo Supabase wybierany na podstawie `/api/config`; czyste reguły domenowe nie zależą od DOM ani backendu.
 
-**Tech Stack:** Node.js 20+, HTML5, CSS, CommonJS dla serwera/testów, ES modules w przeglądarce, `@supabase/supabase-js` 2.100.0, Node test runner, Playwright do końcowej kontroli UI.
+**Tech Stack:** Node.js 22+, HTML5, CSS, CommonJS dla serwera/testów, ES modules w przeglądarce, `@supabase/supabase-js` 2.110.5, Node test runner, Playwright do końcowej kontroli UI.
 
 ## Global Constraints
 
@@ -109,8 +109,8 @@ Expected: FAIL because configuration, store and migration are absent.
 
 - [ ] **Step 3: Pin Supabase and implement public config**
 
-Run: `npm install --save-exact @supabase/supabase-js@2.100.0`
-Expected: lockfile records exactly `2.100.0`.
+Run: `npm install --save-exact @supabase/supabase-js@2.110.5`
+Expected: lockfile records exactly `2.110.5`.
 
 Implement `GET /api/config` with `Cache-Control: no-store`, serve only the UMD file below a fixed `/vendor/supabase.js` path, and remove local JSON password/session storage from `server.js`.
 
@@ -125,7 +125,7 @@ Map auth to `signUp`, `signInWithPassword`, `signOut`, `getUser`; map each store
 - [ ] **Step 6: Run GREEN**
 
 Run: `node --test test/supabase-config.test.js test/supabase-schema.test.js`
-Expected: PASS; `npm ls @supabase/supabase-js` shows `2.100.0`.
+Expected: PASS; `npm ls @supabase/supabase-js` shows `2.110.5`.
 
 ### Task 3: Role-aware application shell and accounts
 

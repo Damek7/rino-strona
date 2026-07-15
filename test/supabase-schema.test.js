@@ -35,6 +35,12 @@ test('migration explicitly grants Data API access and avoids deprecated auth.rol
   assert.doesNotMatch(sql, /auth\.role\s*\(/i)
 })
 
+test('published profile grants never expose email or phone columns', () => {
+  const grant = sql.match(/grant select \(([^)]+)\) on public\.profiles to authenticated/i)
+  assert.ok(grant, 'authenticated profile select grant should be explicit')
+  assert.doesNotMatch(grant[1], /\b(?:email|phone)\b/i)
+})
+
 test('ownership policies use auth uid and update checks', () => {
   assert.match(sql, /\(select auth\.uid\(\)\)/i)
   assert.match(sql, /on public\.profiles[\s\S]+for update[\s\S]+using[\s\S]+with check/i)
@@ -58,4 +64,28 @@ test('message table is included in the Realtime publication idempotently', () =>
   assert.match(sql, /supabase_realtime/i)
   assert.match(sql, /messages/i)
   assert.match(sql, /duplicate_object/i)
+})
+
+test('availability overlap is enforced atomically and foreign-key lookups are indexed', () => {
+  assert.match(sql, /create extension if not exists btree_gist/i)
+  assert.match(sql, /exclude using gist[\s\S]+trainer_id with =[\s\S]+tstzrange\(starts_at, ends_at, '\[\)'\) with &&/i)
+  for (const index of ['conversation_members_user_idx', 'messages_sender_idx', 'reviews_client_idx']) {
+    assert.match(sql, new RegExp(`create index ${index}`, 'i'))
+  }
+})
+
+test('only recipients can mark a message as read', () => {
+  assert.match(sql, /Conversation members can mark messages read[\s\S]+sender_id\s*<>\s*\(select auth\.uid\(\)\)/i)
+})
+
+test('cancelled bookings release a slot for exactly one new active booking', () => {
+  assert.doesNotMatch(sql, /slot_id uuid not null unique references public\.availability_slots/i)
+  assert.match(sql, /create unique index bookings_active_slot_unique[\s\S]+on public\.bookings \(slot_id\)[\s\S]+where \(status <> 'cancelled'\)/i)
+})
+
+test('past slots cannot be published or booked and booked slots cannot be edited', () => {
+  assert.match(sql, /starts_at <= now\(\)[\s\S]+slot must start in the future/i)
+  assert.match(sql, /create trigger availability_validate_write before insert or update/i)
+  assert.match(sql, /old\.status = 'booked'[\s\S]+booked slots cannot be changed/i)
+  assert.match(sql, /selected_slot\.starts_at <= now\(\)[\s\S]+slot is in the past/i)
 })
