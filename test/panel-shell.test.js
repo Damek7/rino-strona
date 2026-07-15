@@ -44,6 +44,11 @@ test('account dialog supports both roles and demo quick access', () => {
   assert.match(css, /html\s+\[hidden\]\s*\{\s*display:\s*none\s*!important;?\s*\}/)
 })
 
+test('trainer photos are resized before preview and persistence', () => {
+  assert.match(js, /canvas\.toDataURL\('image\/jpeg'/)
+  assert.match(js, /trainerPhotoDataUrl/)
+})
+
 test('navigation icons are SVG and panel is responsive and motion safe', () => {
   assert.match(html, /<symbol id="icon-calendar"/)
   assert.doesNotMatch(html, /class="nav-icon">[^<]+</)

@@ -3,6 +3,7 @@ const assert = require('node:assert/strict')
 const fs = require('node:fs')
 const path = require('node:path')
 const { normalizeFilters, groupSlotsByDay, bookingSummary, navigationForRole, shiftWeek } = require('../lib/panel-helpers')
+const panelSource = fs.readFileSync(path.join(__dirname, '..', 'panel.js'), 'utf8')
 
 test('client filters convert visible zloty values to integer grosze', () => {
   assert.deepEqual(normalizeFilters({ q: ' Marek ', discipline: 'tenis', district: 'Mokotów', maxPrice: '220' }), {
@@ -51,4 +52,9 @@ test('panel connects discovery and booking controls to store methods', () => {
   assert.match(js, /nextWeek/)
   assert.match(js, /resumeBooking/)
   assert.match(js, /selectedTrainer[\s\S]+calendar/)
+})
+
+test('calendar becomes available only after the client explicitly selects a trainer', () => {
+  assert.doesNotMatch(panelSource, /if \(!state\.selectedTrainer\) state\.selectedTrainer = trainers\[0\]/)
+  assert.match(panelSource, /action\.addEventListener\('click', \(\) => selectTrainer\(trainer\)\)/)
 })

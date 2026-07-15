@@ -93,7 +93,14 @@ test('past slots cannot be published or booked and booked slots cannot be edited
 test('trainer avatar bucket is public while writes stay inside the trainer folder', () => {
   assert.match(sql, /insert into storage\.buckets[\s\S]+trainer-avatars[\s\S]+public/i)
   assert.match(sql, /on storage\.objects for select[\s\S]+bucket_id = 'trainer-avatars'/i)
-  assert.match(sql, /on storage\.objects for insert[\s\S]+storage\.foldername\(name\)\[1\][\s\S]+auth\.uid\(\)::text/i)
-  assert.match(sql, /on storage\.objects for update[\s\S]+with check[\s\S]+storage\.foldername\(name\)\[1\][\s\S]+auth\.uid\(\)::text/i)
-  assert.match(sql, /on storage\.objects for delete[\s\S]+storage\.foldername\(name\)\[1\][\s\S]+auth\.uid\(\)::text/i)
+  assert.match(sql, /on storage\.objects for insert[\s\S]+\(storage\.foldername\(name\)\)\[1\][\s\S]+auth\.uid\(\)::text/i)
+  assert.match(sql, /on storage\.objects for update[\s\S]+with check[\s\S]+\(storage\.foldername\(name\)\)\[1\][\s\S]+auth\.uid\(\)::text/i)
+  assert.match(sql, /on storage\.objects for delete[\s\S]+\(storage\.foldername\(name\)\)\[1\][\s\S]+auth\.uid\(\)::text/i)
+  assert.match(sql, /role = 'trainer'/i)
+  assert.match(sql, /profile\.jpg[\s\S]+profile\.png[\s\S]+profile\.webp/i)
+})
+
+test('trainer profiles cannot be published without an uploaded avatar', () => {
+  assert.match(sql, /create function private\.validate_trainer_publish\(\)[\s\S]+bucket_id = 'trainer-avatars'[\s\S]+raise exception/i)
+  assert.match(sql, /create trigger trainer_profiles_validate_publish[\s\S]+execute function private\.validate_trainer_publish\(\)/i)
 })

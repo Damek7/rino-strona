@@ -171,6 +171,29 @@ begin
 end;
 $$;
 
+create function private.validate_trainer_publish()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if new.published and not exists (
+    select 1
+    from storage.objects avatar
+    where avatar.bucket_id = 'trainer-avatars'
+      and avatar.name in (
+        new.user_id::text || '/profile.jpg',
+        new.user_id::text || '/profile.png',
+        new.user_id::text || '/profile.webp'
+      )
+  ) then
+    raise exception 'trainer avatar is required before publication';
+  end if;
+  return new;
+end;
+$$;
+
 create function private.prepare_booking()
 returns trigger
 language plpgsql
@@ -323,6 +346,7 @@ end;
 $$;
 
 create trigger profiles_touch_updated before update on public.profiles for each row execute function private.touch_updated_at();
+create trigger trainer_profiles_validate_publish before update on public.trainer_profiles for each row execute function private.validate_trainer_publish();
 create trigger trainer_profiles_touch_updated before update on public.trainer_profiles for each row execute function private.touch_updated_at();
 create trigger availability_validate_write before insert or update on public.availability_slots for each row execute function private.validate_availability_write();
 create trigger availability_touch_updated before update on public.availability_slots for each row execute function private.touch_updated_at();
@@ -351,6 +375,7 @@ revoke all on public.profiles, public.trainer_profiles, public.availability_slot
   public.reviews, public.notification_preferences from anon, authenticated;
 revoke all on function private.touch_updated_at() from public;
 revoke all on function private.create_profile_for_new_user() from public;
+revoke all on function private.validate_trainer_publish() from public;
 revoke all on function private.prepare_booking() from public;
 revoke all on function private.validate_availability_write() from public;
 revoke all on function private.finalize_booking() from public;
@@ -472,14 +497,34 @@ create policy "Trainer avatars are public"
   using (bucket_id = 'trainer-avatars');
 create policy "Trainers can upload their own avatar"
   on storage.objects for insert to authenticated
-  with check (bucket_id = 'trainer-avatars' and storage.foldername(name)[1] = auth.uid()::text);
+  with check (
+    bucket_id = 'trainer-avatars'
+    and (storage.foldername(name))[1] = auth.uid()::text
+    and name in (auth.uid()::text || '/profile.jpg', auth.uid()::text || '/profile.png', auth.uid()::text || '/profile.webp')
+    and exists (select 1 from public.profiles where id = (select auth.uid()) and role = 'trainer')
+  );
 create policy "Trainers can update their own avatar"
   on storage.objects for update to authenticated
-  using (bucket_id = 'trainer-avatars' and storage.foldername(name)[1] = auth.uid()::text)
-  with check (bucket_id = 'trainer-avatars' and storage.foldername(name)[1] = auth.uid()::text);
+  using (
+    bucket_id = 'trainer-avatars'
+    and (storage.foldername(name))[1] = auth.uid()::text
+    and name in (auth.uid()::text || '/profile.jpg', auth.uid()::text || '/profile.png', auth.uid()::text || '/profile.webp')
+    and exists (select 1 from public.profiles where id = (select auth.uid()) and role = 'trainer')
+  )
+  with check (
+    bucket_id = 'trainer-avatars'
+    and (storage.foldername(name))[1] = auth.uid()::text
+    and name in (auth.uid()::text || '/profile.jpg', auth.uid()::text || '/profile.png', auth.uid()::text || '/profile.webp')
+    and exists (select 1 from public.profiles where id = (select auth.uid()) and role = 'trainer')
+  );
 create policy "Trainers can delete their own avatar"
   on storage.objects for delete to authenticated
-  using (bucket_id = 'trainer-avatars' and storage.foldername(name)[1] = auth.uid()::text);
+  using (
+    bucket_id = 'trainer-avatars'
+    and (storage.foldername(name))[1] = auth.uid()::text
+    and name in (auth.uid()::text || '/profile.jpg', auth.uid()::text || '/profile.png', auth.uid()::text || '/profile.webp')
+    and exists (select 1 from public.profiles where id = (select auth.uid()) and role = 'trainer')
+  );
 
 do $$
 begin

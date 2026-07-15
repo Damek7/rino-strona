@@ -11,6 +11,7 @@
     route: 'discover',
     authMode: 'login',
     selectedTrainer: null,
+    trainerPhotoDataUrl: null,
     selectedSlot: null,
     resumeBooking: false,
     selectedDate: null,
@@ -69,6 +70,23 @@
     })
   }
 
+  async function prepareTrainerPhoto(file) {
+    const source = await readFileAsDataUrl(file)
+    const image = new Image()
+    await new Promise((resolve, reject) => {
+      image.addEventListener('load', resolve, { once: true })
+      image.addEventListener('error', () => reject(new Error('Nie udało się przygotować zdjęcia.')), { once: true })
+      image.src = source
+    })
+    const scale = Math.min(1, 720 / Math.max(image.naturalWidth, image.naturalHeight))
+    const canvas = document.createElement('canvas')
+    canvas.width = Math.max(1, Math.round(image.naturalWidth * scale))
+    canvas.height = Math.max(1, Math.round(image.naturalHeight * scale))
+    const context = canvas.getContext('2d')
+    context.drawImage(image, 0, 0, canvas.width, canvas.height)
+    return canvas.toDataURL('image/jpeg', 0.82)
+  }
+
   function updateTrainerPhotoField() {
     const form = $('#authForm')
     const field = $('#trainerPhotoField')
@@ -79,6 +97,7 @@
   }
 
   function clearTrainerPhotoPreview() {
+    state.trainerPhotoDataUrl = null
     const preview = $('#trainerPhotoPreview')
     preview.classList.remove('has-photo')
     preview.style.backgroundImage = ''
@@ -326,7 +345,6 @@
       return
     }
     trainers.forEach(trainer => results.appendChild(renderTrainerCard(trainer)))
-    if (!state.selectedTrainer) state.selectedTrainer = trainers[0]
   }
 
   async function selectTrainer(trainer) {
@@ -759,7 +777,8 @@
       const preview = $('#trainerPhotoPreview')
       try {
         const file = helpers.validateTrainerPhoto(event.currentTarget.files?.[0])
-        preview.style.backgroundImage = `url("${await readFileAsDataUrl(file)}")`
+        state.trainerPhotoDataUrl = await prepareTrainerPhoto(file)
+        preview.style.backgroundImage = `url("${state.trainerPhotoDataUrl}")`
         preview.classList.add('has-photo')
         preview.textContent = ''
         $('#authError').textContent = ''
@@ -910,7 +929,7 @@
         const input = { email: values.get('email'), password: values.get('password') }
         if (state.authMode === 'register') {
           Object.assign(input, { fullName: values.get('fullName'), role: values.get('role'), acceptTerms: values.get('acceptTerms') === 'on' })
-          if (input.role === 'trainer') input.avatarDataUrl = await readFileAsDataUrl(helpers.validateTrainerPhoto(form.elements.trainerPhoto.files?.[0]))
+          if (input.role === 'trainer') input.avatarDataUrl = state.trainerPhotoDataUrl || await prepareTrainerPhoto(helpers.validateTrainerPhoto(form.elements.trainerPhoto.files?.[0]))
         }
         const result = state.authMode === 'register' ? await state.store.signUp(input) : await state.store.signIn(input)
         if (result.needsConfirmation) {
