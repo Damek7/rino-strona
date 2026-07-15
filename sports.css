@@ -228,12 +228,14 @@
   transform: translateX(-4px) scale(.94);
 }
 
-.sport-band:hover .sport-band-media img {
-  transform: translateX(8px) rotate(1deg);
-}
+@media (hover: hover) and (pointer: fine) {
+  .sport-band:hover .sport-band-media img {
+    transform: translateX(8px) rotate(1deg);
+  }
 
-.sport-band--media-right:hover .sport-band-media img {
-  transform: translateX(-8px) rotate(-1deg);
+  .sport-band--media-right:hover .sport-band-media img {
+    transform: translateX(-8px) rotate(-1deg);
+  }
 }
 
 .sport-band:hover .sport-band-arrow {

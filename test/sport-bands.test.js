@@ -56,6 +56,12 @@ test('sport motion is progressive, accessible and reduced-motion safe', () => {
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/)
 })
 
+test('sport mascot motion runs only on precise hover devices', () => {
+  const css = fs.readFileSync(sportsCssPath, 'utf8')
+  const hoverMotion = /@media\s*\(hover:\s*hover\)\s*and\s*\(pointer:\s*fine\)\s*\{[\s\S]*?\.sport-band:hover\s+\.sport-band-media\s+img\s*\{[\s\S]*?transform:\s*translateX\(8px\)\s+rotate\(1deg\);[\s\S]*?\.sport-band--media-right:hover\s+\.sport-band-media\s+img\s*\{[\s\S]*?transform:\s*translateX\(-8px\)\s+rotate\(-1deg\);/
+  assert.match(css, hoverMotion)
+})
+
 test('navigation displays the supplied Rino Move wordmark beside the mascot', () => {
   assert.match(html, /class="site-wordmark"\s+src="assets\/rino-move-wordmark\.png"/)
   assert.equal(fs.existsSync(path.join(root, 'assets', 'rino-move-wordmark.png')), true)
