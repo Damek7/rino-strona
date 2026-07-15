@@ -12,19 +12,19 @@ test('trainer landing is available as a local subpage', () => {
   assert.match(html, /class="site-nav"/)
   assert.match(html, /Bez wiadomo/)
   assert.match(html, /Trener i terminy/)
-  assert.match(html, /assets\/rino-logo\.png/)
+  assert.match(html, /assets\/Rino-logo-v10\.png/)
   assert.match(html, /assets\/tennis-back-serve\.png/)
 })
 
 test('trainer landing assets are present in the main project', () => {
-  assert.equal(fs.existsSync(path.join(root, 'assets', 'rino-logo.png')), true)
+  assert.equal(fs.existsSync(path.join(root, 'assets', 'Rino-logo-v10.png')), true)
   assert.equal(fs.existsSync(path.join(root, 'assets', 'tennis-back-serve.png')), true)
 })
 
 test('trainer landing uses the mascot and wordmark logo assets', () => {
   const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
 
-  assert.equal((html.match(/assets\/Rino-logo-v9\.png/g) || []).length, 2)
+  assert.equal((html.match(/assets\/Rino-logo-v10\.png/g) || []).length, 2)
   assert.equal((html.match(/assets\/rino-move-wordmark\.png/g) || []).length, 2)
 })
 
