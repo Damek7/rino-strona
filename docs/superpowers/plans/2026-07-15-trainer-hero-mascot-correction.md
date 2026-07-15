@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Restore the existing calendar/rating/profile cards and refine the trainer mascot cap to look only moderately oversized while the mascot continues to replace the rackets.
+**Goal:** Keep the restored calendar/rating/profile cards and refine the trainer mascot so its moderately oversized cap rests on its head while the left hand only touches the brim.
 
 **Architecture:** Edit only the mascot bitmap and the trainer-hero-specific CSS. Keep the existing card markup and content untouched, remove the trainer-hero rule that hides those cards, and layer the mascot where the racket stage previously lived.
 
@@ -13,7 +13,8 @@
 - The calendar, rating, and trainer profile cards stay visible with unchanged HTML content.
 - The mascot replaces only the former racket layer.
 - The burgundy `TRENER` cap is approximately 20–30% wider than the mascot's head, slightly low-set, and does not dominate the body or hide the face and antennae.
-- The mascot's left hand continues to hold the brim.
+- The cap physically rests on the head without a visible gap or floating effect.
+- The mascot's open, relaxed left hand only touches the brim with its fingertips; it does not grip, support, or lift the cap.
 - Preserve unrelated worktree changes.
 
 ---
@@ -30,11 +31,11 @@
 
 - [ ] **Step 1: Edit the current mascot with built-in ImageGen**
 
-Change only the cap scale and its fit. Preserve body, face, two antennae, pose, left hand on the brim, colors, `TRENER` spelling, lighting, framing, and 3D style. Render on uniform `#00ff00` for local background removal.
+Change only the cap-to-head contact and the left-hand gesture. Lower the cap so it visibly rests on the head. Open and relax the left hand so only the fingertips lightly touch the brim without gripping, supporting, or lifting it. Preserve the moderately oversized scale, body, face, two antennae, colors, `TRENER` spelling, lighting, framing, and 3D style. Render on uniform `#00ff00` for local background removal.
 
 - [ ] **Step 2: Inspect and remove the chroma key**
 
-Confirm the cap is only moderately oversized, the face and antennae remain visible, `TRENER` is correct, and the left hand still touches the brim. Run the installed chroma-key helper and validate RGBA mode, transparent corners, and nonempty alpha coverage.
+Confirm the cap is only moderately oversized and rests directly on the head, the face and antennae remain visible, `TRENER` is correct, and the open left hand merely touches the brim. Run the installed chroma-key helper and validate RGBA mode, transparent corners, and nonempty alpha coverage.
 
 ---
 
@@ -82,7 +83,7 @@ Require zero failures.
 
 - [ ] **Step 2: Verify both browser viewports**
 
-Confirm the calendar, rating, and trainer cards are visible; the mascot replaces the rackets beneath them; cap proportions match the “father's cap on a child” effect; `TRENER`, face, antennae, and left hand remain readable; and `scrollWidth === clientWidth`.
+Confirm the calendar, rating, and trainer cards are visible; the mascot replaces the rackets beneath them; the cap rests on the head with “father's cap on a child” proportions; the open left hand only touches the brim; `TRENER`, face, and antennae remain readable; and `scrollWidth === clientWidth`.
 
 - [ ] **Step 3: Run final checks**
 

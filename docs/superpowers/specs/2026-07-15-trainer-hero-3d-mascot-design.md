@@ -17,8 +17,8 @@ Wybrany jest wariant 3.
 - Jedna pełna postać Rino w miękkim, przyjaznym stylu 3D zgodnym z istniejącymi plikami `Rino-*-3d-blue.png`.
 - Kanoniczna sylwetka: jasnoniebieskie ciało, dwie antenki zakończone kulkami, krótkie kończyny, dwa grafitowe oczy i prosty uśmiech; bez symbolu na tułowiu.
 - Postać stoi frontem w swobodnej, pewnej pozie.
-- Na głowie ma bordową czapkę z daszkiem, umiarkowanie za dużą — jak czapka ojca założona przez dziecko. Czapka jest około 20–30% za szeroka względem głowy i lekko opada, ale nie dominuje nad całą postacią oraz nie zasłania twarzy ani antenek.
-- Lewa ręka postaci podtrzymuje daszek czapki. Prawa ręka pozostaje w naturalnej, prostej pozie.
+- Na głowie ma bordową czapkę z daszkiem, umiarkowanie za dużą — jak czapka ojca założona przez dziecko. Czapka jest około 20–30% za szeroka względem głowy, lekko opada i fizycznie spoczywa na głowie bez szczeliny ani efektu lewitacji, ale nie dominuje nad całą postacią oraz nie zasłania twarzy ani antenek.
+- Otwarta, rozluźniona lewa ręka postaci jedynie lekko dotyka daszka opuszkami. Nie chwyta, nie podtrzymuje ani nie unosi czapki. Prawa ręka pozostaje w naturalnej, prostej pozie.
 - Na przednim panelu czapki znajduje się tylko napis `TRENER`, zapisany dokładnie w tej formie, jasnymi czytelnymi literami.
 - Brak rakiet, piłek, dodatkowych postaci, podłoża, ramek, znaków wodnych i dodatkowych napisów.
 - Asset końcowy ma przezroczyste tło, pełną sylwetkę i bezpieczny margines.
@@ -49,8 +49,8 @@ Wybrany jest wariant 3.
 
 - Rakiety zniknęły wyłącznie z hero podstrony dla trenerów.
 - W ich miejscu widoczna jest jedna spójna z marką maskotka Rino 3D.
-- Czapka jest bordowa, umiarkowanie za duża w efekcie „czapki ojca na dziecku” i znajduje się na głowie.
+- Czapka jest bordowa, umiarkowanie za duża w efekcie „czapki ojca na dziecku” i spoczywa na głowie bez widocznej szczeliny.
 - Napis `TRENER` jest poprawny i czytelny.
-- Lewa ręka maskotki podtrzymuje daszek.
+- Otwarta lewa ręka maskotki tylko lekko dotyka daszka opuszkami; nie chwyta, nie podtrzymuje ani nie unosi czapki.
 - Karty kalendarza, oceny i profilu są widoczne, zachowują dotychczasową treść, a reszta strony pozostaje bez zmian.
 - Desktop i mobile nie mają poziomego przewijania ani istotnego kadrowania postaci.
