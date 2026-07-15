@@ -31,7 +31,7 @@ test('trust proof uses verified platform facts and a client CTA', () => {
   assert.match(html, /Profil zweryfikowany/)
   assert.match(html, /Cena widoczna przed rezerwacją/)
   assert.match(html, /Opinia po odbytym treningu/)
-  assert.match(html, /href="panel\.html"[^>]*>Zobacz trenerów</)
+  assert.match(html, /href="#zapisy"[^>]*>Zapisz się</)
 })
 
 test('journey stylesheet is responsive and motion safe', () => {

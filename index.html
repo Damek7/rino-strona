@@ -322,13 +322,11 @@
         <img class="site-wordmark" src="assets/rino-move-wordmark.png" alt="Rino Move">
       </a>
       <div id="main-menu" class="desktop-nav {{ menuClass }}">
-        <a href="panel.html" onClick="{{ closeMenu }}">Znajdź trenera</a>
         <a href="#jak-to-dziala" onClick="{{ closeMenu }}">Jak to działa</a>
         <a href="dla-trenerow.html" onClick="{{ closeMenu }}">Dla trenerów</a>
-        <a href="panel.html#login" onClick="{{ closeMenu }}">Zaloguj się</a>
-        <a class="btn btn-primary nav-register" href="panel.html#register">Załóż konto</a>
+        <a class="btn btn-primary nav-register" href="#zapisy">Zapisz się</a>
       </div>
-      <a class="btn nav-mobile-cta" href="panel.html#register">Załóż konto</a>
+      <a class="btn nav-mobile-cta" href="#zapisy">Zapisz się</a>
       <button class="mobile-menu-button" type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuExpanded }}" aria-controls="main-menu" aria-label="Otwórz lub zamknij menu">☰</button>
     </nav>
   </div>
@@ -342,9 +340,9 @@
       <div class="hero-copy">
         <span class="hero-eyebrow">Ruch zaczyna się od właściwej osoby</span>
         <h1>Znajdź trenera, z którym naprawdę zaczniesz.</h1>
-        <p class="hero-lead">Wybierz sport, porównaj zweryfikowane profile i zarezerwuj pierwszy trening — bez telefonów i szukania po całym internecie.</p>
+        <p class="hero-lead">Budujemy prosty sposób na znalezienie sprawdzonego trenera i rezerwację treningu w Warszawie. Zapisz się, a damy Ci znać przed startem.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="panel.html">Znajdź trenera</a>
+          <a class="btn btn-primary" href="#zapisy">Zapisz się</a>
           <a class="btn-text" href="#jak-to-dziala">Zobacz, jak to działa <span class="arw">→</span></a>
         </div>
         <div class="hero-proof" aria-label="Korzyści dla klienta"><span>Zweryfikowane profile</span><span>Jasna cena</span><span>Rezerwacja online</span></div>
@@ -369,14 +367,14 @@
 
     <div class="wrap sport-screens">
       <div class="sport-screen" aria-label="Sporty 1 z 2">
-        <a class="sport-band sport-band--tenis sport-band--media-left reveal" href="panel.html" aria-label="Tenis — znajdź trenera">
+        <a class="sport-band sport-band--tenis sport-band--media-left reveal" href="#zapisy" aria-label="Tenis — zapisz się na start">
           <span class="sport-band-number" aria-hidden="true">01</span>
           <span class="sport-band-media" aria-hidden="true"><img src="assets/Rino-tenis-serve-3d-blue.png" alt="" loading="lazy"></span>
           <span class="sport-band-copy"><strong>Tenis</strong><span>Od pierwszego odbicia do pewnej gry na korcie.</span></span>
           <span class="sport-band-arrow" aria-hidden="true">↗</span>
         </a>
 
-        <a class="sport-band sport-band--padel sport-band--media-right reveal" href="panel.html" aria-label="Padel — znajdź trenera">
+        <a class="sport-band sport-band--padel sport-band--media-right reveal" href="#zapisy" aria-label="Padel — zapisz się na start">
           <span class="sport-band-number" aria-hidden="true">02</span>
           <span class="sport-band-media" aria-hidden="true"><img src="assets/Rino-padel-3d-blue.png" alt="" loading="lazy"></span>
           <span class="sport-band-copy"><strong>Padel</strong><span>Poznaj zasady, złap rytm i wejdź do gry.</span></span>
@@ -392,7 +390,7 @@
       </div>
 
       <div class="sport-screen" aria-label="Sporty 2 z 2">
-        <a class="sport-band sport-band--golf sport-band--media-right reveal" href="panel.html" aria-label="Golf — znajdź trenera">
+        <a class="sport-band sport-band--golf sport-band--media-right reveal" href="#zapisy" aria-label="Golf — zapisz się na start">
           <span class="sport-band-number" aria-hidden="true">04</span>
           <span class="sport-band-media" aria-hidden="true"><img src="assets/Rino-golf-3d-blue.png" alt="" loading="lazy"></span>
           <span class="sport-band-copy"><strong>Golf</strong><span>Spokojny start, lepszy swing i więcej pewności.</span></span>
@@ -406,7 +404,7 @@
           <span class="sport-band-arrow" aria-hidden="true">↗</span>
         </a>
 
-        <a class="sport-band sport-band--boks sport-band--media-right reveal" href="panel.html" aria-label="Boks — znajdź trenera">
+        <a class="sport-band sport-band--boks sport-band--media-right reveal" href="#zapisy" aria-label="Boks — zapisz się na start">
           <span class="sport-band-number" aria-hidden="true">06</span>
           <span class="sport-band-media" aria-hidden="true"><img src="assets/Rino-boks-3d-blue.png" alt="" loading="lazy"></span>
           <span class="sport-band-copy"><strong>Boks</strong><span>Praca nóg, technika i kondycja bez chaosu.</span></span>
@@ -479,7 +477,7 @@
         <span class="trust-proof-eyebrow">Pewny pierwszy krok</span>
         <h2>Nie musisz znać się na sporcie, żeby dobrze wybrać.</h2>
         <p>RinoMove porządkuje informacje, które zwykle są rozrzucone po profilach, wiadomościach i stronach klubów.</p>
-        <a class="btn btn-primary" href="panel.html">Zobacz trenerów</a>
+        <a class="btn btn-primary" href="#zapisy">Zapisz się</a>
       </div>
       <div class="trust-proof-list">
         <div>
@@ -574,7 +572,7 @@
         <p class="lead"><strong>Nie budujemy kolejnego katalogu trenerów.</strong> Dajemy Ci jedno miejsce do pozyskiwania klientów i obsługi całego treningu — bez podawania prywatnego numeru.</p>
         <div class="trainer-product-actions">
           <a href="dla-trenerow.html" class="btn btn-primary">Zobacz stronę dla trenerów</a>
-          <a href="#zapisy" onClick="{{ pickTrener }}" class="trainer-text-link">Dołącz bez opłat <span aria-hidden="true">→</span></a>
+              <a href="#zapisy" class="trainer-text-link">Dołącz bez opłat <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <div class="trainer-benefit-grid reveal" aria-label="Korzyści dla trenerów">
@@ -605,70 +603,34 @@
   <!-- ===== ZAPISY ===== -->
   <section id="zapisy" class="signup" data-screen-label="Zapisy">
     <div class="wrap">
-      <div id="konto" class="account-entry reveal">
-        <div class="account-entry-copy">
-          <span class="account-eyebrow">Twoje konto RinoMove</span>
-          <h2>Zacznij jako klient.<br>Rozwijaj się jako trener.</h2>
-          <p>Jedno miejsce do szukania treningów, rezerwacji i prowadzenia sportowej pracy.</p>
-        </div>
-        <div class="account-paths">
-          <a class="account-path account-path--client" href="panel.html#register">
-            <span class="account-path-tag">Klient</span>
-            <strong>Chcę znaleźć trenera</strong>
-            <span>Porównuj profile, wybieraj terminy i trzymaj wszystkie treningi pod ręką.</span>
-            <b>Załóż konto klienta <span aria-hidden="true">→</span></b>
-          </a>
-          <a class="account-path account-path--trainer" href="panel.html?role=trainer#register">
-            <span class="account-path-tag">Trener</span>
-            <strong>Chcę prowadzić treningi</strong>
-            <span>Po utworzeniu konta poprosimy Cię o certyfikaty do weryfikacji.</span>
-            <b>Załóż konto trenera <span aria-hidden="true">→</span></b>
-          </a>
-        </div>
-      </div>
       <div class="signup-card">
-        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
-          <div>
-            <h2>{{ signupTitle }}</h2>
-            <p class="sub">{{ signupSubtitle }}</p>
-          </div>
-          <div class="seg">
-            <button onClick="{{ pickKlientBtn }}" style="background:{{ klientBg }}; color:{{ klientFg }};">Szukam trenera</button>
-            <button onClick="{{ pickTrenerBtn }}" style="background:{{ trenerBg }}; color:{{ trenerFg }};">Jestem trenerem</button>
-          </div>
+        <div class="signup-intro">
+          <span class="signup-kicker">Start wkrótce</span>
+          <h2>Zapisz się jako trener</h2>
+          <p class="sub">Zostaw podstawowe informacje. Odezwiemy się przed startem i krótko poznamy Twój sposób pracy.</p>
+        </div>
+        <form class="trainer-signup-form" data-trainer-signup data-source="homepage">
           <div class="field">
-            <label for="signup-name">Imię</label>
-            <input id="signup-name" name="name" autocomplete="name" required type="text" placeholder="Wpisz imię" value="{{ name }}" onChange="{{ onName }}">
+            <label for="signup-name">Imię i nazwisko</label>
+            <input id="signup-name" name="name" autocomplete="name" required minlength="2" maxlength="80" type="text" placeholder="Wpisz imię i nazwisko">
           </div>
           <div class="field">
             <label for="signup-email">Adres e-mail</label>
-            <input id="signup-email" name="email" autocomplete="email" required type="email" placeholder="np. imie@example.pl" value="{{ email }}" onChange="{{ onEmail }}">
+            <input id="signup-email" name="email" autocomplete="email" required maxlength="120" type="email" placeholder="np. imie@example.pl">
           </div>
           <div class="field">
-            <label>{{ discLabel }}</label>
-            <div class="chips">
-              <sc-for list="{{ discChips }}" as="chip" hint-placeholder-count="5">
-                <button onClick="{{ chip.pick }}" class="chip" style="border-color:{{ chip.border }}; background:{{ chip.bg }}; color:{{ chip.fg }};">{{ chip.name }}</button>
-              </sc-for>
-            </div>
+            <label for="signup-discipline">Dyscyplina</label>
+            <input id="signup-discipline" name="discipline" required minlength="2" maxlength="80" type="text" placeholder="np. tenis, boks, padel">
           </div>
           <label class="rodo">
-            <input type="checkbox" onChange="{{ onRodo }}">
-            <span>Wyrażam zgodę na przetwarzanie moich danych osobowych w celu kontaktu dotyczącego startu platformy (RODO). Administrator danych i pełna klauzula informacyjna zostaną podane w wiadomości powitalnej.</span>
+            <input type="checkbox" name="consent" required>
+            <span>Wyrażam zgodę na kontakt w sprawie startu RinoMove i przetwarzanie danych w tym celu.</span>
           </label>
-          <button onClick="{{ submit }}" disabled="{{ submitDisabled }}" class="btn btn-primary btn-block" style="{{ submitStyle }}">{{ submitLabel }}</button>
+          <div class="form-trap" aria-hidden="true" hidden><label>Strona internetowa<input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <button type="submit" class="btn btn-primary btn-block">Zapisz się</button>
           <div class="signup-trust" aria-label="Informacje o zapisie"><span>Bez zobowiązań</span><span>Zero spamu</span><span>Kontakt przed startem</span></div>
-          <sc-if value="{{ hasSubmitError }}" hint-placeholder-val="{{ false }}">
-            <p role="alert" style="color:#9B1C1C; font-size:14px; font-weight:600;">{{ submitError }}</p>
-          </sc-if>
-        </sc-if>
-        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
-          <div class="success">
-            <img src="assets/Rino-logo-v10.png" alt="RinoMove">
-            <h2 style="font-size:22px; font-weight:700;">Jesteś na liście</h2>
-            <p class="muted" style="max-width:380px;">Odezwiemy się, gdy wystartujemy w Warszawie. Dziękujemy za zaufanie.</p>
-          </div>
-        </sc-if>
+          <p class="signup-status" data-signup-status role="status" aria-live="polite"></p>
+        </form>
       </div>
     </div>
   </section>
@@ -712,12 +674,6 @@
 <script type="text/x-dc" data-dc-script data-props="{}">
 class Component extends DCLogic {
   state = {
-    role: 'klient',
-    disc: null,
-    name: '', email: '', rodo: false,
-    submitted: false,
-    submitting: false,
-    submitError: '',
     openFaq: null,
     menuOpen: false,
   };
@@ -738,22 +694,8 @@ class Component extends DCLogic {
       image: d.image,
       alt: d.alt,
       soonClass: d.soon ? 'soon' : '',
-      href: d.soon ? '#zapisy' : 'panel.html',
+      href: '#zapisy',
     }));
-
-    const discChips = discDefs.map(d => {
-      const on = s.disc === d.id;
-      return {
-        name: d.name,
-        bg: on ? '#1A191E' : '#FFFFFF',
-        fg: on ? '#FFFFFF' : '#3A3941',
-        border: on ? '#1A191E' : '#E9E7EB',
-        pick: () => this.setState({ disc: on ? null : d.id }),
-      };
-    });
-
-    const emailOk = s.email.includes('@') && s.email.includes('.');
-    const canSubmit = emailOk && s.rodo && s.name.trim().length > 0;
 
     const faqData = [
       { q: 'Ile kosztuje trening?', a: 'Stawki ustalają trenerzy. W Warszawie to zwykle 150-300 zł za godzinę, zależnie od dyscypliny i doświadczenia. Cennik każdego trenera widzisz na jego profilu przed rezerwacją.' },
@@ -775,8 +717,6 @@ class Component extends DCLogic {
       closeMenu: () => this.setState({ menuOpen: false }),
       menuExpanded: s.menuOpen ? 'true' : 'false',
       menuClass: s.menuOpen ? 'menu-open' : '',
-      name: s.name,
-      email: s.email,
       disciplines,
       perks: [
         '0 zł dla trenerów-założycieli',
@@ -784,52 +724,12 @@ class Component extends DCLogic {
         'Kalendarz i płatności online',
         'Nowi klienci z Twojej dzielnicy',
       ],
-      pickTrener: () => this.setState({ role: 'trener' }),
-      pickKlientBtn: () => this.setState({ role: 'klient' }),
-      pickTrenerBtn: () => this.setState({ role: 'trener' }),
-      klientBg: s.role === 'klient' ? '#1A191E' : 'transparent',
-      klientFg: s.role === 'klient' ? '#FFFFFF' : '#565560',
-      trenerBg: s.role === 'trener' ? '#1A191E' : 'transparent',
-      trenerFg: s.role === 'trener' ? '#FFFFFF' : '#565560',
-      discLabel: s.role === 'trener' ? 'Jaką dyscyplinę trenujesz?' : 'Jaka dyscyplina Cię interesuje?',
-      signupTitle: s.role === 'trener' ? 'Dołącz do programu założycielskiego' : 'Bądź pierwszy, gdy startujemy',
-      signupSubtitle: s.role === 'trener' ? 'Dołącz do programu założycielskiego za 0 zł. Najpierw krótko poznamy Twój sposób pracy.' : 'Zostaw kontakt. Odezwiemy się przed startem w Warszawie.',
-      discChips,
-      onName: (e) => this.setState({ name: e.target.value }),
-      onEmail: (e) => this.setState({ email: e.target.value }),
-      onRodo: (e) => this.setState({ rodo: e.target.checked }),
-      submit: async () => {
-        if (!canSubmit || s.submitting) return;
-        const endpoint = window.RINO_WAITLIST_ENDPOINT;
-        if (!endpoint) {
-          this.setState({ submitError: 'Formularz nie jest jeszcze podłączony do systemu zapisów. Spróbuj ponownie po uruchomieniu zapisów.' });
-          return;
-        }
-        this.setState({ submitting: true, submitError: '' });
-        try {
-          const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: s.name.trim(), email: s.email.trim(), role: s.role, discipline: s.disc }),
-          });
-          if (!response.ok) throw new Error('HTTP ' + response.status);
-          this.setState({ submitted: true, submitting: false });
-        } catch (error) {
-          this.setState({ submitting: false, submitError: 'Nie udało się wysłać formularza. Sprawdź połączenie i spróbuj ponownie.' });
-        }
-      },
-      submitDisabled: !canSubmit || s.submitting,
-      submitStyle: canSubmit ? '' : 'background:#B7B6BD;',
-      submitLabel: s.submitting ? 'Wysyłanie…' : (s.role === 'trener' ? 'Zapisz mnie jako trenera' : 'Zapisz mnie na listę'),
-      submitError: s.submitError,
-      hasSubmitError: Boolean(s.submitError),
-      submitted: s.submitted,
-      notSubmitted: !s.submitted,
       faqs,
     };
   }
 }
 </script>
+<script src="trainer-signup.js"></script>
 <script>
   (() => {
     document.documentElement.classList.add('has-js');

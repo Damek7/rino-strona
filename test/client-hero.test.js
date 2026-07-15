@@ -8,7 +8,7 @@ const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
 
 test('homepage hero speaks only to clients', () => {
   assert.match(html, /Znajdź trenera, z którym naprawdę zaczniesz\./)
-  assert.match(html, /href="panel\.html"[^>]*>Znajdź trenera</)
+  assert.match(html, /class="hero-cta"[\s\S]*?href="#zapisy"[^>]*>Zapisz się</)
   assert.match(html, /href="#jak-to-dziala"[^>]*>Zobacz, jak to działa/)
   assert.doesNotMatch(html, /Rekrutujemy trenerów-założycieli/)
   assert.doesNotMatch(html, /Dołącz jako trener/)

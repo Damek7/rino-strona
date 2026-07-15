@@ -11,7 +11,7 @@ test('homepage does not contain the weekly trainers showcase', () => {
   assert.doesNotMatch(html, /href="#trenerzy"/)
 })
 
-test('trainer discovery routes directly to the existing panel', () => {
-  assert.match(html, /href="panel\.html"[^>]*>Znajdź trenera</)
-  assert.equal((html.match(/class="sport-band[^\n]+href="panel\.html"/g) || []).length, 4)
+test('trainer discovery remains hidden until the marketplace launches', () => {
+  assert.doesNotMatch(html, /panel\.html/)
+  assert.equal((html.match(/class="sport-band[^\n]+href="#zapisy"/g) || []).length, 6)
 })

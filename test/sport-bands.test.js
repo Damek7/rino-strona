@@ -29,8 +29,8 @@ test('sport bands contain approved copy and destinations', () => {
   assert.match(html, /Technika, oddech i swoboda w wodzie\./)
   assert.match(html, /Praca nóg, technika i kondycja bez chaosu\./)
   assert.equal((html.match(/class="sport-band-badge">Wkrótce</g) || []).length, 2)
-  assert.equal((html.match(/class="sport-band[^\n]+href="panel\.html"/g) || []).length, 4)
-  assert.equal((html.match(/class="sport-band[^\n]+href="#zapisy"/g) || []).length, 2)
+  assert.equal((html.match(/class="sport-band[^\n]+href="#zapisy"/g) || []).length, 6)
+  assert.doesNotMatch(html, /class="sport-band[^\n]+href="panel\.html"/)
 })
 
 test('sport choice uses all required Rino assets', () => {
