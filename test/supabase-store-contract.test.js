@@ -42,6 +42,8 @@ test('Supabase store uploads trainer avatars and preserves pending confirmation 
   assert.match(source, /pending-trainer-avatar/)
   assert.match(source, /indexedDB/)
   assert.doesNotMatch(source, /const pendingStorage = globalThis\.sessionStorage/)
+  assert.match(source, /transaction\.addEventListener\('complete', \(\) => \{[\s\S]+resolve\(requestResult\)/)
+  assert.match(source, /transaction\.addEventListener\('abort', \(\) => \{[\s\S]+reject/)
   assert.match(source, /avatar_url/)
   assert.match(source, /profile:profiles![^(]+\(full_name,avatar_url\)/)
 })

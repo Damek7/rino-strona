@@ -11,6 +11,7 @@
     route: 'discover',
     authMode: 'login',
     selectedTrainer: null,
+    bookingFlowActive: false,
     trainerPhotoDataUrl: null,
     selectedSlot: null,
     resumeBooking: false,
@@ -245,7 +246,7 @@
 
   function allowedRoutes() {
     const routes = helpers.navigationForRole(state.user?.role || 'client').map(item => item.route)
-    if (state.user?.role === 'trainer' || state.selectedTrainer) routes.push('calendar')
+    if (state.user?.role === 'trainer' || (state.bookingFlowActive && state.selectedTrainer)) routes.push('calendar')
     return routes
   }
 
@@ -256,6 +257,10 @@
       setAuthMode('login')
       openDialog('authDialog')
       return
+    }
+    if (next !== 'calendar') {
+      state.bookingFlowActive = false
+      state.selectedTrainer = null
     }
     state.route = next
     if (next !== 'messages' && state.messagePoll) {
@@ -349,6 +354,7 @@
 
   async function selectTrainer(trainer) {
     state.selectedTrainer = trainer
+    state.bookingFlowActive = true
     state.selectedDate = null
     state.weekAnchor = null
     await navigate('calendar')

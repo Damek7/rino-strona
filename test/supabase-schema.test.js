@@ -101,6 +101,9 @@ test('trainer avatar bucket is public while writes stay inside the trainer folde
 })
 
 test('trainer profiles cannot be published without an uploaded avatar', () => {
-  assert.match(sql, /create function private\.validate_trainer_publish\(\)[\s\S]+bucket_id = 'trainer-avatars'[\s\S]+raise exception/i)
+  assert.match(sql, /avatar_required boolean not null default false/i)
+  assert.match(sql, /create function private\.validate_trainer_publish\(\)[\s\S]+avatar_required[\s\S]+bucket_id = 'trainer-avatars'[\s\S]+raise exception/i)
   assert.match(sql, /create trigger trainer_profiles_validate_publish[\s\S]+execute function private\.validate_trainer_publish\(\)/i)
+  assert.match(sql, /create function private\.validate_profile_avatar\(\)[\s\S]+published[\s\S]+raise exception/i)
+  assert.match(sql, /on storage\.objects for delete[\s\S]+not exists[\s\S]+trainer_profiles[\s\S]+published = true/i)
 })

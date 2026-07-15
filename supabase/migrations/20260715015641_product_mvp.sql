@@ -11,6 +11,7 @@ create table public.profiles (
   role text not null check (role in ('client', 'trainer')),
   phone text,
   avatar_url text,
+  avatar_required boolean not null default false,
   accepted_terms_at timestamptz not null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -158,8 +159,8 @@ begin
   end;
   if accepted_at is null then raise exception 'accepted_terms_at is required'; end if;
 
-  insert into public.profiles (id, full_name, email, role, accepted_terms_at)
-  values (new.id, requested_name, coalesce(new.email, ''), requested_role, accepted_at);
+  insert into public.profiles (id, full_name, email, role, accepted_terms_at, avatar_required)
+  values (new.id, requested_name, coalesce(new.email, ''), requested_role, accepted_at, requested_role = 'trainer');
 
   insert into public.notification_preferences (user_id, after_training)
   values (new.id, requested_role = 'trainer');
@@ -177,18 +178,53 @@ language plpgsql
 security definer
 set search_path = ''
 as $$
+declare
+  profile public.profiles;
 begin
-  if new.published and not exists (
-    select 1
-    from storage.objects avatar
-    where avatar.bucket_id = 'trainer-avatars'
-      and avatar.name in (
-        new.user_id::text || '/profile.jpg',
-        new.user_id::text || '/profile.png',
-        new.user_id::text || '/profile.webp'
-      )
+  select * into profile from public.profiles where id = new.user_id;
+  if profile.avatar_required and new.published and (
+    profile.avatar_url is null or not exists (
+      select 1
+      from storage.objects avatar
+      where avatar.bucket_id = 'trainer-avatars'
+        and avatar.name in (
+          new.user_id::text || '/profile.jpg',
+          new.user_id::text || '/profile.png',
+          new.user_id::text || '/profile.webp'
+        )
+    )
   ) then
     raise exception 'trainer avatar is required before publication';
+  end if;
+  return new;
+end;
+$$;
+
+create function private.validate_profile_avatar()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if new.role = 'trainer' and new.avatar_required and new.avatar_url is distinct from old.avatar_url then
+    if new.avatar_url is null and exists (
+      select 1 from public.trainer_profiles where user_id = new.id and published = true
+    ) then
+      raise exception 'unpublish trainer profile before removing its avatar';
+    end if;
+    if new.avatar_url is not null and not exists (
+      select 1 from storage.objects avatar
+      where avatar.bucket_id = 'trainer-avatars'
+        and avatar.name in (
+          new.id::text || '/profile.jpg',
+          new.id::text || '/profile.png',
+          new.id::text || '/profile.webp'
+        )
+        and new.avatar_url like '%/storage/v1/object/public/trainer-avatars/' || avatar.name
+    ) then
+      raise exception 'trainer avatar must reference an uploaded profile image';
+    end if;
   end if;
   return new;
 end;
@@ -345,6 +381,7 @@ begin
 end;
 $$;
 
+create trigger profiles_validate_avatar before update on public.profiles for each row execute function private.validate_profile_avatar();
 create trigger profiles_touch_updated before update on public.profiles for each row execute function private.touch_updated_at();
 create trigger trainer_profiles_validate_publish before update on public.trainer_profiles for each row execute function private.validate_trainer_publish();
 create trigger trainer_profiles_touch_updated before update on public.trainer_profiles for each row execute function private.touch_updated_at();
@@ -376,6 +413,7 @@ revoke all on public.profiles, public.trainer_profiles, public.availability_slot
 revoke all on function private.touch_updated_at() from public;
 revoke all on function private.create_profile_for_new_user() from public;
 revoke all on function private.validate_trainer_publish() from public;
+revoke all on function private.validate_profile_avatar() from public;
 revoke all on function private.prepare_booking() from public;
 revoke all on function private.validate_availability_write() from public;
 revoke all on function private.finalize_booking() from public;
@@ -524,6 +562,7 @@ create policy "Trainers can delete their own avatar"
     and (storage.foldername(name))[1] = auth.uid()::text
     and name in (auth.uid()::text || '/profile.jpg', auth.uid()::text || '/profile.png', auth.uid()::text || '/profile.webp')
     and exists (select 1 from public.profiles where id = (select auth.uid()) and role = 'trainer')
+    and not exists (select 1 from public.trainer_profiles where user_id = (select auth.uid()) and published = true)
   );
 
 do $$
