@@ -28,18 +28,35 @@ test('trainer landing uses the mascot and wordmark logo assets', () => {
   assert.equal((html.match(/assets\/rino-move-wordmark\.png/g) || []).length, 2)
 })
 
-test('trainer landing returns to the homepage and uses the trainer mascot hero visual', () => {
+test('trainer landing returns to the homepage and uses the trainer mascot below hero', () => {
   const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
 
   assert.equal((html.match(/href="index\.html"/g) || []).length >= 3, true)
   assert.match(html, /Wróć na stronę główną/)
   assert.match(html, /class="hero trainer-home-hero"/)
-  assert.match(html, /class="hero-mascot-stage"/)
-  assert.match(html, /class="hero-trainer-mascot"/)
+  assert.match(html, /class="trainer-mascot-showcase"/)
+  assert.match(html, /class="trainer-lower-mascot"/)
   assert.match(html, /assets\/Rino-trener-3d-blue\.png/)
   assert.match(html, /Maskotka Rino w za dużej bordowej czapce z napisem TRENER/)
   assert.equal((html.match(/hero-racket--/g) || []).length, 0)
   assert.equal(fs.existsSync(path.join(root, 'assets', 'Rino-trener-3d-blue.png')), true)
+})
+
+test('trainer mascot is outside hero and inside the manifesto section', () => {
+  const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
+  const heroStart = html.indexOf('<header class="hero trainer-home-hero"')
+  const heroEnd = html.indexOf('</header>', heroStart) + '</header>'.length
+  const manifestoStart = html.indexOf('<section class="manifesto"')
+  const manifestoEnd = html.indexOf('</section>', manifestoStart) + '</section>'.length
+  const hero = html.slice(heroStart, heroEnd)
+  const manifesto = html.slice(manifestoStart, manifestoEnd)
+
+  assert.doesNotMatch(hero, /Rino-trener-3d-blue\.png|hero-mascot-stage|hero-trainer-mascot/)
+  assert.match(manifesto, /class="wrap manifesto-layout"/)
+  assert.match(manifesto, /class="trainer-mascot-showcase"/)
+  assert.match(manifesto, /class="trainer-lower-mascot"/)
+  assert.match(manifesto, /assets\/Rino-trener-3d-blue\.png/)
+  assert.equal((html.match(/assets\/Rino-trener-3d-blue\.png/g) || []).length, 1)
 })
 
 test('trainer hero keeps the calendar, rating and profile cards visible above the mascot', () => {
@@ -54,12 +71,15 @@ test('trainer hero keeps the calendar, rating and profile cards visible above th
   )
 })
 
-test('trainer hero compacts the calendar stack without changing the mobile card position', () => {
+test('trainer hero compacts the card-only visual without changing the mobile card position', () => {
   const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
 
-  assert.match(html, /\.trainer-home-hero \.availability-card\{z-index:2;inset:78px 210px auto 0;/)
+  assert.match(html, /\.trainer-home-hero \.hero-visual\{align-self:center;min-height:520px\}/)
+  assert.match(html, /\.trainer-home-hero \.availability-card\{z-index:2;inset:78px 24px auto 0;/)
   assert.match(html, /\.trainer-home-hero \.trainer-card\{top:400px;bottom:auto\}/)
-  assert.match(html, /\.trainer-home-hero \.availability-card\{inset:60px 180px auto 0\}/)
+  assert.match(html, /\.trainer-home-hero \.hero-visual\{min-height:500px\}/)
+  assert.match(html, /\.trainer-home-hero \.availability-card\{inset:60px 0 auto 0\}/)
   assert.match(html, /\.trainer-home-hero \.trainer-card\{top:382px\}/)
   assert.match(html, /\.trainer-home-hero \.trainer-card\{top:auto;bottom:0\}/)
+  assert.match(html, /\.trainer-home-hero \.hero-visual\{min-height:410px\}/)
 })
