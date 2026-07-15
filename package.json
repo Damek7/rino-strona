@@ -7,9 +7,10 @@
     "test": "node --test"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.110.5",
     "playwright": "^1.61.1"
   }
 }
