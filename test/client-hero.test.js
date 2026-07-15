@@ -54,3 +54,12 @@ test('mobile and tablet hero content starts below the floating navigation', () =
     /@media \(max-width: 820px\)[\s\S]*?#top\.client-hero \.hero \{[^}]*padding-top: 96px;/
   )
 })
+
+test('homepage hero background covers the full viewport height', () => {
+  const css = fs.readFileSync(path.join(root, 'hero.css'), 'utf8')
+
+  assert.match(css, /#top\.client-hero\s*\{[^}]*min-height:\s*100dvh;/s)
+  assert.match(css, /#top\.client-hero \.hero\s*\{[^}]*min-height:\s*100dvh;/s)
+  assert.doesNotMatch(css, /min-height:\s*calc\(100dvh - 82px\)/)
+  assert.doesNotMatch(css, /#top\.client-hero,\s*#top\.client-hero \.hero\s*\{[^}]*min-height:\s*auto;/s)
+})

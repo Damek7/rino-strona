@@ -1,6 +1,6 @@
 #top.client-hero {
   position: relative;
-  min-height: calc(100dvh - 82px);
+  min-height: 100dvh;
   overflow: clip;
   isolation: isolate;
   background:
@@ -12,7 +12,7 @@
 #top.client-hero .hero {
   position: relative;
   z-index: 1;
-  min-height: calc(100dvh - 82px);
+  min-height: 100dvh;
   display: grid;
   grid-template-columns: minmax(480px, 0.92fr) minmax(500px, 1.08fr);
   align-items: center;
@@ -246,7 +246,7 @@
 @media (max-width: 920px) {
   #top.client-hero,
   #top.client-hero .hero {
-    min-height: auto;
+    min-height: 100dvh;
   }
 
   #top.client-hero .hero {
