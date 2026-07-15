@@ -11,6 +11,8 @@ function memoryStorage() {
   }
 }
 
+const trainerAvatar = 'data:image/webp;base64,AA=='
+
 test('demo store signs in seeded client and restores the session', async () => {
   const store = createDemoStore(memoryStorage())
   const session = await store.signIn({ email: 'ania@demo.rinomove.pl', password: 'RinoDemo123' })
@@ -28,13 +30,27 @@ test('demo registration validates uniqueness and persists a trainer profile', as
     password: 'MocneHaslo123',
     role: 'trainer',
     acceptTerms: true,
+    avatarDataUrl: trainerAvatar,
   })
 
   assert.equal(session.user.role, 'trainer')
   await assert.rejects(() => store.signUp({
-    fullName: 'Jan Trener', email: 'JAN@example.pl', password: 'MocneHaslo123', role: 'trainer', acceptTerms: true,
+    fullName: 'Jan Trener', email: 'JAN@example.pl', password: 'MocneHaslo123', role: 'trainer', acceptTerms: true, avatarDataUrl: trainerAvatar,
   }), /już istnieje/)
   assert.equal((await createDemoStore(storage).getSession()).user.id, session.user.id)
+})
+
+test('new trainer requires a photo and keeps it after restoring demo state', async () => {
+  const storage = memoryStorage()
+  const store = createDemoStore(storage)
+  const input = { fullName: 'Jan Trener', email: 'jan2@example.pl', password: 'MocneHaslo123', role: 'trainer', acceptTerms: true }
+
+  await assert.rejects(() => store.signUp(input), /zdjęcie/i)
+  await store.signUp({ ...input, avatarDataUrl: trainerAvatar })
+
+  const restored = createDemoStore(storage)
+  assert.equal((await restored.getSession()).user.avatarUrl, trainerAvatar)
+  assert.equal((await restored.getTrainerProfile()).avatarUrl, trainerAvatar)
 })
 
 test('client booking reserves a slot and creates a conversation', async () => {
@@ -95,7 +111,7 @@ test('message, preferences and trainer earnings mutations persist', async () => 
 test('trainer can read their own profile before publication', async () => {
   const store = createDemoStore(memoryStorage())
   const session = await store.signUp({
-    fullName: 'Nowa Trenerka', email: 'nowa@example.pl', password: 'MocneHaslo123', role: 'trainer', acceptTerms: true,
+    fullName: 'Nowa Trenerka', email: 'nowa@example.pl', password: 'MocneHaslo123', role: 'trainer', acceptTerms: true, avatarDataUrl: trainerAvatar,
   })
 
   const profile = await store.getTrainerProfile()

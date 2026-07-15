@@ -53,6 +53,38 @@
     return String(name || 'Rino Move').split(/\s+/).filter(Boolean).slice(0, 2).map(part => part[0]).join('').toUpperCase()
   }
 
+  function applyAvatar(node, url, name) {
+    const hasPhoto = Boolean(url)
+    node.classList.toggle('has-photo', hasPhoto)
+    node.style.backgroundImage = hasPhoto ? `url("${String(url).replaceAll('"', '%22')}")` : ''
+    node.textContent = hasPhoto ? '' : initials(name)
+  }
+
+  function readFileAsDataUrl(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.addEventListener('load', () => resolve(reader.result), { once: true })
+      reader.addEventListener('error', () => reject(new Error('Nie udało się odczytać zdjęcia.')), { once: true })
+      reader.readAsDataURL(file)
+    })
+  }
+
+  function updateTrainerPhotoField() {
+    const form = $('#authForm')
+    const field = $('#trainerPhotoField')
+    const input = form.elements.trainerPhoto
+    const visible = state.authMode === 'register' && form.elements.role.value === 'trainer'
+    field.hidden = !visible
+    input.required = visible
+  }
+
+  function clearTrainerPhotoPreview() {
+    const preview = $('#trainerPhotoPreview')
+    preview.classList.remove('has-photo')
+    preview.style.backgroundImage = ''
+    preview.textContent = 'Dodaj'
+  }
+
   function formatDate(value, options = {}) {
     if (!value) return '—'
     const date = new Date(value)
@@ -129,8 +161,10 @@
     $('#nameField').hidden = !registering
     $('#roleField').hidden = !registering
     $('#termsField').hidden = !registering
+    $('#authForm').elements.fullName.required = registering
     $('#authSubmit').textContent = registering ? 'Załóż konto' : 'Zaloguj się'
     $('#authForm').elements.password.autocomplete = registering ? 'new-password' : 'current-password'
+    updateTrainerPhotoField()
     $('#authError').textContent = ''
   }
 
@@ -139,14 +173,14 @@
     const name = state.user?.fullName || state.user?.name || ''
     $('#accountLabel').textContent = loggedIn ? name.split(' ')[0] : 'Zaloguj się'
     $('#accountRole').textContent = loggedIn ? (state.user.role === 'trainer' ? 'Konto trenera' : 'Konto klienta') : 'Twoje konto'
-    $('#accountAvatar').textContent = loggedIn ? initials(name) : 'RN'
+    applyAvatar($('#accountAvatar'), loggedIn ? state.user.avatarUrl : null, loggedIn ? name : 'RN')
     $('#authForm').hidden = loggedIn
     $('#authTabs').hidden = loggedIn
     $('#demoAccess').hidden = loggedIn || state.store?.mode !== 'demo'
     $('#accountPanel').hidden = !loggedIn
     if (loggedIn) {
       $('#authTitle').textContent = 'Twoje konto'
-      $('#modalAvatar').textContent = initials(name)
+      applyAvatar($('#modalAvatar'), state.user.avatarUrl, name)
       $('#modalName').textContent = name
       $('#modalEmail').textContent = state.user.email || ''
     }
@@ -242,7 +276,9 @@
   }
 
   function trainerAvatar(trainer) {
-    return element('span', 'trainer-avatar', initials(trainer.name))
+    const avatar = element('span', 'trainer-avatar')
+    applyAvatar(avatar, trainer.avatarUrl, trainer.name)
+    return avatar
   }
 
   function renderTrainerCard(trainer) {
@@ -671,7 +707,9 @@
     const preview = $('#profilePreview')
     preview.replaceChildren(element('span', 'eyebrow', 'Podgląd'))
     const name = state.user?.fullName || state.user?.name || 'Twój profil'
-    preview.append(element('span', 'trainer-avatar', initials(name)), element('h2', '', name), element('p', '', profile.bio || 'Dodaj opis sposobu współpracy.'), element('p', '', `${profile.disciplines?.join(', ') || 'Dyscyplina'} · ${profile.district || 'Lokalizacja'}`), element('strong', '', `${domain.formatMoney(profile.hourlyRate || 0)} / godz.`), element('span', statusClass(profile.published ? 'confirmed' : 'cancelled'), profile.published ? 'Profil widoczny' : 'Profil ukryty'))
+    const avatar = element('span', 'trainer-avatar')
+    applyAvatar(avatar, profile.avatarUrl || state.user?.avatarUrl, name)
+    preview.append(avatar, element('h2', '', name), element('p', '', profile.bio || 'Dodaj opis sposobu współpracy.'), element('p', '', `${profile.disciplines?.join(', ') || 'Dyscyplina'} · ${profile.district || 'Lokalizacja'}`), element('strong', '', `${domain.formatMoney(profile.hourlyRate || 0)} / godz.`), element('span', statusClass(profile.published ? 'confirmed' : 'cancelled'), profile.published ? 'Profil widoczny' : 'Profil ukryty'))
   }
 
   async function loadPreferences() {
@@ -716,6 +754,21 @@
     })
     $$('[data-close-dialog]').forEach(action => action.addEventListener('click', () => closeDialog(action.dataset.closeDialog)))
     $$('[data-auth]').forEach(action => action.addEventListener('click', () => setAuthMode(action.dataset.auth)))
+    $('#authForm').elements.role.addEventListener('change', updateTrainerPhotoField)
+    $('#authForm').elements.trainerPhoto.addEventListener('change', async event => {
+      const preview = $('#trainerPhotoPreview')
+      try {
+        const file = helpers.validateTrainerPhoto(event.currentTarget.files?.[0])
+        preview.style.backgroundImage = `url("${await readFileAsDataUrl(file)}")`
+        preview.classList.add('has-photo')
+        preview.textContent = ''
+        $('#authError').textContent = ''
+      } catch (error) {
+        event.currentTarget.value = ''
+        clearTrainerPhotoPreview()
+        $('#authError').textContent = error.message
+      }
+    })
     $$('[data-route-to]').forEach(action => action.addEventListener('click', () => navigate(action.dataset.routeTo)))
     $('#searchForm').addEventListener('submit', event => {
       event.preventDefault()
@@ -850,12 +903,15 @@
       event.preventDefault()
       const form = event.currentTarget
       const submit = $('#authSubmit')
-      const values = new FormData(form)
-      const input = { email: values.get('email'), password: values.get('password') }
-      if (state.authMode === 'register') Object.assign(input, { fullName: values.get('fullName'), role: values.get('role'), acceptTerms: values.get('acceptTerms') === 'on' })
       setBusy(submit, true, state.authMode === 'register' ? 'Tworzymy konto…' : 'Logujemy…')
       $('#authError').textContent = ''
       try {
+        const values = new FormData(form)
+        const input = { email: values.get('email'), password: values.get('password') }
+        if (state.authMode === 'register') {
+          Object.assign(input, { fullName: values.get('fullName'), role: values.get('role'), acceptTerms: values.get('acceptTerms') === 'on' })
+          if (input.role === 'trainer') input.avatarDataUrl = await readFileAsDataUrl(helpers.validateTrainerPhoto(form.elements.trainerPhoto.files?.[0]))
+        }
         const result = state.authMode === 'register' ? await state.store.signUp(input) : await state.store.signIn(input)
         if (result.needsConfirmation) {
           setAuthMode('login')
@@ -867,6 +923,8 @@
         await updateSession(result.user)
         closeDialog('authDialog')
         form.reset()
+        clearTrainerPhotoPreview()
+        updateTrainerPhotoField()
         showToast(state.authMode === 'register' ? 'Konto jest gotowe.' : 'Zalogowano.')
         await navigate(shouldResumeBooking ? 'calendar' : (result.user.role === 'trainer' ? 'overview' : 'discover'))
         if (shouldResumeBooking) openDialog('bookingDialog')
