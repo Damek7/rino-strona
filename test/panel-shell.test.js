@@ -12,7 +12,7 @@ const css = fs.readFileSync(cssPath, 'utf8')
 test('panel uses a focused stylesheet and modular data scripts', () => {
   assert.match(html, /href="panel\.css"/)
   assert.doesNotMatch(html, /<style>/)
-  for (const source of ['/vendor/supabase.js', 'lib/domain.js', 'lib/demo-store.js', 'lib/supabase-store.js', 'lib/app-store.js', 'lib/panel-helpers.js', 'panel.js']) {
+  for (const source of ['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.5/dist/umd/supabase.js', 'lib/domain.js', 'lib/demo-store.js', 'lib/supabase-store.js', 'lib/app-store.js', 'lib/panel-helpers.js', 'panel.js']) {
     assert.match(html, new RegExp(`src="${source.replace(/[./]/g, '\\$&')}"`))
   }
   assert.equal(fs.existsSync(cssPath), true)
