@@ -287,10 +287,16 @@
   }
 }
 
+@media (max-width: 820px) {
+  #top.client-hero .hero {
+    padding-top: 96px;
+  }
+}
+
 @media (max-width: 600px) {
   #top.client-hero .hero {
     gap: 22px;
-    padding-block: 52px 38px;
+    padding-bottom: 38px;
   }
 
   #top.client-hero .hero-copy {

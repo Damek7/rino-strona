@@ -45,3 +45,12 @@ test('hero styles preserve brand colors and mobile behavior', () => {
   assert.match(css, /@media\s*\(max-width:\s*920px\)/)
   assert.match(css, /prefers-reduced-motion:\s*reduce/)
 })
+
+test('mobile and tablet hero content starts below the floating navigation', () => {
+  const css = fs.readFileSync(path.join(root, 'hero.css'), 'utf8')
+
+  assert.match(
+    css,
+    /@media \(max-width: 820px\)[\s\S]*?#top\.client-hero \.hero \{[^}]*padding-top: 96px;/
+  )
+})
