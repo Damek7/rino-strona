@@ -7,6 +7,7 @@ const root = path.join(__dirname, '..')
 const html = fs.readFileSync(path.join(root, 'panel.html'), 'utf8')
 const cssPath = path.join(root, 'panel.css')
 const js = fs.readFileSync(path.join(root, 'panel.js'), 'utf8')
+const css = fs.readFileSync(cssPath, 'utf8')
 
 test('panel uses a focused stylesheet and modular data scripts', () => {
   assert.match(html, /href="panel\.css"/)
@@ -34,12 +35,14 @@ test('account dialog supports both roles and demo quick access', () => {
   assert.match(html, /data-demo-login="client"/)
   assert.match(html, /data-demo-login="trainer"/)
   assert.match(html, /name="acceptTerms"/)
+  assert.match(js, /authMode:\s*'login'/)
+  assert.match(js, /accountButton[\s\S]+setAuthMode\('login'\)[\s\S]+openDialog\('authDialog'\)/)
+  assert.match(css, /dialog#authDialog::backdrop\s*\{[^}]*background:\s*#fff[^}]*backdrop-filter:\s*none/s)
 })
 
 test('navigation icons are SVG and panel is responsive and motion safe', () => {
   assert.match(html, /<symbol id="icon-calendar"/)
   assert.doesNotMatch(html, /class="nav-icon">[^<]+</)
-  const css = fs.readFileSync(cssPath, 'utf8')
   assert.match(css, /@media\s*\(max-width:\s*820px\)/)
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/)
   assert.doesNotMatch(css, /transition:\s*all\b/)

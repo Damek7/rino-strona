@@ -38,8 +38,8 @@ test('calendar can move exactly one week in either direction', () => {
   assert.equal(shiftWeek(new Date('2026-07-15T12:00:00'), 1).slice(0, 10), '2026-07-22')
 })
 
-test('client navigation exposes discovery, calendar, bookings, messages and settings', () => {
-  assert.deepEqual(navigationForRole('client').map(item => item.route), ['discover', 'calendar', 'bookings', 'messages', 'settings'])
+test('client navigation keeps calendar inside the booking flow', () => {
+  assert.deepEqual(navigationForRole('client').map(item => item.route), ['discover', 'bookings', 'messages', 'settings'])
 })
 
 test('panel connects discovery and booking controls to store methods', () => {
@@ -50,4 +50,5 @@ test('panel connects discovery and booking controls to store methods', () => {
   assert.match(js, /prevWeek/)
   assert.match(js, /nextWeek/)
   assert.match(js, /resumeBooking/)
+  assert.match(js, /selectedTrainer[\s\S]+calendar/)
 })

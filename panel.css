@@ -275,6 +275,7 @@ input[role="switch"]:checked::before { transform: translateX(20px); }
 
 dialog { width: min(92vw, 530px); max-height: min(90dvh, 840px); padding: 0; overflow: auto; border: 0; border-radius: var(--radius-lg); background: transparent; box-shadow: var(--shadow-md); }
 dialog::backdrop { background: rgba(28,27,32,.6); backdrop-filter: blur(6px); }
+dialog#authDialog::backdrop { background: #fff; backdrop-filter: none; }
 .dialog-card { padding: 26px; background: #fff; }
 #moreDialog { width: min(92vw, 430px); overflow-x: hidden; }
 .more-dialog { width: 100%; }

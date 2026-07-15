@@ -9,7 +9,7 @@
     store: null,
     user: null,
     route: 'discover',
-    authMode: 'register',
+    authMode: 'login',
     selectedTrainer: null,
     selectedSlot: null,
     resumeBooking: false,
@@ -191,7 +191,9 @@
   }
 
   function allowedRoutes() {
-    return helpers.navigationForRole(state.user?.role || 'client').map(item => item.route)
+    const routes = helpers.navigationForRole(state.user?.role || 'client').map(item => item.route)
+    if (state.user?.role === 'trainer' || state.selectedTrainer) routes.push('calendar')
+    return routes
   }
 
   async function navigate(route, options = {}) {
@@ -709,6 +711,7 @@
   function setupEvents() {
     $('#accountButton').addEventListener('click', () => {
       renderAccount()
+      if (!state.user) setAuthMode('login')
       openDialog('authDialog')
     })
     $$('[data-close-dialog]').forEach(action => action.addEventListener('click', () => closeDialog(action.dataset.closeDialog)))
@@ -911,7 +914,7 @@
       if (requestedAuthMode) {
         setAuthMode(requestedAuthMode)
         openDialog('authDialog')
-      } else setAuthMode('register')
+      } else setAuthMode('login')
       const session = await state.store.getSession()
       await updateSession(session?.user || null)
       const routeFromHash = window.location.hash.slice(1)
