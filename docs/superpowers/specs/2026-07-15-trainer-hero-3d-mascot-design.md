@@ -17,7 +17,7 @@ Wybrany jest wariant 3.
 - Jedna pełna postać Rino w miękkim, przyjaznym stylu 3D zgodnym z istniejącymi plikami `Rino-*-3d-blue.png`.
 - Kanoniczna sylwetka: jasnoniebieskie ciało, dwie antenki zakończone kulkami, krótkie kończyny, dwa grafitowe oczy i prosty uśmiech; bez symbolu na tułowiu.
 - Postać stoi frontem w swobodnej, pewnej pozie.
-- Na głowie ma celowo zdecydowanie za dużą bordową czapkę z daszkiem. Czapka jest szeroka, nisko osadzona i lekko zsunięta, aby przesadna skala była jednoznacznie zamierzona.
+- Na głowie ma bordową czapkę z daszkiem, umiarkowanie za dużą — jak czapka ojca założona przez dziecko. Czapka jest około 20–30% za szeroka względem głowy i lekko opada, ale nie dominuje nad całą postacią oraz nie zasłania twarzy ani antenek.
 - Lewa ręka postaci podtrzymuje daszek czapki. Prawa ręka pozostaje w naturalnej, prostej pozie.
 - Na przednim panelu czapki znajduje się tylko napis `TRENER`, zapisany dokładnie w tej formie, jasnymi czytelnymi literami.
 - Brak rakiet, piłek, dodatkowych postaci, podłoża, ramek, znaków wodnych i dodatkowych napisów.
@@ -27,7 +27,7 @@ Wybrany jest wariant 3.
 
 - Nowy plik: `assets/Rino-trener-3d-blue.png`.
 - W `dla-trenerow.html` element `.hero-racket-stage` i trzy obrazy rakiet zostaną zastąpione pojedynczym elementem `.hero-mascot-stage` z obrazem `.hero-trainer-mascot`.
-- Karty `.availability-card`, `.rating-card` i `.trainer-card` pozostaną bez zmian.
+- Karty `.availability-card`, `.rating-card` i `.trainer-card` pozostaną widoczne i bez zmian treści. Maskotka zajmie dokładnie warstwę dawnych rakiet pod tymi kartami.
 - Style maskotki zostaną dodane w istniejącym lokalnym arkuszu strony, ze skalą i pozycją dopasowaną osobno dla desktopu, tabletu i telefonu.
 - Wejście maskotki będzie krótkie i subtelne; `prefers-reduced-motion: reduce` wyłączy animację.
 
@@ -49,8 +49,8 @@ Wybrany jest wariant 3.
 
 - Rakiety zniknęły wyłącznie z hero podstrony dla trenerów.
 - W ich miejscu widoczna jest jedna spójna z marką maskotka Rino 3D.
-- Czapka jest bordowa, wyraźnie za duża i znajduje się na głowie.
+- Czapka jest bordowa, umiarkowanie za duża w efekcie „czapki ojca na dziecku” i znajduje się na głowie.
 - Napis `TRENER` jest poprawny i czytelny.
 - Lewa ręka maskotki podtrzymuje daszek.
-- Karty kalendarza, oceny i profilu oraz reszta strony pozostają bez zmian.
+- Karty kalendarza, oceny i profilu są widoczne, zachowują dotychczasową treść, a reszta strony pozostaje bez zmian.
 - Desktop i mobile nie mają poziomego przewijania ani istotnego kadrowania postaci.
