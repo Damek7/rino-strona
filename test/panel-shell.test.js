@@ -41,6 +41,7 @@ test('account dialog supports both roles and demo quick access', () => {
   assert.match(js, /authMode:\s*'login'/)
   assert.match(js, /accountButton[\s\S]+setAuthMode\('login'\)[\s\S]+openDialog\('authDialog'\)/)
   assert.match(css, /dialog#authDialog::backdrop\s*\{[^}]*background:\s*#fff[^}]*backdrop-filter:\s*none/s)
+  assert.match(css, /html\s+\[hidden\]\s*\{\s*display:\s*none\s*!important;?\s*\}/)
 })
 
 test('navigation icons are SVG and panel is responsive and motion safe', () => {
