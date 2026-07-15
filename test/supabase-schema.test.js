@@ -89,3 +89,11 @@ test('past slots cannot be published or booked and booked slots cannot be edited
   assert.match(sql, /old\.status = 'booked'[\s\S]+booked slots cannot be changed/i)
   assert.match(sql, /selected_slot\.starts_at <= now\(\)[\s\S]+slot is in the past/i)
 })
+
+test('trainer avatar bucket is public while writes stay inside the trainer folder', () => {
+  assert.match(sql, /insert into storage\.buckets[\s\S]+trainer-avatars[\s\S]+public/i)
+  assert.match(sql, /on storage\.objects for select[\s\S]+bucket_id = 'trainer-avatars'/i)
+  assert.match(sql, /on storage\.objects for insert[\s\S]+storage\.foldername\(name\)\[1\][\s\S]+auth\.uid\(\)::text/i)
+  assert.match(sql, /on storage\.objects for update[\s\S]+with check[\s\S]+storage\.foldername\(name\)\[1\][\s\S]+auth\.uid\(\)::text/i)
+  assert.match(sql, /on storage\.objects for delete[\s\S]+storage\.foldername\(name\)\[1\][\s\S]+auth\.uid\(\)::text/i)
+})

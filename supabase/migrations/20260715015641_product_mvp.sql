@@ -116,6 +116,13 @@ create index conversation_members_user_idx on public.conversation_members (user_
 create index messages_sender_idx on public.messages (sender_id);
 create index reviews_client_idx on public.reviews (client_id);
 
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('trainer-avatars', 'trainer-avatars', true, 5242880, array['image/jpeg', 'image/png', 'image/webp'])
+on conflict (id) do update
+set public = excluded.public,
+    file_size_limit = excluded.file_size_limit,
+    allowed_mime_types = excluded.allowed_mime_types;
+
 create function private.touch_updated_at()
 returns trigger
 language plpgsql
@@ -459,6 +466,20 @@ create policy "Users can update their preferences"
   on public.notification_preferences for update to authenticated
   using ((select auth.uid()) = user_id)
   with check ((select auth.uid()) = user_id);
+
+create policy "Trainer avatars are public"
+  on storage.objects for select to anon, authenticated
+  using (bucket_id = 'trainer-avatars');
+create policy "Trainers can upload their own avatar"
+  on storage.objects for insert to authenticated
+  with check (bucket_id = 'trainer-avatars' and storage.foldername(name)[1] = auth.uid()::text);
+create policy "Trainers can update their own avatar"
+  on storage.objects for update to authenticated
+  using (bucket_id = 'trainer-avatars' and storage.foldername(name)[1] = auth.uid()::text)
+  with check (bucket_id = 'trainer-avatars' and storage.foldername(name)[1] = auth.uid()::text);
+create policy "Trainers can delete their own avatar"
+  on storage.objects for delete to authenticated
+  using (bucket_id = 'trainer-avatars' and storage.foldername(name)[1] = auth.uid()::text);
 
 do $$
 begin
