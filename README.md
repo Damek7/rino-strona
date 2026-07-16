@@ -40,12 +40,15 @@ npx supabase db push
 
 4. Uruchom serwer ponownie. `GET /api/config` zwróci wtedy tryb `supabase`; bez obu wartości bezpiecznie zwraca `demo`.
 
-Migracja tworzy profile, dostępność, rezerwacje, rozmowy, wiadomości, opinie i ustawienia powiadomień. Każda tabela publiczna ma włączone RLS, a wiadomości są przygotowane do Supabase Realtime.
+Migracje tworzą profile, publiczne galerie trenerów, dostępność, rezerwacje, rozmowy, wiadomości, opinie i ustawienia powiadomień. Każda tabela publiczna ma włączone RLS, a wiadomości są przygotowane do Supabase Realtime.
 
 ## Zakres produktu
 
 - konta klienta i trenera, sesja i nawigacja według roli,
-- wyszukiwarka oraz filtry trenerów,
+- publiczne wyszukiwanie trenerów po Warszawie, dzielnicy, sporcie i nazwisku,
+- sortowanie wyników po dopasowaniu, cenie, średniej ocenie i liczbie opinii,
+- publiczne profile z galerią, opisem, doświadczeniem, specjalizacjami i opiniami,
+- konto klienta wymagane dopiero przy przejściu do wolnych terminów i rezerwacji,
 - kalendarz tygodniowy, wolne godziny i blokady trenera,
 - rezerwacje oraz dozwolone zmiany statusów,
 - czat przypisany do rezerwacji i stan przeczytania,
