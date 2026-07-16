@@ -16,6 +16,8 @@ test('homepage contains the approved footer content and destinations', () => {
   assert.ok(footerMatch, 'semantic site footer should exist')
   assert.match(footerMarkup, /assets\/rino-footer-grip-3d\.png/)
   assert.match(footerMarkup, /<img src="assets\/rino-footer-grip-3d\.png" alt="" width="1565" height="1005">/)
+  assert.match(footerMarkup, /<img class="site-footer__wordmark" src="assets\/rino-move-wordmark\.png" alt="Rino Move">/)
+  assert.doesNotMatch(footerMarkup, /<span>RinoMove<\/span>/)
 
   for (const [href, label] of [
     ['#jak-to-dziala', 'Jak to działa'],
@@ -41,6 +43,7 @@ test('footer styling uses a blue-to-navy gradient and snow-white type', () => {
 
   assert.match(css, /linear-gradient\(180deg,\s*#176fbd\s+0%,\s*#0b3f86\s+48%,\s*#041b46\s+100%\)/i)
   assert.match(css, /\.site-footer,\s*\.site-footer a,\s*\.site-footer h2,\s*\.site-footer p,\s*\.site-footer span,\s*\.site-footer small\s*\{[^}]*color:\s*#fff;/s)
+  assert.match(css, /\.site-footer__wordmark\s*\{[^}]*filter:\s*brightness\(0\)\s+invert\(1\)/s)
   assert.match(css, /min-height:\s*40px/)
   assert.match(css, /@media\s*\(max-width:\s*760px\)/)
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/)
@@ -91,6 +94,28 @@ test('desktop mascot head dome begins at half the footer height', () => {
   assert.ok(ratio >= 0.49 && ratio <= 0.51, `head begins at ${(ratio * 100).toFixed(2)}%`)
 })
 
+test('every public subpage includes the shared footer with homepage destinations', () => {
+  const publicSubpages = [
+    'cookies.html',
+    'polityka-prywatnosci.html',
+    'regulamin.html',
+    'rodo.html',
+    'dla-trenerow.html',
+    'panel.html',
+  ]
+
+  for (const pageName of publicSubpages) {
+    const page = fs.readFileSync(path.join(root, pageName), 'utf8')
+    assert.match(page, /href="footer\.css(?:\?[^\"]*)?"/)
+    assert.match(page, /<footer class="site-footer"/)
+    assert.match(page, /assets\/rino-footer-grip-3d\.png/)
+    assert.match(page, /href="index\.html#faq"/)
+  }
+
+  const trainerPage = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
+  assert.equal((trainerPage.match(/<footer\b/g) || []).length, 1)
+})
+
 test('legal destinations are neutral UTF-8 placeholder pages', () => {
   const stylesheetPath = path.join(root, 'legal-placeholder.css')
   assert.equal(fs.existsSync(stylesheetPath), true, 'shared legal placeholder stylesheet should exist')
@@ -103,16 +128,20 @@ test('legal destinations are neutral UTF-8 placeholder pages', () => {
   ]) {
     const filePath = path.join(root, file)
     assert.equal(fs.existsSync(filePath), true, `${file} should exist`)
-    const page = fs.readFileSync(filePath, 'utf8')
+    let page = fs.readFileSync(filePath, 'utf8')
+    const mainMatch = page.match(/<main class="legal-placeholder">([\s\S]*?)<\/main>/)
+    const mainMarkup = mainMatch?.[0] || ''
 
     assert.match(page, /<meta charset="utf-8">/)
     assert.match(page, /<meta name="viewport" content="width=device-width, initial-scale=1">/)
     assert.match(page, new RegExp(`<title>${name} — RinoMove<\\/title>`))
-    assert.match(page, new RegExp(`<h1>${name}<\\/h1>`))
-    assert.match(page, /Dokument w przygotowaniu/)
-    assert.match(page, /Ostateczna wersja dokumentu zostanie opublikowana przed uruchomieniem platformy\./)
-    assert.match(page, /href="index\.html"/)
+    assert.ok(mainMatch, `${file} should keep its placeholder main`)
+    assert.match(mainMarkup, new RegExp(`<h1>${name}<\\/h1>`))
+    assert.match(mainMarkup, /Dokument w przygotowaniu/)
+    assert.match(mainMarkup, /Ostateczna wersja dokumentu zostanie opublikowana przed uruchomieniem platformy\./)
+    assert.match(mainMarkup, /href="index\.html"/)
     assert.match(page, /href="legal-placeholder\.css"/)
+    page = mainMarkup
     assert.doesNotMatch(page, /\b20\d{2}\b|<li>|<section|warunki korzystania|obowiązki użytkownika/i)
   }
 })
