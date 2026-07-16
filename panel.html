@@ -69,14 +69,47 @@
           <img class="heading-rino" src="assets/Rino-tenis-3d-blue.png" alt="Rino z rakietą tenisową">
         </div>
         <form class="filter-bar" id="searchForm">
-          <label class="search-field"><span class="sr-only">Szukaj trenera</span><svg aria-hidden="true"><use href="#icon-search"/></svg><input name="q" id="searchQuery" placeholder="Imię, dyscyplina lub poziom"></label>
-          <label><span class="sr-only">Dyscyplina</span><select name="discipline" id="discipline"><option value="">Każda dyscyplina</option><option value="tenis">Tenis</option><option value="boks">Boks</option><option value="padel">Padel</option><option value="golf">Golf</option><option value="squash">Squash</option><option value="pływanie">Pływanie</option></select></label>
-          <label><span class="sr-only">Dzielnica</span><select name="district" id="district"><option value="">Każda dzielnica</option></select></label>
-          <label><span class="sr-only">Cena maksymalna</span><select name="maxPrice" id="maxPrice"><option value="">Dowolna cena</option><option value="180">do 180 zł</option><option value="220">do 220 zł</option><option value="250">do 250 zł</option><option value="300">do 300 zł</option></select></label>
-          <button class="button button--primary" type="submit">Pokaż trenerów</button>
+          <label class="filter-segment"><span>Miasto</span><select name="city" id="city" required><option value="">Wybierz miasto</option><option value="Warszawa">Warszawa</option></select></label>
+          <label class="filter-segment"><span>Dzielnica</span><select name="district" id="district" disabled><option value="">Najpierw wybierz miasto</option></select></label>
+          <label class="filter-segment"><span>Sport</span><select name="discipline" id="discipline"><option value="">Każdy sport</option><option value="tenis">Tenis</option><option value="boks">Boks</option><option value="padel">Padel</option><option value="golf">Golf</option><option value="squash">Squash</option><option value="pływanie">Pływanie</option></select></label>
+          <label class="filter-segment search-field"><span>Trener</span><svg aria-hidden="true"><use href="#icon-search"/></svg><input name="q" id="searchQuery" autocomplete="off" placeholder="Imię lub nazwisko"></label>
+          <button class="button button--primary" type="submit">Znajdź trenera<svg aria-hidden="true"><use href="#icon-arrow"/></svg></button>
         </form>
-        <div class="result-meta"><p id="trainerCount">Szukamy najlepszych dopasowań…</p><span>Profile z potwierdzonym doświadczeniem</span></div>
+        <div class="result-controls" id="resultControls" hidden>
+          <p id="trainerCount"></p>
+          <div><button class="text-button" id="clearSearch" type="button">Wyczyść filtry</button><label>Sortuj<select id="trainerSort"><option value="relevance">Dopasowanie</option><option value="price-asc">Najniższa cena</option><option value="price-desc">Najwyższa cena</option><option value="rating-desc">Najlepsza średnia opinii</option><option value="reviews-desc">Najwięcej opinii</option></select></label></div>
+        </div>
         <div class="trainer-grid" id="trainerResults" aria-live="polite"></div>
+      </section>
+
+      <section class="view" id="view-trainer" data-route="trainer">
+        <button class="text-button profile-back" type="button" data-route-to="discover"><svg aria-hidden="true"><use href="#icon-arrow"/></svg>Wróć do wyników</button>
+        <div class="public-profile-layout">
+          <div class="public-profile-main">
+            <div class="trainer-gallery" id="trainerGallery" aria-live="polite"></div>
+            <article class="surface public-profile-copy">
+              <div class="public-profile-heading">
+                <div><span class="eyebrow" id="publicTrainerMeta">Profil trenera</span><h1 id="publicTrainerName">Trener RinoMove</h1></div>
+                <span class="status-chip status-chip--success" id="publicTrainerVerified">Zweryfikowany</span>
+              </div>
+              <p class="public-profile-rating" id="publicTrainerRating"></p>
+              <section aria-labelledby="trainerAboutTitle"><h2 id="trainerAboutTitle">O trenerze</h2><p id="publicTrainerBio"></p></section>
+              <section aria-labelledby="trainerExperienceTitle"><h2 id="trainerExperienceTitle">Doświadczenie</h2><p id="publicTrainerExperience"></p></section>
+              <section aria-labelledby="trainerSpecialtiesTitle"><h2 id="trainerSpecialtiesTitle">Specjalizacje</h2><div class="trainer-tags" id="publicTrainerSpecialties"></div></section>
+            </article>
+            <article class="surface">
+              <div class="section-title"><div><span class="eyebrow">Opinie klientów</span><h2>Jak trenuje się z tym trenerem</h2></div></div>
+              <div class="review-list" id="trainerReviews"></div>
+            </article>
+          </div>
+          <aside class="surface profile-booking-card">
+            <span class="eyebrow">Trening indywidualny</span>
+            <p class="profile-booking-price" id="publicTrainerPrice"></p>
+            <p>Wolne terminy zobaczysz po utworzeniu konta klienta lub zalogowaniu.</p>
+            <button class="button button--primary button--wide" id="profileReserve" type="button">Zarezerwuj trening</button>
+            <small>Bez opłat przed wyborem terminu.</small>
+          </aside>
+        </div>
       </section>
 
       <section class="view" id="view-overview" data-route="overview">
