@@ -15,6 +15,13 @@
     trainerPhotoDataUrl: null,
     selectedSlot: null,
     resumeBooking: false,
+    hasSearched: false,
+    searchFilters: { city: '', district: '', discipline: '', q: '' },
+    searchSort: 'relevance',
+    searchResults: [],
+    profileTrainerId: null,
+    activeGalleryIndex: 0,
+    pendingBookingTrainerId: null,
     selectedDate: null,
     weekAnchor: null,
     slots: [],
@@ -246,6 +253,7 @@
 
   function allowedRoutes() {
     const routes = helpers.navigationForRole(state.user?.role || 'client').map(item => item.route)
+    routes.push('trainer')
     if (state.user?.role === 'trainer' || (state.bookingFlowActive && state.selectedTrainer)) routes.push('calendar')
     return routes
   }
@@ -276,7 +284,8 @@
     window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
     activeView.setAttribute('aria-busy', 'true')
     try {
-      if (next === 'discover') await searchTrainers()
+      if (next === 'discover') renderDiscover()
+      if (next === 'trainer') await renderPublicTrainerProfile(options.trainerId || state.profileTrainerId)
       if (next === 'overview') await renderOverview()
       if (next === 'calendar') await renderCalendar()
       if (next === 'bookings') await renderBookings()
@@ -305,9 +314,21 @@
     return avatar
   }
 
+  function trainerCardMedia(trainer) {
+    const media = element('div', 'trainer-card-media')
+    const cover = trainer.gallery?.find(item => item.isCover) || trainer.gallery?.[0]
+    if (cover?.url) {
+      const image = document.createElement('img')
+      image.src = cover.url
+      image.alt = cover.alt || `Trener ${trainer.name}`
+      media.appendChild(image)
+    } else applyAvatar(media, trainer.avatarUrl, trainer.name)
+    return media
+  }
+
   function renderTrainerCard(trainer) {
     const card = element('article', 'trainer-card')
-    const avatar = trainerAvatar(trainer)
+    const media = trainerCardMedia(trainer)
     const info = element('div')
     const heading = element('h2', '', trainer.name)
     if (trainer.verified) {
@@ -324,32 +345,146 @@
     const footer = element('div', 'trainer-card-footer')
     const price = element('div', 'trainer-price')
     price.append(element('strong', '', domain.formatMoney(trainer.hourlyRate)), element('small', '', ' / godz.'))
-    const action = button('Zobacz terminy', 'button button--primary')
+    const action = button('Zobacz profil', 'button button--primary')
     action.appendChild(icon('arrow'))
-    action.addEventListener('click', () => selectTrainer(trainer))
+    action.addEventListener('click', () => openTrainerProfile(trainer.id))
     footer.append(price, action)
-    card.append(avatar, info, footer)
+    card.append(media, info, footer)
     return card
+  }
+
+  function renderSearchResults() {
+    const results = $('#trainerResults')
+    if (!state.hasSearched) {
+      $('#resultControls').hidden = true
+      results.replaceChildren(emptyState('Wybierz miasto i znajdź trenera', 'Po wyszukaniu porównasz profile, ceny i opinie.'))
+      return
+    }
+    $('#resultControls').hidden = false
+    const trainers = helpers.sortTrainers(state.searchResults, state.searchSort, state.searchFilters.q)
+    $('#trainerCount').textContent = trainers.length === 1 ? '1 dopasowany trener' : `${trainers.length} dopasowanych trenerów`
+    results.replaceChildren()
+    if (!trainers.length) {
+      results.appendChild(emptyState('Brak dopasowań', 'Zmień dzielnicę, sport albo nazwisko trenera.'))
+      return
+    }
+    trainers.forEach(trainer => results.appendChild(renderTrainerCard(trainer)))
+  }
+
+  function renderDiscover() {
+    renderSearchResults()
   }
 
   async function searchTrainers() {
     const results = $('#trainerResults')
     results.replaceChildren(emptyState('Szukamy trenerów…', 'Dopasowujemy profile do Twoich filtrów.'))
-    const form = new FormData($('#searchForm'))
-    const filters = helpers.normalizeFilters(Object.fromEntries(form))
-    const trainers = await state.store.listTrainers(filters)
+    state.searchFilters = helpers.normalizeFilters(Object.fromEntries(new FormData($('#searchForm'))))
+    if (!state.searchFilters.city) throw new Error('Najpierw wybierz miasto.')
+    state.searchResults = await state.store.listTrainers(state.searchFilters)
+    state.hasSearched = true
+    renderSearchResults()
+  }
+
+  async function populateDistricts(city) {
     const district = $('#district')
-    if (district.options.length === 1) {
-      const districts = [...new Set((await state.store.listTrainers()).map(item => item.district).filter(Boolean))].sort()
-      districts.forEach(value => district.add(new Option(value, value)))
-    }
-    $('#trainerCount').textContent = trainers.length === 1 ? '1 dopasowany trener' : `${trainers.length} dopasowanych trenerów`
-    results.replaceChildren()
-    if (!trainers.length) {
-      results.appendChild(emptyState('Brak dopasowań', 'Zmień dyscyplinę, dzielnicę albo limit ceny.'))
+    district.replaceChildren(new Option(city ? 'Każda dzielnica' : 'Najpierw wybierz miasto', ''))
+    district.disabled = !city
+    if (!city) return
+    const trainers = await state.store.listTrainers({ city })
+    const districts = [...new Set(trainers.map(item => item.district).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'pl'))
+    districts.forEach(value => district.add(new Option(value, value)))
+  }
+
+  function clearTrainerSearch() {
+    $('#searchForm').reset()
+    $('#trainerSort').value = 'relevance'
+    state.hasSearched = false
+    state.searchFilters = { city: '', district: '', discipline: '', q: '' }
+    state.searchSort = 'relevance'
+    state.searchResults = []
+    populateDistricts('').catch(() => {})
+    renderSearchResults()
+  }
+
+  async function openTrainerProfile(id) {
+    state.profileTrainerId = id
+    const trainer = state.searchResults.find(item => item.id === id) || { id }
+    history.pushState(null, '', `#trainer/${trainer.id}`)
+    await navigate('trainer', { fromHash: true, trainerId: id })
+  }
+
+  function renderTrainerGallery(trainer) {
+    const gallery = $('#trainerGallery')
+    gallery.replaceChildren()
+    const media = trainer.gallery || []
+    if (!media.length) {
+      const fallback = element('div', 'trainer-gallery-main trainer-gallery-fallback', initials(trainer.name))
+      gallery.appendChild(fallback)
       return
     }
-    trainers.forEach(trainer => results.appendChild(renderTrainerCard(trainer)))
+    const main = element('div', 'trainer-gallery-main')
+    const mainImage = document.createElement('img')
+    main.appendChild(mainImage)
+    const thumbs = element('div', 'trainer-gallery-thumbs')
+    const showImage = index => {
+      const selected = media[index] || media[0]
+      state.activeGalleryIndex = index
+      mainImage.src = selected.url
+      mainImage.alt = selected.alt || `Galeria trenera ${trainer.name}`
+      ;[...thumbs.children].forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index))
+    }
+    media.forEach((item, index) => {
+      const action = element('button', index === 0 ? 'is-active' : '')
+      action.type = 'button'
+      action.setAttribute('aria-label', `Pokaż zdjęcie ${index + 1}`)
+      const image = document.createElement('img')
+      image.src = item.url
+      image.alt = ''
+      action.appendChild(image)
+      action.addEventListener('click', () => showImage(index))
+      thumbs.appendChild(action)
+    })
+    gallery.append(main, thumbs)
+    showImage(0)
+  }
+
+  function renderTrainerReviews(trainer, reviews) {
+    const list = $('#trainerReviews')
+    list.replaceChildren()
+    $('#publicTrainerRating').textContent = `★ ${trainer.rating.toFixed(1)} · ${trainer.reviewCount} opinii`
+    if (!reviews.length) {
+      list.appendChild(emptyState('Pierwsze opinie wkrótce', 'Ten trener nie ma jeszcze publicznych opinii w RinoMove.'))
+      return
+    }
+    reviews.forEach(review => {
+      const card = element('article', 'review-card')
+      const header = document.createElement('header')
+      header.append(element('strong', '', review.authorName), element('span', 'public-profile-rating', `★ ${Number(review.rating).toFixed(1)}`))
+      card.append(header, element('p', '', review.body || 'Trening oceniony pozytywnie.'), element('small', '', formatShortDate(review.createdAt)))
+      list.appendChild(card)
+    })
+  }
+
+  async function renderPublicTrainerProfile(id) {
+    const [trainer, reviews] = await Promise.all([state.store.getPublicTrainer(id), state.store.listTrainerReviews(id)])
+    if (!trainer) {
+      $('#trainerGallery').replaceChildren(emptyState('Profil niedostępny', 'Trener mógł ukryć profil. Wróć do wyników wyszukiwania.'))
+      $('#profileReserve').disabled = true
+      return
+    }
+    state.profileTrainerId = trainer.id
+    state.activeGalleryIndex = 0
+    $('#publicTrainerName').textContent = trainer.name
+    $('#publicTrainerMeta').textContent = `${trainer.city} · ${trainer.district} · ${trainer.disciplines.join(', ')}`
+    $('#publicTrainerVerified').hidden = !trainer.verified
+    $('#publicTrainerBio').textContent = trainer.bio || 'Trener uzupełnia opis współpracy.'
+    $('#publicTrainerExperience').textContent = trainer.experience || 'Doświadczenie zostanie uzupełnione.'
+    $('#publicTrainerSpecialties').replaceChildren(...(trainer.specialties || []).map(value => element('span', '', value)))
+    $('#publicTrainerPrice').replaceChildren(element('strong', '', domain.formatMoney(trainer.hourlyRate)), document.createTextNode(' / godz.'))
+    $('#profileReserve').disabled = false
+    renderTrainerGallery(trainer)
+    renderTrainerReviews(trainer, reviews)
+    $('#profileReserve').onclick = () => startBooking(trainer)
   }
 
   async function selectTrainer(trainer) {
@@ -799,6 +934,14 @@
       event.preventDefault()
       searchTrainers().catch(error => showToast(error.message, 'error'))
     })
+    $('#city').addEventListener('change', event => {
+      populateDistricts(event.currentTarget.value).catch(error => showToast(error.message, 'error'))
+    })
+    $('#trainerSort').addEventListener('change', event => {
+      state.searchSort = event.currentTarget.value
+      renderSearchResults()
+    })
+    $('#clearSearch').addEventListener('click', clearTrainerSearch)
     $('#confirmBooking').addEventListener('click', confirmBooking)
     ;[['#prevWeek', -1], ['#nextWeek', 1]].forEach(([selector, direction]) => {
       $(selector).addEventListener('click', () => {
@@ -980,8 +1123,8 @@
       }
     }))
     window.addEventListener('hashchange', () => {
-      const hash = window.location.hash.slice(1)
-      if (allowedRoutes().includes(hash)) navigate(hash, { fromHash: true })
+      const parsed = helpers.parsePanelHash(window.location.hash)
+      if (allowedRoutes().includes(parsed.route)) navigate(parsed.route, { fromHash: true, trainerId: parsed.trainerId })
     })
   }
 
@@ -1000,9 +1143,9 @@
       } else setAuthMode('login')
       const session = await state.store.getSession()
       await updateSession(session?.user || null)
-      const routeFromHash = window.location.hash.slice(1)
-      const initialRoute = requestedAuthMode ? (state.user?.role === 'trainer' ? 'overview' : 'discover') : routeFromHash
-      await navigate(allowedRoutes().includes(initialRoute) ? initialRoute : (state.user?.role === 'trainer' ? 'overview' : 'discover'), { fromHash: true })
+      const parsedHash = helpers.parsePanelHash(window.location.hash)
+      const initialRoute = requestedAuthMode ? (state.user?.role === 'trainer' ? 'overview' : 'discover') : parsedHash.route
+      await navigate(allowedRoutes().includes(initialRoute) ? initialRoute : (state.user?.role === 'trainer' ? 'overview' : 'discover'), { fromHash: true, trainerId: parsedHash.trainerId })
     } catch (error) {
       $('#modeBadge').textContent = 'Błąd połączenia'
       showToast(error.message || 'Nie udało się uruchomić panelu.', 'error')

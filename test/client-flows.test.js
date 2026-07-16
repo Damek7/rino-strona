@@ -56,8 +56,18 @@ test('panel connects discovery and booking controls to store methods', () => {
 
 test('calendar becomes available only after the client explicitly selects a trainer', () => {
   assert.doesNotMatch(panelSource, /if \(!state\.selectedTrainer\) state\.selectedTrainer = trainers\[0\]/)
-  assert.match(panelSource, /action\.addEventListener\('click', \(\) => selectTrainer\(trainer\)\)/)
+  assert.match(panelSource, /action\.addEventListener\('click', \(\) => openTrainerProfile\(trainer\.id\)\)/)
+  assert.match(panelSource, /\$\('#profileReserve'\)\.onclick = \(\) => startBooking\(trainer\)/)
   assert.match(panelSource, /bookingFlowActive: false/)
   assert.match(panelSource, /state\.bookingFlowActive = true[\s\S]+navigate\('calendar'\)/)
   assert.match(panelSource, /if \(next !== 'calendar'\)[\s\S]+state\.bookingFlowActive = false/)
+})
+
+test('panel keeps search results until submit and routes cards to profiles', () => {
+  assert.match(panelSource, /hasSearched:\s*false/)
+  assert.match(panelSource, /helpers\.sortTrainers/)
+  assert.match(panelSource, /getPublicTrainer/)
+  assert.match(panelSource, /listTrainerReviews/)
+  assert.match(panelSource, /#trainer\/\$\{trainer\.id\}/)
+  assert.doesNotMatch(panelSource, /Zobacz terminy/)
 })
