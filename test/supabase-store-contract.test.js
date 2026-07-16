@@ -8,7 +8,7 @@ const source = fs.readFileSync(path.join(__dirname, '..', 'lib', 'supabase-store
 test('Supabase store exposes the same product contract as demo mode', () => {
   const store = createSupabaseStore({ auth: {} })
   for (const method of [
-    'signUp', 'signIn', 'signOut', 'getSession', 'getDashboard', 'listTrainers',
+    'signUp', 'signIn', 'signOut', 'getSession', 'getDashboard', 'listTrainers', 'getPublicTrainer', 'listTrainerReviews',
     'listAvailability', 'createBooking', 'listBookings', 'updateBookingStatus',
     'listConversations', 'listMessages', 'sendMessage', 'markConversationRead', 'setAvailability',
     'getEarnings', 'getPreferences', 'savePreferences', 'getTrainerProfile', 'saveTrainerProfile',
