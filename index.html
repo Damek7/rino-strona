@@ -309,6 +309,7 @@
   <link rel="stylesheet" href="features.css">
   <link rel="stylesheet" href="cta.css">
   <link rel="stylesheet" href="trainer-section.css">
+  <link rel="stylesheet" href="footer.css?v=20260716-2">
 </helmet>
 
 <div>
@@ -717,14 +718,40 @@
   </main>
 
   <!-- ===== STOPKA ===== -->
-  <footer data-screen-label="Stopka">
-    <div class="wrap row">
-      <div class="brand">
-        <img src="assets/Rino-logo-v10.png" alt="RinoMove">
-        <span>RinoMove</span>
-        <small>· Warszawa</small>
+  <footer class="site-footer" data-screen-label="Stopka">
+    <span class="site-footer__glow site-footer__glow--left" aria-hidden="true"></span>
+    <span class="site-footer__glow site-footer__glow--right" aria-hidden="true"></span>
+    <div class="wrap site-footer__inner">
+      <div class="site-footer__rail site-footer__rail--left">
+        <a class="site-footer__brand" href="#top" aria-label="RinoMove — wróć na początek strony">
+          <img src="assets/Rino-logo-v10.png" alt="" width="44" height="44">
+          <span>RinoMove</span>
+        </a>
+        <p class="site-footer__description">Znajdź trenera i zacznij ruszać się po swojemu.</p>
+        <nav class="site-footer__nav" aria-label="Nawigacja w stopce">
+          <h2>Odkrywaj</h2>
+          <a href="#jak-to-dziala">Jak to działa <span aria-hidden="true">↗</span></a>
+          <a href="dla-trenerow.html">Dla trenerów <span aria-hidden="true">↗</span></a>
+          <a href="#faq">FAQ <span aria-hidden="true">↗</span></a>
+          <a href="#zapisy">Zapisz się <span aria-hidden="true">↗</span></a>
+        </nav>
+        <p class="site-footer__copyright">© 2026 RinoMove</p>
       </div>
-      <div class="legal">© 2026 RinoMove · Polityka prywatności · RODO</div>
+
+      <div class="site-footer__mascot" aria-hidden="true">
+        <img src="assets/rino-footer-grip-3d.png" alt="" width="1565" height="1005">
+      </div>
+
+      <div class="site-footer__rail site-footer__rail--right">
+        <nav class="site-footer__nav" aria-label="Informacje prawne">
+          <h2>Ważne informacje</h2>
+          <a href="regulamin.html" data-status="preparation">Regulamin <small>W przygotowaniu</small></a>
+          <a href="polityka-prywatnosci.html" data-status="preparation">Polityka prywatności <small>W przygotowaniu</small></a>
+          <a href="rodo.html" data-status="preparation">RODO <small>W przygotowaniu</small></a>
+          <a href="cookies.html" data-status="preparation">Cookies <small>W przygotowaniu</small></a>
+        </nav>
+        <a class="site-footer__back" href="#top">Wróć na górę <span aria-hidden="true">↑</span></a>
+      </div>
     </div>
   </footer>
 </div>
