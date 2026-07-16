@@ -183,10 +183,12 @@
   function setAuthMode(mode) {
     state.authMode = mode === 'login' ? 'login' : 'register'
     const registering = state.authMode === 'register'
+    const bookingGate = Boolean(state.pendingBookingTrainerId)
+    if (bookingGate) $('#authForm').elements.role.value = 'client'
     $$('[data-auth]').forEach(tab => tab.classList.toggle('is-active', tab.dataset.auth === state.authMode))
     $('#authTitle').textContent = registering ? 'Załóż konto' : 'Zaloguj się'
     $('#nameField').hidden = !registering
-    $('#roleField').hidden = !registering
+    $('#roleField').hidden = !registering || bookingGate
     $('#termsField').hidden = !registering
     $('#authForm').elements.fullName.required = registering
     $('#authSubmit').textContent = registering ? 'Załóż konto' : 'Zaloguj się'
@@ -487,12 +489,43 @@
     $('#profileReserve').onclick = () => startBooking(trainer)
   }
 
-  async function selectTrainer(trainer) {
+  function startBooking(trainer) {
+    if (state.user?.role === 'trainer') {
+      showToast('Rezerwacja wymaga konta klienta.', 'error')
+      return
+    }
+    if (!state.user) {
+      state.pendingBookingTrainerId = trainer.id
+      const form = $('#authForm')
+      form.elements.role.value = 'client'
+      setAuthMode('register')
+      openDialog('authDialog')
+      showToast('Załóż konto klienta lub zaloguj się, aby zobaczyć terminy.')
+      return
+    }
+    state.selectedTrainer = trainer
+    state.bookingFlowActive = true
+    state.selectedDate = null
+    state.weekAnchor = null
+    return navigate('calendar')
+  }
+
+  async function resumePendingBooking(user) {
+    const pendingTrainerId = state.pendingBookingTrainerId
+    state.pendingBookingTrainerId = null
+    if (!pendingTrainerId || user.role !== 'client') return false
+    const trainer = await state.store.getPublicTrainer(pendingTrainerId)
+    if (!trainer) {
+      showToast('Profil trenera nie jest już dostępny.', 'error')
+      await navigate('discover')
+      return true
+    }
     state.selectedTrainer = trainer
     state.bookingFlowActive = true
     state.selectedDate = null
     state.weekAnchor = null
     await navigate('calendar')
+    return true
   }
 
   function calendarAnchor() {
@@ -569,10 +602,6 @@
       state.slots = await state.store.listAvailability(state.user.id)
       $('#calendarContext').replaceChildren()
     } else {
-      if (!state.selectedTrainer) {
-        const trainers = await state.store.listTrainers()
-        state.selectedTrainer = trainers[0] || null
-      }
       if (!state.selectedTrainer) {
         $('#availabilityPanel').replaceChildren(emptyState('Brak trenerów', 'Wróć tu później — profile są właśnie przygotowywane.'))
         return
@@ -911,7 +940,13 @@
       if (!state.user) setAuthMode('login')
       openDialog('authDialog')
     })
-    $$('[data-close-dialog]').forEach(action => action.addEventListener('click', () => closeDialog(action.dataset.closeDialog)))
+    $$('[data-close-dialog]').forEach(action => action.addEventListener('click', () => {
+      if (action.dataset.closeDialog === 'authDialog' && state.pendingBookingTrainerId) {
+        state.pendingBookingTrainerId = null
+        setAuthMode(state.authMode)
+      }
+      closeDialog(action.dataset.closeDialog)
+    }))
     $$('[data-auth]').forEach(action => action.addEventListener('click', () => setAuthMode(action.dataset.auth)))
     $('#authForm').elements.role.addEventListener('change', updateTrainerPhotoField)
     $('#authForm').elements.trainerPhoto.addEventListener('change', async event => {
@@ -1086,7 +1121,6 @@
           $('#authError').textContent = 'Sprawdź skrzynkę e-mail i potwierdź konto, a potem się zaloguj.'
           return
         }
-        const shouldResumeBooking = state.resumeBooking && result.user.role === 'client'
         state.resumeBooking = false
         await updateSession(result.user)
         closeDialog('authDialog')
@@ -1094,8 +1128,8 @@
         clearTrainerPhotoPreview()
         updateTrainerPhotoField()
         showToast(state.authMode === 'register' ? 'Konto jest gotowe.' : 'Zalogowano.')
-        await navigate(shouldResumeBooking ? 'calendar' : (result.user.role === 'trainer' ? 'overview' : 'discover'))
-        if (shouldResumeBooking) openDialog('bookingDialog')
+        const resumedBooking = await resumePendingBooking(result.user)
+        if (!resumedBooking) await navigate(result.user.role === 'trainer' ? 'overview' : 'discover')
       } catch (error) {
         $('#authError').textContent = error.message
       } finally {
@@ -1109,13 +1143,12 @@
       setBusy(action, true, 'Wchodzimy…')
       try {
         const result = await state.store.signIn(account)
-        const shouldResumeBooking = state.resumeBooking && result.user.role === 'client'
         state.resumeBooking = false
         await updateSession(result.user)
         closeDialog('authDialog')
         showToast(`Witaj w wersji demo ${role === 'trainer' ? 'trenera' : 'klienta'}.`)
-        await navigate(shouldResumeBooking ? 'calendar' : (role === 'trainer' ? 'overview' : 'discover'))
-        if (shouldResumeBooking) openDialog('bookingDialog')
+        const resumedBooking = await resumePendingBooking(result.user)
+        if (!resumedBooking) await navigate(role === 'trainer' ? 'overview' : 'discover')
       } catch (error) {
         $('#authError').textContent = error.message
       } finally {

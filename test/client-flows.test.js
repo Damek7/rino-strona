@@ -71,3 +71,13 @@ test('panel keeps search results until submit and routes cards to profiles', () 
   assert.match(panelSource, /#trainer\/\$\{trainer\.id\}/)
   assert.doesNotMatch(panelSource, /Zobacz terminy/)
 })
+
+test('booking auth starts from profile CTA and resumes before availability', () => {
+  assert.match(panelSource, /function startBooking\(trainer\)/)
+  assert.match(panelSource, /pendingBookingTrainerId/)
+  assert.match(panelSource, /setAuthMode\('register'\)/)
+  assert.match(panelSource, /elements\.role\.value = 'client'/)
+  assert.match(panelSource, /getPublicTrainer\(pendingTrainerId\)/)
+  assert.doesNotMatch(panelSource, /if \(!state\.selectedTrainer\)[\s\S]{0,180}trainers\[0\]/)
+  assert.doesNotMatch(panelSource, /if \(shouldResumeBooking\) openDialog\('bookingDialog'\)/)
+})
