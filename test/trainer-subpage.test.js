@@ -9,7 +9,7 @@ test('trainer landing is available as a local subpage', () => {
   const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
 
   assert.match(html, /RinoMove dla/)
-  assert.match(html, /class="site-nav"/)
+  assert.match(html, /class="site-nav liquid-glass-nav public-navigation"/)
   assert.match(html, /Bez wiadomo/)
   assert.match(html, /Trener i terminy/)
   assert.match(html, /assets\/Rino-logo-v10\.png/)
@@ -31,8 +31,9 @@ test('trainer landing uses the mascot and wordmark logo assets', () => {
 test('trainer landing returns to the homepage without rendering the trainer mascot', () => {
   const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
 
-  assert.equal((html.match(/href="index\.html"/g) || []).length >= 3, true)
-  assert.match(html, /Wróć na stronę główną/)
+  assert.match(html, /href="index\.html#top"/)
+  assert.match(html, /href="index\.html#jak-to-dziala"/)
+  assert.match(html, /aria-label="RinoMove — strona główna"/)
   assert.match(html, /class="hero trainer-home-hero"/)
   assert.doesNotMatch(html, /trainer-mascot-showcase|trainer-lower-mascot/)
   assert.doesNotMatch(html, /assets\/Rino-trener-3d-blue\.png/)

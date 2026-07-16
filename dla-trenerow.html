@@ -33,14 +33,25 @@
     @media(max-width:900px){.trainer-home-hero .hero-shell{width:min(calc(100% - 28px),var(--max));min-height:0}.trainer-home-hero .hero-visual{min-height:500px}.trainer-home-hero .availability-card{inset:60px 0 auto 0}.trainer-home-hero .trainer-card{top:382px}}@media(max-width:620px){.trainer-home-hero .hero-shell{padding-block:52px 38px}.trainer-home-hero .hero-visual{min-height:410px}.trainer-home-hero .hero-visual>.hero-dot-lime{right:-90px;bottom:-72px}.trainer-home-hero .availability-card{inset:28px 0 auto 8px;height:280px}.trainer-home-hero .trainer-card{top:auto;bottom:0}.brand img.brand-wordmark{width:96px}}
     .trainer-signup-form{display:grid;grid-template-columns:1fr;gap:18px}.trainer-signup-form fieldset{display:grid;gap:14px;min-width:0;margin:0;padding:0;border:0}.trainer-signup-form fieldset[hidden],.trainer-signup-form [hidden]{display:none!important}.trainer-signup-form legend{margin-bottom:10px;color:var(--ink);font:800 clamp(1.35rem,3vw,2rem)/1.15 'Manrope',sans-serif;letter-spacing:-.035em}.trainer-signup-form label:not(.signup-option):not(.rodo){display:grid;gap:7px;color:#3a3941;font-size:13px;font-weight:700}.trainer-signup-form input:not([type="radio"]):not([type="checkbox"]),.trainer-signup-form textarea{width:100%;min-height:52px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);font:15px 'DM Sans',sans-serif;outline:0;transition:border-color 160ms var(--ease),box-shadow 160ms var(--ease)}.trainer-signup-form textarea{min-height:132px;resize:vertical}.trainer-signup-form input:not([type="radio"]):not([type="checkbox"]):focus,.trainer-signup-form textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(85,76,255,.12)}.signup-progress{display:grid;gap:8px;color:var(--muted);font-size:12px;font-weight:700}.signup-progress progress{width:100%;height:7px;accent-color:var(--accent)}.signup-option{display:flex;align-items:flex-start;gap:11px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--white);cursor:pointer;transition:border-color 160ms var(--ease),background-color 160ms var(--ease)}.signup-option:has(input:checked){border-color:var(--accent);background:var(--surface)}.signup-option input{flex:0 0 auto;width:18px;height:18px;margin-top:1px;accent-color:var(--accent)}.signup-help,.trainer-signup-form small{color:var(--muted);font-size:12px}.signup-nav{display:flex;justify-content:space-between;gap:12px}.signup-back{min-height:48px;padding:11px 18px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);font-weight:800;cursor:pointer}.signup-nav [data-signup-next]{min-width:140px;margin-left:auto}.trainer-signup-form [type="submit"]{width:100%}.trainer-signup-form .rodo{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:12px;line-height:1.5}.trainer-signup-form .rodo input{flex:0 0 auto;width:18px;height:18px;margin-top:1px;accent-color:var(--accent)}@media(max-width:620px){.signup-nav{align-items:stretch;flex-direction:column-reverse}.signup-nav button{width:100%}}@media(prefers-reduced-motion:reduce){.signup-option,.trainer-signup-form input,.trainer-signup-form textarea{transition:none}}
   </style>
+  <link rel="stylesheet" href="navigation.css">
 </head>
-<body>
+<body class="public-subpage">
   <a class="skip" href="#main">Przejdź do treści</a>
-  <header class="site-nav">
-    <a class="brand" href="index.html" aria-label="RinoMove — strona główna"><img src="assets/Rino-logo-v10.png" alt=""><img class="brand-wordmark" src="assets/rino-move-wordmark.png" alt="Rino Move"></a>
-    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">Menu</button>
-    <nav class="nav-links" id="primary-navigation" aria-label="Główna nawigacja"><a href="#korzysci">Korzyści</a><a href="#narzedzia">Narzędzia</a><a href="#program">Program</a><a href="#jak">Jak dołączyć</a><a class="btn btn-back-home" href="index.html">Wróć na stronę główną</a><a class="btn nav-cta" href="#kontakt">Porozmawiajmy</a></nav>
-  </header>
+  <div class="nav-shell">
+    <nav class="site-nav liquid-glass-nav public-navigation" aria-label="Główna nawigacja">
+      <a class="site-logo" href="index.html#top" aria-label="RinoMove — strona główna">
+        <img src="assets/Rino-logo-v10.png" alt="">
+        <img class="site-wordmark" src="assets/rino-move-wordmark.png" alt="Rino Move">
+      </a>
+      <div id="main-menu" class="desktop-nav">
+        <a href="index.html#jak-to-dziala">Jak to działa</a>
+        <a href="dla-trenerow.html" aria-current="page">Dla trenerów</a>
+        <a class="btn btn-primary nav-register" href="index.html#zapisy">Zapisz się</a>
+      </div>
+      <a class="btn nav-mobile-cta" href="index.html#zapisy">Zapisz się</a>
+      <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="main-menu" aria-label="Otwórz lub zamknij menu">☰</button>
+    </nav>
+  </div>
   <main id="main">
     <header class="hero trainer-home-hero" id="top">
       <div class="hero-shell">
@@ -210,21 +221,7 @@
     </section>
   </main>
   <footer><div class="wrap"><a class="brand" href="index.html" aria-label="RinoMove — strona główna"><img src="assets/Rino-logo-v10.png" alt=""><img class="brand-wordmark" src="assets/rino-move-wordmark.png" alt="Rino Move"></a><span>Platforma dla trenerów</span></div></footer>
-  <script>
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const primaryNavigation = document.querySelector('#primary-navigation');
-    mobileMenuToggle.addEventListener('click', () => {
-      const isOpen = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-      mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
-      primaryNavigation.classList.toggle('is-open', !isOpen);
-    });
-    primaryNavigation.addEventListener('click', (event) => {
-      if (!event.target.closest('a')) return;
-      mobileMenuToggle.setAttribute('aria-expanded', 'false');
-      primaryNavigation.classList.remove('is-open');
-    });
-
-  </script>
+  <script src="public-navigation.js"></script>
   <script src="trainer-signup.js"></script>
 </body>
 </html>
