@@ -4,7 +4,7 @@
 
 **Goal:** Zbudować publiczne wyszukiwanie i profile trenerów, przy czym konto klienta jest wymagane dopiero po kliknięciu „Zarezerwuj trening”.
 
-**Architecture:** Zachować istniejącą aplikację vanilla JS i kontrakt dwóch adapterów danych. Czyste filtrowanie oraz sortowanie trafia do `panel-helpers.js`, publiczne dane do adapterów demo/Supabase, a `panel.js` zarządza formularzem, routingiem `#trainer/<id>`, galerią i zamiarem rezerwacji. Supabase udostępnia wyłącznie bezpieczne dane przez trzy jawne funkcje RPC.
+**Architecture:** Zachować istniejącą aplikację vanilla JS i kontrakt dwóch adapterów danych. Czyste filtrowanie oraz sortowanie trafia do `panel-helpers.js`, publiczne dane do adapterów demo/Supabase, a `panel.js` zarządza formularzem, routingiem `#trainer/<id>`, galerią i zamiarem rezerwacji. Supabase przechowuje publiczną tożsamość trenera i bezpieczną nazwę autora opinii w publicznych tabelach chronionych RLS, bez funkcji `SECURITY DEFINER`.
 
 **Tech Stack:** HTML5, CSS, vanilla JavaScript, Node.js 22 `node:test`, Supabase/PostgreSQL/RLS, Playwright 1.61.
 
@@ -26,14 +26,14 @@
 
 - `lib/panel-helpers.js` — normalizacja filtrów, sortowanie i parsing publicznej trasy profilu.
 - `lib/demo-store.js` — kompletne publiczne dane demo i metody profilu/opinii.
-- `lib/supabase-store.js` — mapowanie wyników publicznych RPC na wspólny kontrakt.
-- `supabase/migrations/20260716153000_public_trainer_discovery.sql` — publiczne media, bezpieczne RPC, granty i polityki.
+- `lib/supabase-store.js` — bezpośredni, ograniczony kolumnowo odczyt publicznych tabel pod RLS.
+- `supabase/migrations/<generated>_public_trainer_discovery.sql` — bezpieczne kolumny publiczne, media, triggery, minimalne granty i polityki; nazwę tworzy CLI.
 - `panel.html` — nowy formularz wyszukiwania, kontrolki wyników i publiczny widok profilu.
 - `panel.css` — segmentowany pasek, karty zdjęciowe, galeria i responsywny profil.
 - `panel.js` — stan wyszukiwania, routing, renderowanie i auth gate.
 - `test/client-discovery-helpers.test.js` — czyste reguły filtrów, sortowania i tras.
 - `test/public-trainer-demo.test.js` — publiczny kontrakt demo.
-- `test/public-trainer-supabase.test.js` — RPC i prywatność kontraktu Supabase.
+- `test/public-trainer-supabase.test.js` — zapytania Data API i prywatność kontraktu Supabase.
 - `test/public-trainer-ui.test.js` — struktura HTML/CSS i bramka auth.
 - `test/public-client-browser.test.js` — pełny przepływ w Chromium.
 - `README.md` — opis publicznego katalogu i kont demonstracyjnych.
@@ -281,45 +281,51 @@ git commit -m "feat: add public trainer profiles to demo mode"
 ### Task 3: Safe Supabase public directory
 
 **Files:**
-- Create: `supabase/migrations/20260716153000_public_trainer_discovery.sql`
+- Create with CLI: `supabase/migrations/<generated>_public_trainer_discovery.sql`
 - Create: `test/public-trainer-supabase.test.js`
 - Modify: `lib/supabase-store.js`
 - Modify: `test/supabase-store-contract.test.js`
 - Modify: `test/supabase-schema.test.js`
 
 **Interfaces:**
-- Produces RPCs `search_public_trainers`, `get_public_trainer`, `list_public_trainer_reviews`.
+- Produces public-safe columns on `trainer_profiles`, `reviews` and `trainer_media` protected by grants and RLS.
 - Produces store methods with the same names and return shapes as Task 2.
 
 - [ ] **Step 1: Write failing migration and store contract tests**
+
+Create the migration filename first with `npx supabase migration new public_trainer_discovery`, then read that path dynamically in the test:
 
 ```js
 const { test } = require('node:test')
 const assert = require('node:assert/strict')
 const fs = require('node:fs')
 const path = require('node:path')
-const { createSupabaseStore } = require('../lib/supabase-store')
 
-const migration = fs.readFileSync(path.join(__dirname, '..', 'supabase', 'migrations', '20260716153000_public_trainer_discovery.sql'), 'utf8')
+const migrationName = fs.readdirSync(path.join(__dirname, '..', 'supabase', 'migrations')).find(name => name.endsWith('_public_trainer_discovery.sql'))
+const migration = fs.readFileSync(path.join(__dirname, '..', 'supabase', 'migrations', migrationName), 'utf8')
 
-test('migration exposes only explicit public RPCs and secures media writes', () => {
-  for (const name of ['search_public_trainers', 'get_public_trainer', 'list_public_trainer_reviews']) assert.match(migration, new RegExp(`create (?:or replace )?function public\\.${name}`))
-  assert.match(migration, /revoke execute on function public\.search_public_trainers/i)
-  assert.match(migration, /grant execute on function public\.search_public_trainers[\s\S]+to anon, authenticated/i)
+test('migration exposes only safe public columns under RLS', () => {
+  assert.match(migration, /add column if not exists display_name text/i)
+  assert.match(migration, /add column if not exists author_name text/i)
   assert.match(migration, /create table public\.trainer_media/i)
+  assert.match(migration, /alter table public\.trainer_media enable row level security/i)
+  assert.match(migration, /grant select on public\.trainer_media to anon, authenticated/i)
   assert.match(migration, /bucket_id = 'trainer-gallery'/)
   assert.match(migration, /drop policy if exists "Available published slots are public"/)
+  assert.doesNotMatch(migration, /security definer/i)
 })
+```
 
-test('Supabase public methods use RPC and map safe fields', async () => {
-  const calls = []
-  const client = { rpc: async (name, args) => { calls.push([name, args]); return { data: name === 'list_public_trainer_reviews' ? [{ id: 'r1', trainer_id: 't1', rating: 5, body: 'Super', author_name: 'Anna N.', created_at: '2026-07-01' }] : [{ user_id: 't1', display_name: 'Marek Kowalski', city: 'Warszawa', district: 'Mokotów', disciplines: ['tenis'], hourly_rate: 22000, verified: true, rating: 4.9, review_count: 38, level: 'Każdy poziom', bio: 'Opis', experience: '12 lat', specialties: ['Początkujący'], gallery: [] }], error: null } } }
-  const store = createSupabaseStore(client)
-  const items = await store.listTrainers({ city: 'Warszawa', q: 'Marek' })
-  const reviews = await store.listTrainerReviews('t1')
-  assert.equal(items[0].name, 'Marek Kowalski')
-  assert.equal(reviews[0].authorName, 'Anna N.')
-  assert.deepEqual(calls[0], ['search_public_trainers', { p_city: 'Warszawa', p_district: null, p_discipline: null, p_q: 'Marek' }])
+Add a source-contract test for `lib/supabase-store.js` so the public query cannot regress to the private profile relationship:
+
+```js
+const storeSource = fs.readFileSync(path.join(__dirname, '..', 'lib', 'supabase-store.js'), 'utf8')
+
+test('public trainer queries select only duplicated safe identity fields', () => {
+  const publicSelect = storeSource.match(/const publicTrainerSelect = '([^']+)'/)?.[1] || ''
+  assert.match(publicSelect, /display_name,avatar_url/)
+  assert.doesNotMatch(publicSelect, /profiles!/)
+  assert.match(storeSource, /select\('id,trainer_id,rating,body,author_name,created_at'\)/)
 })
 ```
 
@@ -327,16 +333,21 @@ test('Supabase public methods use RPC and map safe fields', async () => {
 
 Run: `node --test test/public-trainer-supabase.test.js test/supabase-store-contract.test.js test/supabase-schema.test.js`
 
-Expected: FAIL because the migration and public store methods do not exist.
+Expected: FAIL because the safe columns, media table and public store methods do not exist.
 
 - [ ] **Step 3: Create the additive migration**
 
-The migration must contain these concrete structures:
+Use the exact CLI command from Step 1. The generated migration contains:
 
 ```sql
+alter table public.trainer_profiles add column if not exists display_name text not null default 'Trener RinoMove';
+alter table public.trainer_profiles add column if not exists avatar_url text;
 alter table public.trainer_profiles add column if not exists city text not null default 'Warszawa';
 alter table public.trainer_profiles add column if not exists experience text not null default '';
 alter table public.trainer_profiles add column if not exists specialties text[] not null default '{}'::text[];
+alter table public.reviews add column if not exists author_name text not null default 'Klient R.';
+
+update public.trainer_profiles tp set display_name = p.full_name, avatar_url = p.avatar_url from public.profiles p where p.id = tp.user_id;
 
 create table public.trainer_media (
   id uuid primary key default gen_random_uuid(),
@@ -350,58 +361,69 @@ create table public.trainer_media (
 );
 
 create unique index trainer_media_one_cover_idx on public.trainer_media (trainer_id) where is_cover;
+create index trainer_profiles_public_search_idx on public.trainer_profiles (city, district) where published = true;
+create index trainer_media_trainer_order_idx on public.trainer_media (trainer_id, sort_order);
 alter table public.trainer_media enable row level security;
 
-insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('trainer-gallery', 'trainer-gallery', true, 5242880, array['image/jpeg', 'image/png', 'image/webp'])
-on conflict (id) do update set public = excluded.public, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+revoke all on public.trainer_media from anon, authenticated;
+grant select on public.trainer_media to anon, authenticated;
+grant insert, update, delete on public.trainer_media to authenticated;
+
+create policy "Published trainer media are public" on public.trainer_media for select to anon, authenticated
+  using (exists (select 1 from public.trainer_profiles tp where tp.user_id = trainer_media.trainer_id and tp.published = true));
+create policy "Trainers insert own media" on public.trainer_media for insert to authenticated
+  with check ((select auth.uid()) = trainer_id);
+create policy "Trainers update own media" on public.trainer_media for update to authenticated
+  using ((select auth.uid()) = trainer_id) with check ((select auth.uid()) = trainer_id);
+create policy "Trainers delete own media" on public.trainer_media for delete to authenticated
+  using ((select auth.uid()) = trainer_id);
 
 drop policy if exists "Available published slots are public" on public.availability_slots;
-create policy "Authenticated users can view published availability"
-  on public.availability_slots for select to authenticated
+create policy "Authenticated users can view published availability" on public.availability_slots for select to authenticated
   using (status = 'available' and exists (select 1 from public.trainer_profiles tp where tp.user_id = availability_slots.trainer_id and tp.published = true));
 ```
 
-Create `search_public_trainers(p_city text, p_district text, p_discipline text, p_q text)`, `get_public_trainer(p_trainer_id uuid)` and `list_public_trainer_reviews(p_trainer_id uuid)` as `stable security definer set search_path = ''` SQL functions. Each trainer RPC returns only the explicit safe columns listed in Global Constraints and a `jsonb` gallery aggregated from `trainer_media`. Review RPC returns `author_name` computed as first name plus last-name initial. Each function filters `tp.published = true`. Revoke execution from `public`, then grant only to `anon, authenticated`.
+Add `security invoker` trigger functions in the private schema that copy `profiles.full_name/avatar_url` into the safe trainer columns and calculate `reviews.author_name` as first name plus last-name initial. Both triggers execute as the calling role and do not bypass RLS. Add a public `trainer-gallery` bucket with 5 MB JPEG/PNG/WebP restrictions. Storage policies must provide SELECT for published gallery objects plus owner SELECT/INSERT/UPDATE/DELETE for the trainer path so Storage `RETURNING` and upsert both work.
 
-Add storage and table policies that allow public select only for media of published profiles and insert/update/delete only when `(storage.foldername(name))[1] = auth.uid()::text` and the caller owns the trainer profile.
-
-- [ ] **Step 4: Map RPC results in `supabase-store.js`**
+- [ ] **Step 4: Read safe tables in `supabase-store.js`**
 
 ```js
+const publicTrainerSelect = 'user_id,display_name,avatar_url,bio,city,district,disciplines,hourly_rate,verified,published,rating,review_count,level,experience,specialties,gallery:trainer_media(id,url,alt_text,sort_order,is_cover)'
 const publicTrainerDto = row => ({
   id: row.user_id, name: row.display_name, avatarUrl: row.avatar_url || null,
   bio: row.bio || '', city: row.city, district: row.district,
   disciplines: row.disciplines || [], hourlyRate: row.hourly_rate,
   verified: Boolean(row.verified), published: true, rating: Number(row.rating || 0),
   reviewCount: Number(row.review_count || 0), level: row.level || 'Każdy poziom',
-  experience: row.experience || '', specialties: row.specialties || [], gallery: row.gallery || [],
+  experience: row.experience || '', specialties: row.specialties || [],
+  gallery: (row.gallery || []).sort((a, b) => a.sort_order - b.sort_order).map(item => ({ id: item.id, url: item.url, alt: item.alt_text, order: item.sort_order, isCover: item.is_cover })),
 })
 
 async function listTrainers(filters = {}) {
-  const { data, error } = await client.rpc('search_public_trainers', {
-    p_city: filters.city || null, p_district: filters.district || null,
-    p_discipline: filters.discipline || null, p_q: filters.q || null,
-  })
+  let query = client.from('trainer_profiles').select(publicTrainerSelect).eq('published', true)
+  if (filters.city) query = query.eq('city', filters.city)
+  if (filters.district) query = query.eq('district', filters.district)
+  if (filters.discipline) query = query.contains('disciplines', [filters.discipline])
+  const { data, error } = await query.order('rating', { ascending: false })
   fail(error)
-  return (data || []).map(publicTrainerDto)
+  const q = String(filters.q || '').toLocaleLowerCase('pl')
+  return (data || []).map(publicTrainerDto).filter(item => !q || item.name.toLocaleLowerCase('pl').includes(q))
 }
 
 async function getPublicTrainer(id) {
-  const { data, error } = await client.rpc('get_public_trainer', { p_trainer_id: id })
+  const { data, error } = await client.from('trainer_profiles').select(publicTrainerSelect).eq('published', true).eq('user_id', id).maybeSingle()
   fail(error)
-  const row = Array.isArray(data) ? data[0] : data
-  return row ? publicTrainerDto(row) : null
+  return data ? publicTrainerDto(data) : null
 }
 
 async function listTrainerReviews(id) {
-  const { data, error } = await client.rpc('list_public_trainer_reviews', { p_trainer_id: id })
+  const { data, error } = await client.from('reviews').select('id,trainer_id,rating,body,author_name,created_at').eq('trainer_id', id).order('created_at', { ascending: false })
   fail(error)
   return (data || []).map(row => ({ id: row.id, trainerId: row.trainer_id, rating: row.rating, body: row.body, authorName: row.author_name, createdAt: row.created_at }))
 }
 ```
 
-Export both new methods. Keep private trainer editing on the existing tables.
+Export both new methods. Keep private trainer editing on existing authenticated policies.
 
 - [ ] **Step 5: Run Supabase tests**
 
@@ -412,8 +434,8 @@ Expected: PASS.
 - [ ] **Step 6: Commit**
 
 ```powershell
-git add lib/supabase-store.js supabase/migrations/20260716153000_public_trainer_discovery.sql test/public-trainer-supabase.test.js test/supabase-store-contract.test.js test/supabase-schema.test.js
-git commit -m "feat: add safe public trainer directory rpc"
+git add lib/supabase-store.js supabase/migrations test/public-trainer-supabase.test.js test/supabase-store-contract.test.js test/supabase-schema.test.js
+git commit -m "feat: add safe public trainer directory"
 ```
 
 ### Task 4: Search and public profile markup/styles

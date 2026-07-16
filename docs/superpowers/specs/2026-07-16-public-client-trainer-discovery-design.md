@@ -112,7 +112,7 @@ Widoki nie odczytują bezpośrednio szczegółów implementacji store. Oba adapt
 
 ## Dane i bezpieczeństwo Supabase
 
-Publiczny katalog nie może wystawiać prywatnych kolumn z `profiles`, takich jak e-mail lub telefon. Nowa migracja udostępnia trzy funkcje RPC z ustalonym `search_path`, odebranym domyślnym `execute` i jawnym grantem dla `anon` oraz `authenticated`: `search_public_trainers`, `get_public_trainer` i `list_public_trainer_reviews`. Funkcje zwracają wyłącznie bezpieczny kontrakt: identyfikator, nazwę publiczną, avatar, miasto, dzielnicę, sport, poziom, opis, doświadczenie, specjalizacje, cenę, weryfikację, publikację, galerię i publiczne dane opinii. Nie zwracają e-maila, telefonu ani pełnego profilu klienta.
+Publiczny katalog nie może wystawiać prywatnych kolumn z `profiles`, takich jak e-mail lub telefon. Bezpieczna nazwa publiczna i avatar są kopiowane do `trainer_profiles` przez triggery, a bezpieczna nazwa autora opinii jest zapisywana w `reviews`. Przeglądarka odczytuje te tabele bezpośrednio przez Supabase Data API z minimalnymi grantami i RLS; nie używa widoków ani funkcji `SECURITY DEFINER`. Publiczny kontrakt obejmuje wyłącznie: identyfikator, nazwę publiczną, avatar, miasto, dzielnicę, sport, poziom, opis, doświadczenie, specjalizacje, cenę, weryfikację, publikację, galerię oraz bezpieczne dane opinii.
 
 Galeria używa osobnej tabeli powiązanej z trenerem: URL, tekst alternatywny, kolejność i znacznik zdjęcia głównego. Publiczny odczyt obejmuje tylko media opublikowanego profilu. Zapis i usuwanie należą wyłącznie do właściciela profilu. Pliki trafiają do osobnego publicznego bucketu z limitem rozmiaru, typami JPEG/PNG/WebP oraz ścieżką rozpoczynającą się od identyfikatora trenera.
 
@@ -143,7 +143,7 @@ Po sukcesie auth aplikacja odczytuje zapisany zamiar, ponownie pobiera publiczny
 
 - Testy helperów: aktywacja dzielnicy, normalizacja nazwiska, dopasowanie i wszystkie pięć wariantów sortowania wraz z remisami.
 - Testy demo store: publiczna lista i profil bez sesji, galerie, publiczne opinie, brak prywatnych danych, filtrowanie miasta/dzielnicy/sportu/nazwy.
-- Testy kontraktu Supabase: nowe metody store, ograniczone kolumny publiczne, media tylko opublikowanych trenerów, RLS zapisu i zachowanie opinii.
+- Testy kontraktu Supabase: nowe metody store, bezpośrednie zapytania wyłącznie do bezpiecznych kolumn, media tylko opublikowanych trenerów, minimalne granty, RLS zapisu i zachowanie opinii.
 - Testy treści/DOM: kolejność pól, wyłączona dzielnica, sortowanie ukryte przed wyszukiwaniem, publiczny profil i CTA.
 - Testy przepływu: anonimowe oglądanie listy/profilu/opinii; auth dopiero po CTA; wznowienie właściwego trenera po logowaniu; blokada roli trenera.
 - Pełny `npm test`.
