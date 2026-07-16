@@ -78,12 +78,14 @@ test('forwards a normalized trainer lead to the configured webhook', async () =>
 
 for (const [field, value, message] of [
   ['phone', 'abc', /telefon/i],
+  ['profileUrl', 'instagram bez adresu', /link/i],
   ['workModel', 'unknown', /model pracy/i],
   ['capacity', 'unknown', /wolnych miejsc/i],
   ['blocker', 'Za krótko', /utrudnia/i],
   ['whyNow', 'Za krótko', /właśnie teraz/i],
   ['readiness', [], /RinoMove/i],
-  ['desiredResult', 'other', /rezultat/i]
+  ['desiredResult', 'other', /rezultat/i],
+  ['desiredResultOther', 'x'.repeat(241), /rezultat/i]
 ]) {
   test(`rejects invalid ${field}`, async () => {
     const handler = createWaitlistHandler({

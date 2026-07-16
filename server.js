@@ -131,6 +131,14 @@ function createWaitlistHandler({ webhookUrl, webhookSecret, fetchImpl = fetch })
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) return { status: 422, body: { error: 'Podaj prawidłowy adres e-mail.' } }
     if (!/^[0-9+ ()-]{7,24}$/.test(lead.phone)) return { status: 422, body: { error: 'Podaj prawidłowy numer telefonu.' } }
     if (lead.profileUrl.length > 240) return { status: 422, body: { error: 'Link do profilu jest za długi.' } }
+    if (lead.profileUrl) {
+      try {
+        const profileUrl = new URL(lead.profileUrl)
+        if (!['http:', 'https:'].includes(profileUrl.protocol)) throw new Error('Unsupported protocol')
+      } catch {
+        return { status: 422, body: { error: 'Podaj prawidłowy link do profilu.' } }
+      }
+    }
     if (lead.discipline.length < 2 || lead.discipline.length > 80) return { status: 422, body: { error: 'Podaj dyscyplinę (2–80 znaków).' } }
     if (lead.city.length < 2 || lead.city.length > 80) return { status: 422, body: { error: 'Podaj miasto.' } }
     if (lead.district.length < 2 || lead.district.length > 80) return { status: 422, body: { error: 'Podaj dzielnicę lub obszar działania.' } }
@@ -141,7 +149,7 @@ function createWaitlistHandler({ webhookUrl, webhookSecret, fetchImpl = fetch })
     if (lead.whyNow.length < 20 || lead.whyNow.length > 800) return { status: 422, body: { error: 'Napisz, dlaczego szukasz rozwiązania właśnie teraz.' } }
     if (!lead.readiness.length || lead.readiness.some(value => !readinessOptions.has(value))) return { status: 422, body: { error: 'Wybierz, z czego jesteś gotowy korzystać w RinoMove.' } }
     if (!desiredResults.has(lead.desiredResult)) return { status: 422, body: { error: 'Wybierz oczekiwany rezultat.' } }
-    if (lead.desiredResult === 'other' && lead.desiredResultOther.length < 3) return { status: 422, body: { error: 'Opisz oczekiwany rezultat.' } }
+    if (lead.desiredResultOther.length > 240 || (lead.desiredResult === 'other' && lead.desiredResultOther.length < 3)) return { status: 422, body: { error: 'Opisz oczekiwany rezultat (3–240 znaków).' } }
     if (!['homepage', 'trainer_page'].includes(lead.source)) return { status: 422, body: { error: 'Nieprawidłowe źródło zgłoszenia.' } }
     if (data.consent !== true) return { status: 422, body: { error: 'Zaznacz zgodę na kontakt.' } }
     if (!url || !secret) return { status: 503, body: { error: 'Zapisy są chwilowo niedostępne. Spróbuj ponownie później.' } }

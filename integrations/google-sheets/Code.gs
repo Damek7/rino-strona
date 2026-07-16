@@ -1,6 +1,10 @@
 const SPREADSHEET_ID = '1KSEgWsqJXN8c7ZVZ780WrI_RBt0ZHW8pvsoAczWTzdo'
 const SHEET_NAME = 'Zgłoszenia trenerów'
 
+function safeCell(value) {
+  return /^[=+\-@]/.test(value) ? "'" + value : value
+}
+
 function doPost(e) {
   const input = JSON.parse(e.postData.contents)
   const expectedSecret = PropertiesService.getScriptProperties().getProperty('WEBHOOK_SECRET')
@@ -8,6 +12,10 @@ function doPost(e) {
   if (!expectedSecret || input.secret !== expectedSecret) {
     throw new Error('Forbidden')
   }
+
+  Object.keys(input).forEach(function (key) {
+    if (key !== 'secret' && typeof input[key] === 'string') input[key] = safeCell(input[key])
+  })
 
   const lock = LockService.getScriptLock()
   lock.waitLock(10000)
