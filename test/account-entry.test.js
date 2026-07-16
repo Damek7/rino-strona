@@ -25,14 +25,14 @@ test('signup stylesheet remains available for the pre-launch form', () => {
   assert.equal(fs.existsSync(cssPath), true)
 })
 
-test('signup form uses one clear pre-launch hierarchy and CTA', () => {
-  assert.match(html, /class="signup-kicker">Start wkrótce</)
-  assert.match(html, /<h2>Zapisz się jako trener<\/h2>/)
+test('signup form uses one clear qualification hierarchy and CTA', () => {
+  assert.match(html, /class="signup-kicker">Sprawdź dopasowanie</)
+  assert.match(html, /<h2>Dołącz do RinoMove<\/h2>/)
   assert.equal((html.match(/class="seg"/g) || []).length, 0)
-  assert.match(html, /id="signup-name"/)
-  assert.match(html, /id="signup-email"/)
-  assert.match(html, /id="signup-discipline"/)
-  assert.match(html, /<button type="submit" class="btn btn-primary btn-block">Zapisz się<\/button>/)
+  assert.match(html, /name="discipline"/)
+  assert.match(html, /name="desiredResult"/)
+  assert.match(html, /data-signup-contact/)
+  assert.match(html, /<button type="submit" class="btn btn-primary btn-block">Wyślij zgłoszenie<\/button>/)
 })
 
 test('signup form has responsive, focus and reduced-motion styles', () => {

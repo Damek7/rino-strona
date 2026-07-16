@@ -13,37 +13,34 @@ function signupForm(html) {
   return match[0]
 }
 
-test('homepage exposes the trainer-only signup contract', () => {
-  const form = signupForm(homepage)
+for (const [page, html, source] of [
+  ['index.html', homepage, 'homepage'],
+  ['dla-trenerow.html', trainerPage, 'trainer_page']
+]) {
+  test(`${page} exposes the seven-question qualification contract`, () => {
+    const form = signupForm(html)
 
-  assert.match(homepage, /class="signup-kicker">Start wkrótce</)
-  assert.match(form, /data-source="homepage"/)
-  assert.match(form, /name="name"/)
-  assert.match(form, /name="email"/)
-  assert.match(form, /name="discipline"/)
-  assert.match(form, /name="consent"/)
-  assert.match(form, /name="website"/)
-  assert.doesNotMatch(form, /Szukam trenera|Jestem trenerem/)
-  assert.doesNotMatch(form, /Warszawa/)
-})
+    assert.match(form, new RegExp(`data-source="${source}"`))
+    assert.equal((form.match(/data-signup-step/g) || []).length, 7)
+    for (const name of [
+      'discipline', 'city', 'district', 'venue', 'workModel', 'capacity',
+      'blocker', 'whyNow', 'readiness', 'desiredResult', 'desiredResultOther',
+      'name', 'email', 'phone', 'profileUrl', 'consent', 'website'
+    ]) assert.match(form, new RegExp(`name="${name}"`))
+    assert.match(form, /data-signup-contact/)
+    assert.match(form, /data-signup-progress/)
+    assert.doesNotMatch(form, /pilotaż/i)
+  })
+}
 
-test('trainer page exposes the same fields with its own source', () => {
-  const form = signupForm(trainerPage)
-
-  assert.match(trainerPage, /Start wkrótce/)
-  assert.match(form, /data-source="trainer_page"/)
-  for (const name of ['name', 'email', 'discipline', 'consent', 'website']) {
-    assert.match(form, new RegExp(`name="${name}"`))
-  }
-  assert.doesNotMatch(form, /experience|certificates|Instagram/)
-  assert.doesNotMatch(trainerPage, /navigator\.clipboard|Skopiuj zgłoszenie/)
-})
-
-test('both pages load the shared signup controller', () => {
+test('both pages load the shared wizard controller', () => {
   assert.match(homepage, /src="trainer-signup\.js"/)
   assert.match(trainerPage, /src="trainer-signup\.js"/)
 
   const script = fs.readFileSync(path.join(root, 'trainer-signup.js'), 'utf8')
+  assert.match(script, /data-signup-next/)
+  assert.match(script, /data-signup-back/)
+  assert.match(script, /data-other-result/)
+  assert.match(script, /data\.getAll\('readiness'\)/)
   assert.match(script, /fetch\(['"]\/api\/waitlist['"]/)
-  assert.match(script, /form\.dataset\.source/)
 })

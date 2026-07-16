@@ -1,15 +1,40 @@
 const { test } = require('node:test')
 const assert = require('node:assert/strict')
-const { createWaitlistHandler } = require('../server')
+const { createWaitlistHandler, qualificationStatus } = require('../server')
 
 const validLead = {
   name: '  Anna Nowak  ',
   email: ' ANNA@EXAMPLE.COM ',
+  phone: ' 600 100 200 ',
+  profileUrl: ' https://instagram.com/anna.trenuje ',
   discipline: ' Tenis ',
+  city: ' Warszawa ',
+  district: ' Mokotów ',
+  venue: ' Warszawianka ',
+  workModel: 'independent',
+  capacity: 'three_to_five',
+  blocker: ' Tracę dużo czasu na ręczne ustalanie terminów z klientami. ',
+  whyNow: ' Mam teraz wolne miejsca i chcę zdobyć nowych klientów. ',
+  readiness: ['profile', 'availability', 'bookings', 'feedback'],
+  desiredResult: 'new_client',
+  desiredResultOther: '',
   source: 'homepage',
   consent: true,
   website: ''
 }
+
+test('classifies a ready Warsaw trainer as qualified', () => {
+  assert.equal(qualificationStatus(validLead), 'qualified')
+})
+
+test('classifies a trainer outside Warsaw as waitlist', () => {
+  assert.equal(qualificationStatus({ ...validLead, city: 'Kraków' }), 'waitlist')
+})
+
+test('classifies no capacity or missing core readiness as review', () => {
+  assert.equal(qualificationStatus({ ...validLead, capacity: 'none' }), 'review')
+  assert.equal(qualificationStatus({ ...validLead, readiness: ['profile', 'feedback'] }), 'review')
+})
 
 test('forwards a normalized trainer lead to the configured webhook', async () => {
   const calls = []
@@ -33,10 +58,48 @@ test('forwards a normalized trainer lead to the configured webhook', async () =>
     secret: 'secret-value',
     name: 'Anna Nowak',
     email: 'anna@example.com',
+    phone: '600 100 200',
+    profileUrl: 'https://instagram.com/anna.trenuje',
     discipline: 'Tenis',
+    city: 'Warszawa',
+    district: 'Mokotów',
+    venue: 'Warszawianka',
+    workModel: 'independent',
+    capacity: 'three_to_five',
+    blocker: 'Tracę dużo czasu na ręczne ustalanie terminów z klientami.',
+    whyNow: 'Mam teraz wolne miejsca i chcę zdobyć nowych klientów.',
+    readiness: ['profile', 'availability', 'bookings', 'feedback'],
+    desiredResult: 'new_client',
+    desiredResultOther: '',
+    qualificationStatus: 'qualified',
     source: 'homepage'
   })
 })
+
+for (const [field, value, message] of [
+  ['phone', 'abc', /telefon/i],
+  ['profileUrl', 'instagram bez adresu', /link/i],
+  ['workModel', 'unknown', /model pracy/i],
+  ['capacity', 'unknown', /wolnych miejsc/i],
+  ['blocker', 'Za krótko', /utrudnia/i],
+  ['whyNow', 'Za krótko', /właśnie teraz/i],
+  ['readiness', [], /RinoMove/i],
+  ['desiredResult', 'other', /rezultat/i],
+  ['desiredResultOther', 'x'.repeat(241), /rezultat/i]
+]) {
+  test(`rejects invalid ${field}`, async () => {
+    const handler = createWaitlistHandler({
+      webhookUrl: 'https://example.test/hook',
+      webhookSecret: 'secret-value',
+      fetchImpl: async () => ({ ok: true })
+    })
+
+    const result = await handler({ ...validLead, [field]: value })
+
+    assert.equal(result.status, 422)
+    assert.match(result.body.error, message)
+  })
+}
 
 test('rejects an invalid trainer lead without calling the webhook', async () => {
   let calls = 0

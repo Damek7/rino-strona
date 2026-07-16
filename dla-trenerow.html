@@ -31,6 +31,7 @@
     .trainer-home-hero{position:relative;overflow:hidden;background:radial-gradient(circle at 87% 74%,rgba(169,212,234,.2),transparent 31%),radial-gradient(circle at 7% 30%,rgba(199,37,98,.09),transparent 27%),linear-gradient(135deg,#fffaf6 0%,#fff 52%,#f4f9fc 100%)}
     .trainer-home-hero .hero-shell{width:min(calc(100% - 64px),1344px);min-height:calc(100dvh - 104px);padding:clamp(64px,7vh,92px) 0;background:transparent;border-radius:0;overflow:visible}.trainer-home-hero .hero-dot-coral{top:23%;left:clamp(-195px,-10vw,-112px);width:clamp(210px,21vw,330px);height:auto;aspect-ratio:1;background:#c72562;box-shadow:none;opacity:.13}.trainer-home-hero .hero-visual{align-self:center;min-height:520px}.trainer-home-hero .hero-visual>.hero-dot-lime{z-index:0;right:-80px;bottom:-70px;top:auto;width:clamp(230px,23vw,360px);height:auto;aspect-ratio:1;background:#a9d4ea;box-shadow:none;opacity:.34}.trainer-home-hero .availability-card{z-index:2;inset:78px 24px auto 0;padding:30px 24px}.trainer-home-hero .rating-card,.trainer-home-hero .trainer-card{z-index:3}.trainer-home-hero .trainer-card{top:400px;bottom:auto}
     @media(max-width:900px){.trainer-home-hero .hero-shell{width:min(calc(100% - 28px),var(--max));min-height:0}.trainer-home-hero .hero-visual{min-height:500px}.trainer-home-hero .availability-card{inset:60px 0 auto 0}.trainer-home-hero .trainer-card{top:382px}}@media(max-width:620px){.trainer-home-hero .hero-shell{padding-block:52px 38px}.trainer-home-hero .hero-visual{min-height:410px}.trainer-home-hero .hero-visual>.hero-dot-lime{right:-90px;bottom:-72px}.trainer-home-hero .availability-card{inset:28px 0 auto 8px;height:280px}.trainer-home-hero .trainer-card{top:auto;bottom:0}.brand img.brand-wordmark{width:96px}}
+    .trainer-signup-form{display:grid;grid-template-columns:1fr;gap:18px}.trainer-signup-form fieldset{display:grid;gap:14px;min-width:0;margin:0;padding:0;border:0}.trainer-signup-form fieldset[hidden],.trainer-signup-form [hidden]{display:none!important}.trainer-signup-form legend{margin-bottom:10px;color:var(--ink);font:800 clamp(1.35rem,3vw,2rem)/1.15 'Manrope',sans-serif;letter-spacing:-.035em}.trainer-signup-form label:not(.signup-option):not(.rodo){display:grid;gap:7px;color:#3a3941;font-size:13px;font-weight:700}.trainer-signup-form input:not([type="radio"]):not([type="checkbox"]),.trainer-signup-form textarea{width:100%;min-height:52px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);font:15px 'DM Sans',sans-serif;outline:0;transition:border-color 160ms var(--ease),box-shadow 160ms var(--ease)}.trainer-signup-form textarea{min-height:132px;resize:vertical}.trainer-signup-form input:not([type="radio"]):not([type="checkbox"]):focus,.trainer-signup-form textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(85,76,255,.12)}.signup-progress{display:grid;gap:8px;color:var(--muted);font-size:12px;font-weight:700}.signup-progress progress{width:100%;height:7px;accent-color:var(--accent)}.signup-option{display:flex;align-items:flex-start;gap:11px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--white);cursor:pointer;transition:border-color 160ms var(--ease),background-color 160ms var(--ease)}.signup-option:has(input:checked){border-color:var(--accent);background:var(--surface)}.signup-option input{flex:0 0 auto;width:18px;height:18px;margin-top:1px;accent-color:var(--accent)}.signup-help,.trainer-signup-form small{color:var(--muted);font-size:12px}.signup-nav{display:flex;justify-content:space-between;gap:12px}.signup-back{min-height:48px;padding:11px 18px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);font-weight:800;cursor:pointer}.signup-nav [data-signup-next]{min-width:140px;margin-left:auto}.trainer-signup-form [type="submit"]{width:100%}.trainer-signup-form .rodo{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:12px;line-height:1.5}.trainer-signup-form .rodo input{flex:0 0 auto;width:18px;height:18px;margin-top:1px;accent-color:var(--accent)}@media(max-width:620px){.signup-nav{align-items:stretch;flex-direction:column-reverse}.signup-nav button{width:100%}}@media(prefers-reduced-motion:reduce){.signup-option,.trainer-signup-form input,.trainer-signup-form textarea{transition:none}}
   </style>
 </head>
 <body>
@@ -114,14 +115,99 @@
       <details><summary>Skąd będą pochodziły opinie?</summary><div class="answer">Tylko z rzeczywistych, opłaconych i oznaczonych jako odbyte treningów. Samo wejście na profil lub wysłanie zapytania nie daje prawa do wystawienia opinii.</div></details>
     </div></div></section>
 
-    <section class="contact" id="kontakt"><div class="wrap contact-card"><div><div class="eyebrow">Start wkrótce</div><h2>Zapisz się jako trener.</h2><p>Zostaw podstawowe informacje. Odezwiemy się przed startem i krótko poznamy Twój sposób pracy.</p></div><div class="contact-action"><b>Zgłoś zainteresowanie</b><p>Wypełnij krótki formularz. Nie potrzebujemy teraz certyfikatów ani dokumentów.</p><form class="interest-form" data-trainer-signup data-source="trainer_page">
-      <div class="form-field"><label for="trainer-name">Imię i nazwisko</label><input id="trainer-name" name="name" required minlength="2" maxlength="80" autocomplete="name"></div>
-      <div class="form-field"><label for="trainer-email">Adres e-mail</label><input id="trainer-email" name="email" required maxlength="120" type="email" autocomplete="email"></div>
-      <div class="form-field full"><label for="trainer-discipline">Dyscyplina</label><input id="trainer-discipline" name="discipline" required minlength="2" maxlength="80" placeholder="np. tenis, boks, padel"></div>
-      <label class="trainer-consent"><input type="checkbox" name="consent" required><span>Wyrażam zgodę na kontakt w sprawie startu RinoMove i przetwarzanie danych w tym celu.</span></label>
-      <div class="form-trap" aria-hidden="true" hidden><label>Strona internetowa<input name="website" tabindex="-1" autocomplete="off"></label></div>
-      <button class="btn" type="submit">Zapisz się</button><p class="form-note">Bez zobowiązań. Skontaktujemy się przed startem.</p><div class="form-status" data-signup-status role="status" aria-live="polite"></div>
-    </form></div></div></section>
+    <section class="contact" id="kontakt">
+      <div class="wrap contact-card">
+        <div>
+          <div class="eyebrow">Sprawdź dopasowanie</div>
+          <h2>Dołącz do RinoMove.</h2>
+          <p>7 pytań, około 3 minuty. Sprawdzimy, czy RinoMove pasuje do Twojego sposobu pracy.</p>
+        </div>
+        <div class="contact-action">
+          <b>Opowiedz nam o swojej pracy</b>
+          <p>Nie każdy trener potrzebuje tego samego. Odpowiedzi pomogą nam dobrze przygotować pierwszą rozmowę.</p>
+          <form class="interest-form trainer-signup-form" data-trainer-signup data-source="trainer_page">
+            <div class="signup-progress" data-signup-progress>
+              <span>Pytanie <b data-signup-current>1</b> z 7</span>
+              <progress max="7" value="1" aria-label="Postęp formularza"></progress>
+            </div>
+
+            <fieldset data-signup-step="1">
+              <legend>Jaką dyscyplinę trenujesz i gdzie prowadzisz treningi?</legend>
+              <label>Dyscyplina<input name="discipline" required="required" minlength="2" maxlength="80" placeholder="np. tenis"></label>
+              <label>Miasto<input name="city" required="required" minlength="2" maxlength="80" placeholder="np. Warszawa"></label>
+              <label>Dzielnica lub obszar<input name="district" required="required" minlength="2" maxlength="80" placeholder="np. Mokotów"></label>
+              <label>Klub lub obiekt — opcjonalnie<input name="venue" maxlength="120" placeholder="np. Warszawianka"></label>
+            </fieldset>
+
+            <fieldset data-signup-step="2" hidden="hidden">
+              <legend>W jakim modelu pracujesz?</legend>
+              <label class="signup-option"><input type="radio" name="workModel" value="independent" required="required"><span>Pracuję niezależnie</span></label>
+              <label class="signup-option"><input type="radio" name="workModel" value="club"><span>Pracuję w klubie lub akademii</span></label>
+              <label class="signup-option"><input type="radio" name="workModel" value="mixed"><span>Łączę pracę niezależną z klubem lub akademią</span></label>
+              <label class="signup-option"><input type="radio" name="workModel" value="team"><span>Prowadzę zespół trenerów</span></label>
+            </fieldset>
+
+            <fieldset data-signup-step="3" hidden="hidden">
+              <legend>Ilu nowych klientów możesz obecnie przyjąć?</legend>
+              <label class="signup-option"><input type="radio" name="capacity" value="none" required="required"><span>Obecnie nie mam wolnych miejsc</span></label>
+              <label class="signup-option"><input type="radio" name="capacity" value="one_to_two"><span>1–2 klientów miesięcznie</span></label>
+              <label class="signup-option"><input type="radio" name="capacity" value="three_to_five"><span>3–5 klientów miesięcznie</span></label>
+              <label class="signup-option"><input type="radio" name="capacity" value="more_than_five"><span>Więcej niż 5 klientów miesięcznie</span></label>
+            </fieldset>
+
+            <fieldset data-signup-step="4" hidden="hidden">
+              <legend>Co najbardziej utrudnia Ci pozyskiwanie lub obsługę klientów i czego już próbowałeś?</legend>
+              <textarea name="blocker" required="required" minlength="30" maxlength="1000" rows="6" placeholder="Napisz własnymi słowami"></textarea>
+              <small>Minimum 30 znaków.</small>
+            </fieldset>
+
+            <fieldset data-signup-step="5" hidden="hidden">
+              <legend>Co sprawiło, że myślisz o nowym rozwiązaniu właśnie teraz?</legend>
+              <textarea name="whyNow" required="required" minlength="20" maxlength="800" rows="5" placeholder="Napisz, co zmieniło się ostatnio"></textarea>
+              <small>Minimum 20 znaków.</small>
+            </fieldset>
+
+            <fieldset data-signup-step="6" hidden="hidden">
+              <legend>Z czego jesteś gotowy korzystać w RinoMove?</legend>
+              <p class="signup-help">Możesz wybrać kilka odpowiedzi.</p>
+              <label class="signup-option"><input type="checkbox" name="readiness" value="profile"><span>Przygotuję i uzupełnię swój profil</span></label>
+              <label class="signup-option"><input type="checkbox" name="readiness" value="availability"><span>Dodam dostępne terminy</span></label>
+              <label class="signup-option"><input type="checkbox" name="readiness" value="bookings"><span>Będę przyjmować rezerwacje przez RinoMove</span></label>
+              <label class="signup-option"><input type="checkbox" name="readiness" value="payments"><span>Będę obsługiwać płatności przez RinoMove</span></label>
+              <label class="signup-option"><input type="checkbox" name="readiness" value="feedback"><span>Będę przekazywać uwagi o działaniu RinoMove</span></label>
+            </fieldset>
+
+            <fieldset data-signup-step="7" hidden="hidden">
+              <legend>Jaki rezultat sprawiłby, że uznasz korzystanie z RinoMove za wartościowe?</legend>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="new_client" required="required"><span>Pozyskanie przynajmniej jednego nowego klienta</span></label>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="regular_bookings"><span>Więcej regularnych rezerwacji</span></label>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="less_scheduling"><span>Mniej czasu na ustalanie terminów</span></label>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="easier_service"><span>Wygodniejsza obsługa rezerwacji i płatności</span></label>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="visibility"><span>Profesjonalny profil i większa widoczność</span></label>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="other"><span>Inny rezultat</span></label>
+              <label data-other-result hidden="hidden">Jaki rezultat?<input name="desiredResultOther" minlength="3" maxlength="240"></label>
+            </fieldset>
+
+            <fieldset data-signup-contact hidden="hidden">
+              <legend>Zostaw kontakt — sprawdzimy Twoje zgłoszenie</legend>
+              <label>Imię i nazwisko<input name="name" autocomplete="name" required="required" minlength="2" maxlength="80"></label>
+              <label>Adres e-mail<input name="email" autocomplete="email" type="email" required="required" maxlength="120"></label>
+              <label>Numer telefonu<input name="phone" autocomplete="tel" type="tel" required="required" minlength="7" maxlength="24"></label>
+              <label>Instagram lub własna strona — opcjonalnie<input name="profileUrl" type="url" maxlength="240" placeholder="https://"></label>
+              <label class="rodo"><input type="checkbox" name="consent" required="required"><span>Wyrażam zgodę na kontakt w sprawie dołączenia do RinoMove i przetwarzanie danych w tym celu.</span></label>
+              <div class="form-trap" aria-hidden="true" hidden="hidden"><label>Strona internetowa<input name="website" tabindex="-1" autocomplete="off"></label></div>
+              <button type="submit" class="btn btn-primary btn-block">Wyślij zgłoszenie</button>
+            </fieldset>
+
+            <div class="signup-nav">
+              <button type="button" class="signup-back" data-signup-back hidden="hidden">Wstecz</button>
+              <button type="button" class="btn btn-primary" data-signup-next>Dalej</button>
+            </div>
+            <p class="form-status signup-status" data-signup-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
   <footer><div class="wrap"><a class="brand" href="index.html" aria-label="RinoMove — strona główna"><img src="assets/Rino-logo-v10.png" alt=""><img class="brand-wordmark" src="assets/rino-move-wordmark.png" alt="Rino Move"></a><span>Platforma dla trenerów</span></div></footer>
   <script>
