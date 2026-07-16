@@ -395,7 +395,8 @@ body[data-role="trainer"] .trainer-only { display: flex; }
   .page-heading--accent { min-height: 390px; padding: 28px 24px; align-items: flex-start; }
   .page-heading--accent > div { padding-right: 0; }
   .page-heading--accent h1 { font-size: clamp(37px, 11vw, 52px); }
-  .heading-rino { right: 14px; width: 170px; }
+  .page-heading--accent p { max-width: 200px; }
+  .heading-rino { right: -4px; width: 140px; max-height: 230px; }
   .page-heading--accent::before { right: 100px; }
   .filter-bar { position: static; grid-template-columns: 1fr 1fr; border-radius: 18px; }
   .filter-segment { min-height: 64px; border-right: 0; }

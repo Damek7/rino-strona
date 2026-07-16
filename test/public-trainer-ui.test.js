@@ -25,3 +25,9 @@ test('new UI follows current tokens and responsive constraints', () => {
   assert.match(css, /@media \(max-width: 820px\)[\s\S]+\.public-profile-layout/)
   assert.doesNotMatch(css, /transition:\s*all\b/)
 })
+
+test('discovery hero uses the plain oversized-cap mascot', () => {
+  assert.match(html, /class="heading-rino"[^>]+src="assets\/Rino-trener-cap-plain-3d-blue\.png"/)
+  assert.match(html, /class="heading-rino"[^>]+alt="Rino z dużą bordową czapką"/)
+  assert.ok(fs.existsSync(path.join(root, 'assets', 'Rino-trener-cap-plain-3d-blue.png')))
+})

@@ -50,3 +50,26 @@ test('anonymous user searches, reads profile and authenticates only on reserve',
   assert.match(await page.locator('#bookingList').textContent(), /Marek Kowalski/)
   await browser.close()
 })
+
+test('mobile discovery hero keeps the cap mascot clear of copy', async () => {
+  const browser = await chromium.launch({ headless: true })
+  try {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } })
+    await page.goto(`${origin}/panel.html`)
+    await page.waitForSelector('.heading-rino')
+    const layout = await page.evaluate(() => {
+      const image = document.querySelector('.heading-rino').getBoundingClientRect()
+      const copy = document.querySelector('.page-heading--accent p').getBoundingClientRect()
+      return {
+        imageLeft: image.left,
+        copyRight: copy.right,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+      }
+    })
+    assert.ok(layout.imageLeft >= layout.copyRight)
+    assert.equal(layout.scrollWidth, layout.clientWidth)
+  } finally {
+    await browser.close()
+  }
+})
