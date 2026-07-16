@@ -467,11 +467,26 @@
     })
   }
 
+  function renderUnavailableTrainerProfile() {
+    state.profileTrainerId = null
+    $('#trainerGallery').replaceChildren(emptyState('Profil niedostępny', 'Trener mógł ukryć profil. Wróć do wyników wyszukiwania.'))
+    $('#publicTrainerName').textContent = 'Profil niedostępny'
+    $('#publicTrainerMeta').textContent = 'RinoMove'
+    $('#publicTrainerVerified').hidden = true
+    $('#publicTrainerRating').textContent = ''
+    $('#publicTrainerBio').textContent = 'Ten profil nie jest już publicznie dostępny.'
+    $('#publicTrainerExperience').textContent = '—'
+    $('#publicTrainerSpecialties').replaceChildren()
+    $('#trainerReviews').replaceChildren()
+    $('#publicTrainerPrice').textContent = '—'
+    $('#profileReserve').disabled = true
+    $('#profileReserve').onclick = null
+  }
+
   async function renderPublicTrainerProfile(id) {
     const [trainer, reviews] = await Promise.all([state.store.getPublicTrainer(id), state.store.listTrainerReviews(id)])
     if (!trainer) {
-      $('#trainerGallery').replaceChildren(emptyState('Profil niedostępny', 'Trener mógł ukryć profil. Wróć do wyników wyszukiwania.'))
-      $('#profileReserve').disabled = true
+      renderUnavailableTrainerProfile()
       return
     }
     state.profileTrainerId = trainer.id
