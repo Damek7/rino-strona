@@ -77,16 +77,24 @@ Na desktopie treść i galeria zajmują główną kolumnę, a podsumowanie z cen
 
 ## Kierunek wizualny z folderu `Startup/inspiracje`
 
-Projekt utrzymuje obecny język wizualny RinoMove. Folder inspiracji zawiera odnośniki, a nie lokalne makiety. Wszystkie kategorie zostały przejrzane; puste kategorie nie są uzupełniane domysłami.
+Projekt utrzymuje obecny język wizualny RinoMove. Folder inspiracji zawiera odnośniki, a nie lokalne makiety. Każdy serwis jest używany wyłącznie dla elementu wskazanego nazwą folderu; ten sam serwis może wpływać na kilka elementów tylko wtedy, gdy występuje w kilku folderach. Nie są kopiowane branding, treści ani kompletne sekcje 1:1 — kopiowany jest wzorzec kompozycyjny lub interakcyjny, przetłumaczony na tokeny RinoMove.
 
-- **Craft** — spokojna hierarchia, lekkie powierzchnie, czytelne grupowanie formularzy i jednoznaczne CTA. Wpływa na pasek wyszukiwania, kartę boczną profilu i stany formularzy.
-- **Fluz i MindMarket** — zdecydowany rytm kart i czytelna hierarchia treści. Wpływ ogranicza się do mocniejszego kadrowania zdjęć i klarownego rozdziału metadanych od akcji.
-- **Maze i ClickUp** — realne dane produktu zamiast ogólnych obietnic. Karty pokazują cenę, lokalizację, ocenę i liczbę opinii bez marketingowego przeładowania.
-- **Headspace i Duolingo** — prosty język, przyjazne stany puste i duże cele dotykowe. Rino pozostaje elementem pomocniczym, nie dominuje nad zdjęciami trenerów.
-- **Ctrl, Arc i Slush** — techniczna świeżość oraz krótki, celowy ruch. Dozwolone są tylko szybkie wejścia widoku, hover i feedback naciśnięcia; wszystkie respektują `prefers-reduced-motion`.
-- **Raw Materials / Volta** — premium przez typografię, przestrzeń i dyscyplinę siatki, nie przez złoto ani ciężkie efekty.
+| Folder | Przejrzane źródła | Wzorzec zastosowany w panelu klienta |
+|---|---|---|
+| `01_Nawigacja` | Craft, Duolingo, Fluz, MindMarket | Lekki sticky topbar, wyraźne rozdzielenie odkrywania od konta, prosty stan aktywny i jeden dominujący punkt wejścia do konta. Bez kopiowania kolorów źródeł. |
+| `02_Hero` | Headspace, Duolingo, MindMarket, Maze, ClickUp | Krótkie objaśnienie wartości, przyjazny ton i mocna hierarchia nagłówka nad wyszukiwarką. Rino pozostaje wsparciem narracji, a nie konkurencją dla zdjęć trenerów. |
+| `03_Sekcje_oferty` | Craft, Fluz, ClickUp | Profil dzieli informacje na wyraźne bloki: „O mnie”, „Doświadczenie”, „Specjalizacje” i „Opinie”, zamiast jednej ściany tekstu. |
+| `04_Karty_i_lista_funkcji` | Fluz, MindMarket, Maze, ClickUp | Karty mają mocne kadrowanie zdjęcia, skanowalne metadane i realne dane: sport, lokalizacja, ocena, liczba opinii i cena. Jedna akcja „Zobacz profil”. |
+| `05_Cenniki` | brak linków | Brak zapożyczeń. Cena korzysta wyłącznie z istniejącego komponentu i typografii liczbowej RinoMove. |
+| `06_Opinie_i_zaufanie` | brak linków | Brak zapożyczeń. Opinie wynikają z reguł produktu: tylko zweryfikowane rezerwacje, średnia, liczba opinii i publiczna lista. |
+| `07_Formularze_i_CTA` | Craft | Wyszukiwarka jest jedną spokojną, połączoną powierzchnią z czytelnymi segmentami, jednoznacznymi etykietami i pojedynczym malinowym CTA. |
+| `08_Dashboardy` | brak linków | Brak zmian wynikających z inspiracji; istniejące dashboardy pozostają poza zakresem. |
+| `09_Mobile` | brak linków | Mobile wynika z istniejącego systemu RinoMove: pionowe pola, pełnoszerokie CTA, duże cele dotykowe i brak poziomego przepełnienia. |
+| `10_Animacje` | Ctrl, Headspace, Duolingo, MindMarket, Arc, ClickUp | Krótkie wejście profilu, lekki hover kart, feedback naciśnięcia i płynna zmiana głównego zdjęcia galerii. Bez efektów blokujących scroll; pełne wsparcie `prefers-reduced-motion`. |
+| `11_Typografia_i_kolory` | Ctrl, Headspace, Slush, Duolingo, Raw Materials / Volta, MindMarket, Arc, Maze, ClickUp | Duża, zwarta hierarchia nagłówków, czytelne liczby i premium przez przestrzeń. Paleta nie jest kopiowana: pozostają grafit, malina, błękit Rino, ciepłe tło i Nunito Sans. |
+| `12_Layout_i_uklad` | Craft, Headspace, Slush, Duolingo, Fluz, MindMarket, Arc, Maze, ClickUp | Dyscyplina szerokości, rytm sekcji i responsywna siatka. Profil używa szerokiej kolumny treści oraz węższej sticky karty rezerwacyjnej; wyniki zachowują siatkę 2→1. |
 
-Źródła pozostają zgodne z `inspiracje/*/linki.txt`: `craft.do`, `duolingo.com`, `fluz.app`, `mindmarket.com`, `headspace.com`, `maze.co`, `clickup.com`, `ctrl.xyz`, `slush.app`, `arc.net` i `therawmaterials.com/work/volta`.
+Przejrzane adresy są dokładnie tymi zapisanymi w `inspiracje/*/linki.txt`: `craft.do`, `duolingo.com`, `fluz.app`, `mindmarket.com`, `headspace.com`, `maze.co`, `clickup.com`, `ctrl.xyz`, `slush.app`, `arc.net` i `therawmaterials.com/work/volta`.
 
 Obowiązują istniejące tokeny: grafit `#1C1B20`, malinowy `#C72562`, niebiesko-lawendowy akcent Rino, ciepłe tło `#F6F3F0`, białe powierzchnie, Nunito Sans, koncentryczne promienie i cienie z `panel.css`. Nie powstaje nowy design system.
 
