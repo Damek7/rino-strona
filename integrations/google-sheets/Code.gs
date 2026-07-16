@@ -13,7 +13,29 @@ function doPost(e) {
   lock.waitLock(10000)
   try {
     const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME)
-    sheet.appendRow([new Date(), input.name, input.email, input.discipline, input.source, 'Nowy', '', ''])
+    sheet.appendRow([
+      new Date(),
+      input.name,
+      input.email,
+      input.phone,
+      input.profileUrl,
+      input.discipline,
+      input.city,
+      input.district,
+      input.venue,
+      input.workModel,
+      input.capacity,
+      input.blocker,
+      input.whyNow,
+      input.readiness.join(', '),
+      input.desiredResult,
+      input.desiredResultOther,
+      input.qualificationStatus,
+      input.source,
+      'Nowy',
+      '',
+      ''
+    ])
   } finally {
     lock.releaseLock()
   }
