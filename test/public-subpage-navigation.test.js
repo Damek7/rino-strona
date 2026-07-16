@@ -9,24 +9,26 @@ function readPage(name) {
   return fs.readFileSync(path.join(root, name), 'utf8')
 }
 
-function assertSharedNavigation(html) {
+function assertNavigationShell(html) {
   assert.match(html, /<body class="public-subpage">/)
   assert.match(html, /href="navigation\.css"/)
-  assert.match(html, /class="site-nav liquid-glass-nav public-navigation"/)
+  assert.match(html, /class="site-nav liquid-glass-nav[^\"]*"/)
   assert.match(html, /href="index\.html#top"[^>]*aria-label="RinoMove — strona główna"/)
-  assert.match(html, /href="index\.html#jak-to-dziala"[^>]*>Jak to działa</)
-  assert.match(html, /href="dla-trenerow\.html"[^>]*>Dla trenerów</)
-  assert.match(html, /class="btn btn-primary nav-register" href="index\.html#zapisy">Zapisz się</)
-  assert.match(html, /class="btn nav-mobile-cta" href="index\.html#zapisy">Zapisz się</)
-  assert.match(html, /aria-expanded="false"[^>]*aria-controls="main-menu"/)
-  assert.match(html, /src="public-navigation\.js"/)
 }
 
-test('trainer landing uses the homepage navigation with current-page semantics', () => {
+test('trainer landing uses contextual section navigation', () => {
   const html = readPage('dla-trenerow.html')
-  assertSharedNavigation(html)
-  assert.match(html, /href="dla-trenerow\.html" aria-current="page">Dla trenerów</)
-  assert.doesNotMatch(html, /class="mobile-menu-toggle"/)
+  assertNavigationShell(html)
+  assert.match(html, /class="site-nav liquid-glass-nav public-navigation"/)
+  assert.match(html, /href="index\.html#top">Strona główna</)
+  assert.match(html, /href="#korzysci">Korzyści</)
+  assert.match(html, /href="#program">Program</)
+  assert.match(html, /href="#jak">Jak dołączyć</)
+  assert.match(html, /class="btn btn-primary nav-register" href="#kontakt">Zapisz się</)
+  assert.match(html, /class="btn nav-mobile-cta" href="#kontakt">Zapisz się</)
+  assert.match(html, /aria-expanded="false"[^>]*aria-controls="main-menu"/)
+  assert.match(html, /src="public-navigation\.js"/)
+  assert.doesNotMatch(html, />Jak to działa<|>Dla trenerów</)
 })
 
 const legalPages = [
@@ -37,10 +39,14 @@ const legalPages = [
 ]
 
 for (const page of legalPages) {
-  test(`${page} uses the homepage navigation`, () => {
+  test(`${page} uses a minimal home-return navigation`, () => {
     const html = readPage(page)
-    assertSharedNavigation(html)
-    assert.doesNotMatch(html, /aria-current="page"/)
+    assertNavigationShell(html)
+    assert.match(html, /class="site-nav liquid-glass-nav legal-navigation"/)
+    assert.match(html, /class="btn nav-register legal-home-link" href="index\.html#top">Wróć na stronę główną</)
+    assert.doesNotMatch(html, /id="main-menu"|nav-mobile-cta|mobile-menu-button/)
+    assert.doesNotMatch(html, /src="public-navigation\.js"/)
+    assert.doesNotMatch(html, />Jak to działa<|>Dla trenerów<|>Zapisz się</)
   })
 }
 

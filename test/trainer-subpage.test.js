@@ -32,7 +32,8 @@ test('trainer landing returns to the homepage without rendering the trainer masc
   const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
 
   assert.match(html, /href="index\.html#top"/)
-  assert.match(html, /href="index\.html#jak-to-dziala"/)
+  assert.match(html, /href="index\.html#top">Strona główna</)
+  assert.match(html, /href="#program">Program</)
   assert.match(html, /aria-label="RinoMove — strona główna"/)
   assert.match(html, /class="hero trainer-home-hero"/)
   assert.doesNotMatch(html, /trainer-mascot-showcase|trainer-lower-mascot/)
