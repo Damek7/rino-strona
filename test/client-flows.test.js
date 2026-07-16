@@ -5,9 +5,9 @@ const path = require('node:path')
 const { normalizeFilters, groupSlotsByDay, bookingSummary, navigationForRole, shiftWeek } = require('../lib/panel-helpers')
 const panelSource = fs.readFileSync(path.join(__dirname, '..', 'panel.js'), 'utf8')
 
-test('client filters convert visible zloty values to integer grosze', () => {
-  assert.deepEqual(normalizeFilters({ q: ' Marek ', discipline: 'tenis', district: 'Mokotów', maxPrice: '220' }), {
-    q: 'Marek', discipline: 'tenis', district: 'Mokotów', maxPrice: 22000,
+test('client filters normalize public trainer search fields', () => {
+  assert.deepEqual(normalizeFilters({ city: ' Warszawa ', q: ' Marek ', discipline: 'tenis', district: 'Mokotów' }), {
+    city: 'Warszawa', q: 'Marek', discipline: 'tenis', district: 'Mokotów',
   })
 })
 
