@@ -48,3 +48,52 @@ test('other result reveals and requires the explanation field', async () => {
   assert.equal(await form.locator('[name="desiredResultOther"]').evaluate(input => input.required), true)
   await page.close()
 })
+
+test('qualification forms fit a 390px mobile viewport', async () => {
+  for (const path of ['/index.html#zapisy', '/dla-trenerow.html#kontakt']) {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } })
+    await page.goto(`${baseUrl}${path}`)
+    await page.locator('[data-trainer-signup]').scrollIntoViewIfNeeded()
+
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), true)
+    await assert.doesNotReject(() => page.locator('[data-signup-step="1"]').waitFor({ state: 'visible' }))
+    await page.close()
+  }
+})
+
+test('failed delivery keeps a completed qualification available for retry', async () => {
+  const page = await browser.newPage()
+  page.setDefaultTimeout(3000)
+  await page.goto(`${baseUrl}/index.html#zapisy`)
+  const form = page.locator('[data-trainer-signup]')
+  const next = form.locator('[data-signup-next]')
+
+  await form.locator('[name="discipline"]').fill('Tenis')
+  await form.locator('[name="city"]').fill('Warszawa')
+  await form.locator('[name="district"]').fill('Mokotów')
+  await next.click()
+  await form.locator('[name="workModel"][value="independent"]').check()
+  await next.click()
+  await form.locator('[name="capacity"][value="three_to_five"]').check()
+  await next.click()
+  await form.locator('[name="blocker"]').fill('Za dużo czasu tracę na wiadomości i ręczne ustalanie terminów.')
+  await next.click()
+  await form.locator('[name="whyNow"]').fill('Mam teraz wolne miejsca i chcę pozyskać nowych klientów.')
+  await next.click()
+  for (const value of ['profile', 'availability', 'bookings']) {
+    await form.locator(`[name="readiness"][value="${value}"]`).check()
+  }
+  await next.click()
+  await form.locator('[name="desiredResult"][value="new_client"]').check()
+  await next.click()
+  await form.locator('[name="name"]').fill('Jan Trener')
+  await form.locator('[name="email"]').fill('jan@example.com')
+  await form.locator('[name="phone"]').fill('500600700')
+  await form.locator('[name="consent"]').check()
+  await form.locator('[type="submit"]').click()
+
+  await assert.doesNotReject(() => form.locator('[data-signup-status].is-error').waitFor({ state: 'visible' }))
+  assert.equal(await form.locator('[name="discipline"]').inputValue(), 'Tenis')
+  assert.equal(await form.locator('[name="email"]').inputValue(), 'jan@example.com')
+  await page.close()
+})
