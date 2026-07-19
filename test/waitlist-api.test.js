@@ -10,14 +10,10 @@ const validLead = {
   discipline: ' Tenis ',
   city: ' Warszawa ',
   district: ' Mokotów ',
-  venue: ' Warszawianka ',
   workModel: 'independent',
-  capacity: 'three_to_five',
+  acceptingClients: 'yes',
+  primaryNeed: 'new_clients',
   blocker: ' Tracę dużo czasu na ręczne ustalanie terminów z klientami. ',
-  whyNow: ' Mam teraz wolne miejsca i chcę zdobyć nowych klientów. ',
-  readiness: ['profile', 'availability', 'bookings', 'feedback'],
-  desiredResult: 'new_client',
-  desiredResultOther: '',
   source: 'homepage',
   consent: true,
   website: ''
@@ -31,9 +27,9 @@ test('classifies a trainer outside Warsaw as waitlist', () => {
   assert.equal(qualificationStatus({ ...validLead, city: 'Kraków' }), 'waitlist')
 })
 
-test('classifies no capacity or missing core readiness as review', () => {
-  assert.equal(qualificationStatus({ ...validLead, capacity: 'none' }), 'review')
-  assert.equal(qualificationStatus({ ...validLead, readiness: ['profile', 'feedback'] }), 'review')
+test('classifies trainers not accepting clients now as review', () => {
+  assert.equal(qualificationStatus({ ...validLead, acceptingClients: 'soon' }), 'review')
+  assert.equal(qualificationStatus({ ...validLead, acceptingClients: 'no' }), 'review')
 })
 
 test('forwards a normalized trainer lead to the configured webhook', async () => {
@@ -63,14 +59,10 @@ test('forwards a normalized trainer lead to the configured webhook', async () =>
     discipline: 'Tenis',
     city: 'Warszawa',
     district: 'Mokotów',
-    venue: 'Warszawianka',
     workModel: 'independent',
-    capacity: 'three_to_five',
+    acceptingClients: 'yes',
+    primaryNeed: 'new_clients',
     blocker: 'Tracę dużo czasu na ręczne ustalanie terminów z klientami.',
-    whyNow: 'Mam teraz wolne miejsca i chcę zdobyć nowych klientów.',
-    readiness: ['profile', 'availability', 'bookings', 'feedback'],
-    desiredResult: 'new_client',
-    desiredResultOther: '',
     qualificationStatus: 'qualified',
     source: 'homepage'
   })
@@ -80,12 +72,9 @@ for (const [field, value, message] of [
   ['phone', 'abc', /telefon/i],
   ['profileUrl', 'instagram bez adresu', /link/i],
   ['workModel', 'unknown', /model pracy/i],
-  ['capacity', 'unknown', /wolnych miejsc/i],
-  ['blocker', 'Za krótko', /utrudnia/i],
-  ['whyNow', 'Za krótko', /właśnie teraz/i],
-  ['readiness', [], /RinoMove/i],
-  ['desiredResult', 'other', /rezultat/i],
-  ['desiredResultOther', 'x'.repeat(241), /rezultat/i]
+  ['acceptingClients', 'unknown', /klientów/i],
+  ['primaryNeed', 'unknown', /potrzeb/i],
+  ['blocker', 'x'.repeat(601), /utrudnia/i]
 ]) {
   test(`rejects invalid ${field}`, async () => {
     const handler = createWaitlistHandler({

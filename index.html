@@ -597,73 +597,41 @@
         </div>
         <form class="trainer-signup-form" data-trainer-signup data-source="homepage">
           <div class="signup-progress" data-signup-progress>
-            <span>Pytanie <b data-signup-current>1</b> z 7</span>
-            <progress max="7" value="1" aria-label="Postęp formularza"></progress>
+            <span>Krok <b data-signup-current>1</b> z 3</span>
+            <progress max="3" value="1" aria-label="Postęp formularza"></progress>
           </div>
 
           <fieldset data-signup-step="1">
-            <legend>Jaką dyscyplinę trenujesz i gdzie prowadzisz treningi?</legend>
+            <legend>Gdzie i jak pracujesz?</legend>
             <label>Dyscyplina<input name="discipline" required="required" minlength="2" maxlength="80" placeholder="np. tenis"></label>
             <label>Miasto<input name="city" required="required" minlength="2" maxlength="80" placeholder="np. Warszawa"></label>
-            <label>Dzielnica lub obszar<input name="district" required="required" minlength="2" maxlength="80" placeholder="np. Mokotów"></label>
-            <label>Klub lub obiekt — opcjonalnie<input name="venue" maxlength="120" placeholder="np. Warszawianka"></label>
+            <label>Dzielnica lub obszar, opcjonalnie<input name="district" maxlength="80" placeholder="np. Mokotów"></label>
+            <label class="signup-option"><input type="radio" name="workModel" value="independent" required="required"><span>Pracuję niezależnie</span></label>
+            <label class="signup-option"><input type="radio" name="workModel" value="club"><span>Pracuję w klubie lub akademii</span></label>
+            <label class="signup-option"><input type="radio" name="workModel" value="mixed"><span>Łączę pracę niezależną z klubem</span></label>
           </fieldset>
 
           <fieldset data-signup-step="2" hidden="hidden">
-            <legend>W jakim modelu pracujesz?</legend>
-            <label class="signup-option"><input type="radio" name="workModel" value="independent" required="required"><span>Pracuję niezależnie</span></label>
-            <label class="signup-option"><input type="radio" name="workModel" value="club"><span>Pracuję w klubie lub akademii</span></label>
-            <label class="signup-option"><input type="radio" name="workModel" value="mixed"><span>Łączę pracę niezależną z klubem lub akademią</span></label>
-            <label class="signup-option"><input type="radio" name="workModel" value="team"><span>Prowadzę zespół trenerów</span></label>
+            <legend>Czego potrzebujesz najbardziej?</legend>
+            <p class="signup-help">Czy obecnie przyjmujesz nowych klientów?</p>
+            <label class="signup-option"><input type="radio" name="acceptingClients" value="yes" required="required"><span>Tak, mam wolne miejsca</span></label>
+            <label class="signup-option"><input type="radio" name="acceptingClients" value="soon"><span>Wkrótce będę mieć wolne miejsca</span></label>
+            <label class="signup-option"><input type="radio" name="acceptingClients" value="no"><span>Nie, obecnie nie przyjmuję</span></label>
+            <p class="signup-help">Główna potrzeba</p>
+            <label class="signup-option"><input type="radio" name="primaryNeed" value="new_clients" required="required"><span>Więcej nowych klientów</span></label>
+            <label class="signup-option"><input type="radio" name="primaryNeed" value="less_scheduling"><span>Mniej ustalania terminów</span></label>
+            <label class="signup-option"><input type="radio" name="primaryNeed" value="stronger_profile"><span>Lepszy profil i widoczność</span></label>
+            <label class="signup-option"><input type="radio" name="primaryNeed" value="bookings_payments"><span>Rezerwacje i płatności w jednym miejscu</span></label>
+            <label class="signup-option"><input type="radio" name="primaryNeed" value="other"><span>Inna potrzeba</span></label>
+            <label>Co dziś najbardziej utrudnia Ci pracę? Opcjonalnie<textarea name="blocker" maxlength="600" rows="4" placeholder="Napisz własnymi słowami"></textarea></label>
           </fieldset>
 
-          <fieldset data-signup-step="3" hidden="hidden">
-            <legend>Ilu nowych klientów możesz obecnie przyjąć?</legend>
-            <label class="signup-option"><input type="radio" name="capacity" value="none" required="required"><span>Obecnie nie mam wolnych miejsc</span></label>
-            <label class="signup-option"><input type="radio" name="capacity" value="one_to_two"><span>1–2 klientów miesięcznie</span></label>
-            <label class="signup-option"><input type="radio" name="capacity" value="three_to_five"><span>3–5 klientów miesięcznie</span></label>
-            <label class="signup-option"><input type="radio" name="capacity" value="more_than_five"><span>Więcej niż 5 klientów miesięcznie</span></label>
-          </fieldset>
-
-          <fieldset data-signup-step="4" hidden="hidden">
-            <legend>Co najbardziej utrudnia Ci pozyskiwanie lub obsługę klientów i czego już próbowałeś?</legend>
-            <textarea name="blocker" required="required" minlength="30" maxlength="1000" rows="6" placeholder="Napisz własnymi słowami"></textarea>
-            <small>Minimum 30 znaków.</small>
-          </fieldset>
-
-          <fieldset data-signup-step="5" hidden="hidden">
-            <legend>Co sprawiło, że myślisz o nowym rozwiązaniu właśnie teraz?</legend>
-            <textarea name="whyNow" required="required" minlength="20" maxlength="800" rows="5" placeholder="Napisz, co zmieniło się ostatnio"></textarea>
-            <small>Minimum 20 znaków.</small>
-          </fieldset>
-
-          <fieldset data-signup-step="6" hidden="hidden">
-            <legend>Z czego jesteś gotowy korzystać w RinoMove?</legend>
-            <p class="signup-help">Możesz wybrać kilka odpowiedzi.</p>
-            <label class="signup-option"><input type="checkbox" name="readiness" value="profile"><span>Przygotuję i uzupełnię swój profil</span></label>
-            <label class="signup-option"><input type="checkbox" name="readiness" value="availability"><span>Dodam dostępne terminy</span></label>
-            <label class="signup-option"><input type="checkbox" name="readiness" value="bookings"><span>Będę przyjmować rezerwacje przez RinoMove</span></label>
-            <label class="signup-option"><input type="checkbox" name="readiness" value="payments"><span>Będę obsługiwać płatności przez RinoMove</span></label>
-            <label class="signup-option"><input type="checkbox" name="readiness" value="feedback"><span>Będę przekazywać uwagi o działaniu RinoMove</span></label>
-          </fieldset>
-
-          <fieldset data-signup-step="7" hidden="hidden">
-            <legend>Jaki rezultat sprawiłby, że uznasz korzystanie z RinoMove za wartościowe?</legend>
-            <label class="signup-option"><input type="radio" name="desiredResult" value="new_client" required="required"><span>Pozyskanie przynajmniej jednego nowego klienta</span></label>
-            <label class="signup-option"><input type="radio" name="desiredResult" value="regular_bookings"><span>Więcej regularnych rezerwacji</span></label>
-            <label class="signup-option"><input type="radio" name="desiredResult" value="less_scheduling"><span>Mniej czasu na ustalanie terminów</span></label>
-            <label class="signup-option"><input type="radio" name="desiredResult" value="easier_service"><span>Wygodniejsza obsługa rezerwacji i płatności</span></label>
-            <label class="signup-option"><input type="radio" name="desiredResult" value="visibility"><span>Profesjonalny profil i większa widoczność</span></label>
-            <label class="signup-option"><input type="radio" name="desiredResult" value="other"><span>Inny rezultat</span></label>
-            <label data-other-result hidden="hidden">Jaki rezultat?<input name="desiredResultOther" minlength="3" maxlength="240"></label>
-          </fieldset>
-
-          <fieldset data-signup-contact hidden="hidden">
-            <legend>Zostaw kontakt — sprawdzimy Twoje zgłoszenie</legend>
+          <fieldset data-signup-step="3" data-signup-contact hidden="hidden">
+            <legend>Gdzie możemy wrócić z informacją?</legend>
             <label>Imię i nazwisko<input name="name" autocomplete="name" required="required" minlength="2" maxlength="80"></label>
             <label>Adres e-mail<input name="email" autocomplete="email" type="email" required="required" maxlength="120"></label>
-            <label>Numer telefonu<input name="phone" autocomplete="tel" type="tel" required="required" minlength="7" maxlength="24"></label>
-            <label>Instagram lub własna strona — opcjonalnie<input name="profileUrl" type="url" maxlength="240" placeholder="https://"></label>
+            <label>Numer telefonu, opcjonalnie<input name="phone" autocomplete="tel" type="tel" maxlength="24"></label>
+            <label>Instagram lub własna strona, opcjonalnie<input name="profileUrl" type="url" maxlength="240" placeholder="https://"></label>
             <label class="rodo"><input type="checkbox" name="consent" required="required"><span>Wyrażam zgodę na kontakt w sprawie dołączenia do RinoMove i przetwarzanie danych w tym celu.</span></label>
             <div class="form-trap" aria-hidden="true" hidden="hidden"><label>Strona internetowa<input name="website" tabindex="-1" autocomplete="off"></label></div>
             <button type="submit" class="btn btn-primary btn-block">Wyślij zgłoszenie</button>
