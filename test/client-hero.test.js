@@ -8,7 +8,9 @@ const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
 
 test('homepage hero recruits trainer leads without unsupported promises', () => {
   assert.match(html, /<h1>RinoMove\. Tu trener jest marką\.<\/h1>/)
-  assert.match(html, /Budujemy marketplace/)
+  assert.match(html, /Twój talent zasługuje na technologię, która dotrzymuje mu kroku\./)
+  assert.match(html, /RinoMove powstaje, by połączyć Twoją markę, wolne terminy i klientów w jednym miejscu\./)
+  assert.doesNotMatch(html, /Budujemy marketplace, w którym Twój profil/)
   assert.match(html, /class="hero-cta"[\s\S]*?href="#zapisy"[^>]*>Zgłoś się jako trener-założyciel</)
   assert.match(html, /href="#jak-to-dziala"[^>]*>Zobacz, jak to działa/)
   assert.doesNotMatch(html, /Znajdź trenera, z którym naprawdę zaczniesz/)
@@ -49,6 +51,27 @@ test('hero styles preserve brand colors and mobile behavior', () => {
   assert.match(css, /#A9D4EA/i)
   assert.match(css, /@media\s*\(max-width:\s*920px\)/)
   assert.match(css, /prefers-reduced-motion:\s*reduce/)
+})
+
+test('hero headline uses the display typeface and mobile copy is centered', () => {
+  const css = fs.readFileSync(path.join(root, 'hero.css'), 'utf8')
+
+  assert.match(
+    html,
+    /family=Archivo\+Black/
+  )
+  assert.match(
+    css,
+    /#top\.client-hero \.hero h1\s*\{[^}]*font-family:\s*"Archivo Black",\s*system-ui,\s*sans-serif;[^}]*font-weight:\s*400;/s
+  )
+  assert.match(
+    css,
+    /@media \(max-width: 600px\)[\s\S]*?#top\.client-hero \.hero-copy\s*\{[^}]*align-items:\s*center;[^}]*text-align:\s*center;/s
+  )
+  assert.match(
+    css,
+    /@media \(max-width: 600px\)[\s\S]*?#top\.client-hero \.hero h1\s*\{[^}]*margin-inline:\s*auto;/s
+  )
 })
 
 test('mobile and tablet hero content starts below the floating navigation', () => {
