@@ -5,15 +5,30 @@ const path = require('node:path')
 
 const root = path.join(__dirname, '..')
 
-test('trainer landing is available as a local subpage', () => {
+test('trainer landing leads with the trainer value proposition', () => {
   const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
 
-  assert.match(html, /RinoMove dla/)
+  assert.match(html, /<title>RinoMove dla trenerów\. Twój profil pracuje<\/title>/)
   assert.match(html, /class="site-nav liquid-glass-nav public-navigation"/)
   assert.doesNotMatch(html, /class="eyebrow"/)
-  assert.match(html, /Trener i terminy/)
+  assert.match(html, /<h1>Twój profil pracuje\. Ty trenujesz\.<\/h1>/)
+  assert.match(html, /href="#kontakt"[^>]*>Zgłoś się jako trener-założyciel</)
+  assert.doesNotMatch(html, />Przeglądaj trenerów</)
   assert.match(html, /assets\/Rino-logo-v10\.png/)
   assert.match(html, /assets\/tennis-back-serve\.png/)
+})
+
+test('trainer landing uses benefit-led section headings', () => {
+  const html = fs.readFileSync(path.join(root, 'dla-trenerow.html'), 'utf8')
+
+  for (const heading of [
+    'Nie kolejny katalog. Miejsce zbudowane wokół trenera.',
+    'Mniej wiadomości. Więcej jasnych ustaleń.',
+    'Od zainteresowania do potwierdzonego terminu.',
+    'Dołącz wcześniej. Pomóż ustawić dobry kierunek.',
+    'Pokaż nam, jak pracujesz.',
+    'Zanim dołączysz.'
+  ]) assert.match(html, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
 })
 
 test('trainer landing assets are present in the main project', () => {
