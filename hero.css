@@ -24,9 +24,9 @@
 
 #top.client-hero .hero h1 {
   max-width: 610px;
-  font-family: "Archivo Black", system-ui, sans-serif;
+  font-family: "Manrope", system-ui, sans-serif;
   font-size: clamp(3.15rem, 4.3vw, 4.65rem);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.02;
   letter-spacing: -0.047em;
   text-wrap: balance;
@@ -280,21 +280,17 @@
   }
 
   #top.client-hero .hero-copy {
-    align-items: center;
     gap: 21px;
-    text-align: center;
   }
 
   #top.client-hero .hero h1 {
     max-width: 10ch;
-    margin-inline: auto;
     font-size: clamp(2.75rem, 12.2vw, 3.3rem);
     line-height: .96;
     letter-spacing: -0.052em;
   }
 
   #top.client-hero .hero-lead {
-    margin-inline: auto;
     font-size: 17px;
     line-height: 1.58;
   }
@@ -303,7 +299,6 @@
     align-items: stretch;
     flex-direction: column;
     gap: 12px;
-    width: 100%;
   }
 
   #top.client-hero .hero-cta .btn {
