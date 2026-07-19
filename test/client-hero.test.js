@@ -6,12 +6,17 @@ const path = require('node:path')
 const root = path.join(__dirname, '..')
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
 
-test('homepage hero speaks only to clients', () => {
-  assert.match(html, /Znajdź trenera, z którym naprawdę zaczniesz\./)
-  assert.match(html, /class="hero-cta"[\s\S]*?href="#zapisy"[^>]*>Zapisz się</)
+test('homepage hero recruits trainer leads without unsupported promises', () => {
+  assert.match(html, /<h1>RinoMove\. Tu trener jest marką\.<\/h1>/)
+  assert.match(html, /Budujemy marketplace/)
+  assert.match(html, /class="hero-cta"[\s\S]*?href="#zapisy"[^>]*>Zgłoś się jako trener-założyciel</)
   assert.match(html, /href="#jak-to-dziala"[^>]*>Zobacz, jak to działa/)
-  assert.doesNotMatch(html, /Rekrutujemy trenerów-założycieli/)
-  assert.doesNotMatch(html, /Dołącz jako trener/)
+  assert.doesNotMatch(html, /Znajdź trenera, z którym naprawdę zaczniesz/)
+  assert.doesNotMatch(html, /gwarantujemy|gwarantowanych klientów|lider rynku/i)
+})
+
+test('homepage adds no sticky or fixed bottom CTA', () => {
+  assert.doesNotMatch(html, /bottom-cta|sticky-cta|mobile-cta-bar/)
 })
 
 test('hero uses two decorative edge dots', () => {

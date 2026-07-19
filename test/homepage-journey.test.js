@@ -7,7 +7,7 @@ const root = path.join(__dirname, '..')
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
 const journeyCssPath = path.join(root, 'journey.css')
 
-test('homepage follows the approved client-first section order', () => {
+test('homepage keeps a clear trainer lead section order', () => {
   const ids = ['specjalizacje', 'jak-to-dziala', 'zaufanie', 'korzysci', 'dla-trenerow', 'zapisy', 'faq']
   let cursor = -1
 
@@ -18,20 +18,20 @@ test('homepage follows the approved client-first section order', () => {
   }
 })
 
-test('how it works contains three product-backed steps', () => {
+test('how it works contains three trainer-funnel steps', () => {
   assert.equal((html.match(/class="journey-step journey-step--/g) || []).length, 3)
   assert.equal((html.match(/class="journey-preview journey-preview--/g) || []).length, 3)
-  assert.match(html, /Porównaj właściwe osoby/)
-  assert.match(html, /Wybierz wolny termin/)
-  assert.match(html, /Zapłać i przyjdź na trening/)
+  assert.match(html, /Pokazujesz swoją ofertę/)
+  assert.match(html, /Klient wybiera wolny termin/)
+  assert.match(html, /Trening ma jasny status/)
 })
 
-test('trust proof uses verified platform facts and a client CTA', () => {
+test('trust section uses planned product facts and a trainer CTA', () => {
   assert.match(html, /id="zaufanie"/)
-  assert.match(html, /Profil zweryfikowany/)
-  assert.match(html, /Cena widoczna przed rezerwacją/)
-  assert.match(html, /Opinia po odbytym treningu/)
-  assert.match(html, /href="#zapisy"[^>]*>Zapisz się</)
+  assert.match(html, /Profil pokazuje doświadczenie/)
+  assert.match(html, /Klient widzi ofertę przed kontaktem/)
+  assert.match(html, /Opinia dopiero po treningu/)
+  assert.match(html, /href="#zapisy"[^>]*>Zgłoś się jako trener-założyciel</)
 })
 
 test('journey stylesheet is responsive and motion safe', () => {
