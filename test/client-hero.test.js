@@ -8,7 +8,9 @@ const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
 
 test('homepage hero recruits trainer leads without unsupported promises', () => {
   assert.match(html, /<h1>RinoMove\. Tu trener jest marką\.<\/h1>/)
-  assert.match(html, /Budujemy marketplace/)
+  assert.match(html, /Twój talent zasługuje na technologię, która dotrzymuje mu kroku\./)
+  assert.match(html, /RinoMove powstaje, by połączyć Twoją markę, wolne terminy i klientów w jednym miejscu\./)
+  assert.doesNotMatch(html, /Budujemy marketplace, w którym Twój profil/)
   assert.match(html, /class="hero-cta"[\s\S]*?href="#zapisy"[^>]*>Zgłoś się jako trener-założyciel</)
   assert.match(html, /href="#jak-to-dziala"[^>]*>Zobacz, jak to działa/)
   assert.doesNotMatch(html, /Znajdź trenera, z którym naprawdę zaczniesz/)
