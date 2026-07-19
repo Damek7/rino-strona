@@ -603,9 +603,9 @@
 
           <fieldset data-signup-step="1">
             <legend>Gdzie i jak pracujesz?</legend>
-            <label>Dyscyplina<input name="discipline" required="required" minlength="2" maxlength="80" placeholder="np. tenis"></label>
-            <label>Miasto<input name="city" required="required" minlength="2" maxlength="80" placeholder="np. Warszawa"></label>
-            <label>Dzielnica lub obszar, opcjonalnie<input name="district" maxlength="80" placeholder="np. Mokotów"></label>
+            <label>Dyscyplina<input name="discipline" autocomplete="off" required="required" minlength="2" maxlength="80" placeholder="np. tenis…"></label>
+            <label>Miasto<input name="city" autocomplete="off" required="required" minlength="2" maxlength="80" placeholder="np. Warszawa…"></label>
+            <label>Dzielnica lub obszar, opcjonalnie<input name="district" autocomplete="off" maxlength="80" placeholder="np. Mokotów…"></label>
             <label class="signup-option"><input type="radio" name="workModel" value="independent" required="required"><span>Pracuję niezależnie</span></label>
             <label class="signup-option"><input type="radio" name="workModel" value="club"><span>Pracuję w klubie lub akademii</span></label>
             <label class="signup-option"><input type="radio" name="workModel" value="mixed"><span>Łączę pracę niezależną z klubem</span></label>
@@ -623,15 +623,15 @@
             <label class="signup-option"><input type="radio" name="primaryNeed" value="stronger_profile"><span>Lepszy profil i widoczność</span></label>
             <label class="signup-option"><input type="radio" name="primaryNeed" value="bookings_payments"><span>Rezerwacje i płatności w jednym miejscu</span></label>
             <label class="signup-option"><input type="radio" name="primaryNeed" value="other"><span>Inna potrzeba</span></label>
-            <label>Co dziś najbardziej utrudnia Ci pracę? Opcjonalnie<textarea name="blocker" maxlength="600" rows="4" placeholder="Napisz własnymi słowami"></textarea></label>
+            <label>Co dziś najbardziej utrudnia Ci pracę? Opcjonalnie<textarea name="blocker" autocomplete="off" maxlength="600" rows="4" placeholder="Napisz własnymi słowami…"></textarea></label>
           </fieldset>
 
           <fieldset data-signup-step="3" data-signup-contact hidden="hidden">
             <legend>Gdzie możemy wrócić z informacją?</legend>
             <label>Imię i nazwisko<input name="name" autocomplete="name" required="required" minlength="2" maxlength="80"></label>
-            <label>Adres e-mail<input name="email" autocomplete="email" type="email" required="required" maxlength="120"></label>
-            <label>Numer telefonu, opcjonalnie<input name="phone" autocomplete="tel" type="tel" maxlength="24"></label>
-            <label>Instagram lub własna strona, opcjonalnie<input name="profileUrl" type="url" maxlength="240" placeholder="https://"></label>
+            <label>Adres e-mail<input name="email" autocomplete="email" type="email" spellcheck="false" required="required" maxlength="120"></label>
+            <label>Numer telefonu, opcjonalnie<input name="phone" autocomplete="tel" type="tel" inputmode="tel" maxlength="24"></label>
+            <label>Instagram lub własna strona, opcjonalnie<input name="profileUrl" autocomplete="url" type="url" spellcheck="false" maxlength="240" placeholder="https://…"></label>
             <label class="rodo"><input type="checkbox" name="consent" required="required"><span>Wyrażam zgodę na kontakt w sprawie dołączenia do RinoMove i przetwarzanie danych w tym celu.</span></label>
             <div class="form-trap" aria-hidden="true" hidden="hidden"><label>Strona internetowa<input name="website" tabindex="-1" autocomplete="off"></label></div>
             <button type="submit" class="btn btn-primary btn-block">Wyślij zgłoszenie</button>

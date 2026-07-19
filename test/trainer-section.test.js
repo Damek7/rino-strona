@@ -18,7 +18,7 @@ test('trainer section preserves both trainer journeys', () => {
   const section = html.slice(html.indexOf('id="dla-trenerow"'), html.indexOf('id="zapisy"'))
   assert.match(section, /href="dla-trenerow\.html"/)
   assert.match(section, /href="#zapisy"/)
-  assert.match(section, /Więcej czasu na trening/)
+  assert.match(section, /Pierwsi trenerzy ustalają zasady gry/)
 })
 
 test('trainer section is responsive and does not restore a pink full-screen background', () => {

@@ -132,10 +132,15 @@ test('completed booking reports whether the client already reviewed it', async (
 test('trainer can add availability but overlapping slots are rejected', async () => {
   const store = createDemoStore(memoryStorage())
   await store.signIn({ email: 'marek@demo.rinomove.pl', password: 'RinoDemo123' })
-  const slot = await store.setAvailability({ startsAt: '2026-07-20T09:00:00+02:00', endsAt: '2026-07-20T10:00:00+02:00' })
+  const startsAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+  startsAt.setHours(9, 0, 0, 0)
+  const endsAt = new Date(startsAt.getTime() + 60 * 60 * 1000)
+  const overlapStart = new Date(startsAt.getTime() + 30 * 60 * 1000)
+  const overlapEnd = new Date(endsAt.getTime() + 30 * 60 * 1000)
+  const slot = await store.setAvailability({ startsAt: startsAt.toISOString(), endsAt: endsAt.toISOString() })
 
   assert.equal(slot.status, 'available')
-  await assert.rejects(() => store.setAvailability({ startsAt: '2026-07-20T09:30:00+02:00', endsAt: '2026-07-20T10:30:00+02:00' }), /nakłada/)
+  await assert.rejects(() => store.setAvailability({ startsAt: overlapStart.toISOString(), endsAt: overlapEnd.toISOString() }), /nakłada/)
   const past = new Date(Date.now() - 60_000)
   await assert.rejects(() => store.setAvailability({ startsAt: past.toISOString(), endsAt: new Date(past.getTime() + 3_600_000).toISOString() }), /przyszłości/)
 })

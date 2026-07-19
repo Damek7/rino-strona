@@ -23,7 +23,6 @@ test('homepage contains the approved footer content and destinations', () => {
     ['#jak-to-dziala', 'Jak to działa'],
     ['dla-trenerow.html', 'Dla trenerów'],
     ['#faq', 'FAQ'],
-    ['#zapisy', 'Zapisz się'],
     ['regulamin.html', 'Regulamin'],
     ['polityka-prywatnosci.html', 'Polityka prywatności'],
     ['rodo.html', 'RODO'],
@@ -33,6 +32,7 @@ test('homepage contains the approved footer content and destinations', () => {
     assert.ok(footerMarkup.includes(`>${label}`), `${label} label should exist in the footer`)
   }
 
+  assert.doesNotMatch(footerMarkup, /href="#zapisy"/)
   assert.equal((footerMarkup.match(/data-status="preparation"/g) || []).length, 4)
   assert.match(footerMarkup, /© 2026 RinoMove/)
 })

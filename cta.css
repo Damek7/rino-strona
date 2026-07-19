@@ -61,6 +61,11 @@
   gap: 18px;
 }
 
+.trainer-signup-form button,
+.signup-option {
+  touch-action: manipulation;
+}
+
 .trainer-signup-form fieldset {
   display: grid;
   gap: 14px;
