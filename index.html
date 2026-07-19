@@ -288,19 +288,12 @@
     @media(hover:hover) and (pointer:fine){.btn-text:hover .arw{transform:translateX(5px)}}
     @media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-media{opacity:1;transform:none;animation:none}.reveal{opacity:1;transform:none}.disc img,.t-card,.t-card::after{transition:none}}
     /* Trainer conversion layer */
-    .founder-pill{display:inline-flex;align-items:center;gap:9px;width:max-content;padding:9px 13px;border-radius:999px;background:var(--pink-wash);color:var(--pink-dark);font-size:13px;font-weight:700}
-    .founder-pill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 5px rgba(199,37,98,.1)}
-    .hero-proof{display:flex;gap:10px 24px;flex-wrap:wrap;color:var(--muted);font-size:13px;font-weight:600}
-    .hero-proof span{display:flex;align-items:center;gap:7px}.hero-proof span::before{content:"✓";color:var(--rose);font-weight:800}
-    .coach-eyebrow{display:block;margin-bottom:20px;color:rgba(255,255,255,.72);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
     .coaches .lead strong{color:white;font-weight:700}
-    .founder-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:38px;background:rgba(255,255,255,.2)}
-    .founder-step{padding:20px 18px;background:var(--rose)}.founder-step b{display:block;color:white;font-size:14px}.founder-step span{display:block;margin-top:5px;color:rgba(255,255,255,.7);font-size:13px;line-height:1.45}
     .signup-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px}.signup-trust span{padding:12px;border-radius:12px;background:var(--surface);color:var(--muted);font-size:12px;text-align:center;font-weight:700}
     .btn:active,.btn-text:active,.chip:active{transform:scale(.96)}
     h1,h2,h3{text-wrap:balance}p{text-wrap:pretty}.reveal{opacity:1;transform:none}.reveal.is-visible{opacity:1;transform:none}
     .hero-copy>*,.hero-media{opacity:1;transform:none;animation:none}
-    @media(max-width:640px){.hero-proof{display:grid;grid-template-columns:1fr}.founder-steps,.signup-trust{grid-template-columns:1fr}.founder-step{padding:16px 0}.coaches .btn-primary{width:100%}.founder-pill{white-space:normal}}
+    @media(max-width:640px){.signup-trust{grid-template-columns:1fr}.coaches .btn-primary{width:100%}}
   </style>
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="hero.css">
@@ -339,14 +332,12 @@
     <span class="hero-dot hero-dot--blue" aria-hidden="true"></span>
     <div class="wrap hero">
       <div class="hero-copy">
-        <span class="hero-eyebrow">Ruch zaczyna się od właściwej osoby</span>
         <h1>Znajdź trenera, z którym naprawdę zaczniesz.</h1>
         <p class="hero-lead">Budujemy prosty sposób na znalezienie sprawdzonego trenera i rezerwację treningu w Warszawie. Zapisz się, a damy Ci znać przed startem.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#zapisy">Zapisz się</a>
           <a class="btn-text" href="#jak-to-dziala">Zobacz, jak to działa <span class="arw">→</span></a>
         </div>
-        <div class="hero-proof" aria-label="Korzyści dla klienta"><span>Zweryfikowane profile</span><span>Jasna cena</span><span>Rezerwacja online</span></div>
       </div>
       <div class="hero-media">
         <div class="hero-racket-stage" role="img" aria-label="Trzy rakiety 3D: squashowa, padlowa i tenisowa">
@@ -361,7 +352,6 @@
   <!-- ===== WYBÓR SPORTU ===== -->
   <section id="specjalizacje" class="sport-choice" data-screen-label="Wybór sportu">
     <div class="wrap sport-choice-head">
-      <span class="sport-choice-eyebrow">Wybierz swój ruch</span>
       <h2>Od czego chcesz zacząć?</h2>
       <p>Sześć dyscyplin, jeden prosty początek: wybierz sport i znajdź osobę, z którą naprawdę ruszysz.</p>
     </div>
@@ -420,7 +410,6 @@
     <div class="wrap">
       <div class="journey-head">
         <div>
-          <span class="journey-eyebrow">Od wyboru do treningu</span>
           <h2>Trzy kroki. Jedna spokojna decyzja.</h2>
         </div>
         <p>Bez telefonów, przeklejania linków i niejasnych cen.</p>
@@ -475,7 +464,6 @@
   <section id="zaufanie" class="trust-proof" data-screen-label="Dlaczego RinoMove">
     <div class="wrap trust-proof-shell">
       <div class="trust-proof-copy">
-        <span class="trust-proof-eyebrow">Pewny pierwszy krok</span>
         <h2>Nie musisz znać się na sporcie, żeby dobrze wybrać.</h2>
         <p>RinoMove porządkuje informacje, które zwykle są rozrzucone po profilach, wiadomościach i stronach klubów.</p>
         <a class="btn btn-primary" href="#zapisy">Zapisz się</a>
@@ -503,7 +491,6 @@
   <!-- ===== KORZYŚCI DLA KLIENTA ===== -->
   <section id="korzysci" class="client-features" data-screen-label="Korzyści">
     <div class="wrap feature-head">
-      <span class="feature-eyebrow">Po prostu łatwiej</span>
       <h2>Wszystko, czego potrzebujesz, żeby po prostu zacząć.</h2>
       <p>Od pierwszego porównania do potwierdzonego terminu — bez szukania informacji w pięciu różnych miejscach.</p>
     </div>
@@ -568,7 +555,6 @@
   <section id="dla-trenerow" class="trainer-product" data-screen-label="Dla trenerów">
     <div class="wrap trainer-product-layout">
       <div class="trainer-product-copy reveal">
-        <span class="coach-eyebrow">Program założycielski · Warszawa</span>
         <h2>Więcej czasu na trening. Mniej na wiadomości i przelewy.</h2>
         <p class="lead"><strong>Nie budujemy kolejnego katalogu trenerów.</strong> Dajemy Ci jedno miejsce do pozyskiwania klientów i obsługi całego treningu — bez podawania prywatnego numeru.</p>
         <div class="trainer-product-actions">
@@ -606,7 +592,6 @@
     <div class="wrap">
       <div class="signup-card">
         <div class="signup-intro">
-          <span class="signup-kicker">Sprawdź dopasowanie</span>
           <h2>Dołącz do RinoMove</h2>
           <p class="sub">7 pytań, około 3 minuty. Sprawdzimy, czy RinoMove pasuje do Twojego sposobu pracy.</p>
         </div>

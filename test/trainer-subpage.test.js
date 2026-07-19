@@ -10,7 +10,7 @@ test('trainer landing is available as a local subpage', () => {
 
   assert.match(html, /RinoMove dla/)
   assert.match(html, /class="site-nav liquid-glass-nav public-navigation"/)
-  assert.match(html, /Bez wiadomo/)
+  assert.doesNotMatch(html, /class="eyebrow"/)
   assert.match(html, /Trener i terminy/)
   assert.match(html, /assets\/Rino-logo-v10\.png/)
   assert.match(html, /assets\/tennis-back-serve\.png/)

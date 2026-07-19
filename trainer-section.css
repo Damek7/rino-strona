@@ -36,21 +36,6 @@
   align-content: start;
 }
 
-.trainer-product .coach-eyebrow {
-  display: inline-flex;
-  width: max-content;
-  margin: 0;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(23, 22, 27, .06), 0 8px 24px rgba(23, 22, 27, .05);
-  color: #a3184d;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
 .trainer-product h2 {
   max-width: 720px;
   color: #17161b;
@@ -230,8 +215,12 @@
   }
 
   .trainer-benefit {
-    min-height: 214px;
+    min-height: 0;
     border-radius: 20px;
+  }
+
+  .trainer-benefit h3 {
+    margin-top: 16px;
   }
 }
 

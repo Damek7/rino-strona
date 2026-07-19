@@ -25,16 +25,6 @@
   gap: 25px;
 }
 
-#top.client-hero .hero-eyebrow {
-  width: fit-content;
-  color: #9e1748;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.065em;
-  line-height: 1.35;
-  text-transform: uppercase;
-}
-
 #top.client-hero .hero h1 {
   max-width: 610px;
   font-family: "Manrope", system-ui, sans-serif;
@@ -70,31 +60,6 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-}
-
-#top.client-hero .hero-proof {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 20px;
-  color: #3a3941;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-#top.client-hero .hero-proof span {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-}
-
-#top.client-hero .hero-proof span::before {
-  width: 7px;
-  height: 7px;
-  flex: 0 0 7px;
-  border-radius: 50%;
-  background: #c72562;
-  box-shadow: 0 0 0 4px rgba(199, 37, 98, 0.1);
-  content: "";
 }
 
 #top.client-hero .hero-media {
@@ -269,10 +234,28 @@
   }
 
   #top.client-hero .hero-racket-stage {
-    width: min(100%, 720px);
+    width: min(100%, 520px);
     min-width: 0;
-    height: 620px;
+    height: 560px;
     margin-right: 0;
+  }
+
+  #top.client-hero .hero-racket--squash {
+    top: -20px;
+    left: 0;
+    width: 74%;
+  }
+
+  #top.client-hero .hero-racket--padel {
+    top: -26px;
+    right: 0;
+    width: 76%;
+  }
+
+  #top.client-hero .hero-racket--tennis {
+    top: -60px;
+    left: 8%;
+    width: 86%;
   }
 
   #top.client-hero .hero-dot--pink {
@@ -329,33 +312,28 @@
     justify-content: center;
   }
 
-  #top.client-hero .hero-proof {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
   #top.client-hero .hero-racket-stage {
-    width: calc(100% + 40px);
-    height: 440px;
-    margin-inline: -20px;
+    width: 100%;
+    height: 320px;
+    margin-inline: 0;
   }
 
   #top.client-hero .hero-racket--squash {
-    top: -40px;
-    left: -7%;
-    width: 83%;
+    top: 4px;
+    left: 7%;
+    width: 60%;
   }
 
   #top.client-hero .hero-racket--padel {
-    top: -37px;
-    right: -10%;
-    width: 84%;
+    top: 0;
+    right: 7%;
+    width: 62%;
   }
 
   #top.client-hero .hero-racket--tennis {
-    top: -55px;
-    left: 3%;
-    width: 94%;
+    top: -18px;
+    left: 16%;
+    width: 68%;
   }
 }
 

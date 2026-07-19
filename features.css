@@ -12,14 +12,6 @@
   gap: 14px;
 }
 
-.feature-eyebrow {
-  color: #9e1748;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-
 .feature-head h2 {
   max-width: 880px;
   color: #1a191e;

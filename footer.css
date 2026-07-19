@@ -180,7 +180,7 @@
 
 @media (max-width: 760px) {
   .site-footer {
-    min-height: 860px;
+    min-height: 0;
     padding-top: 64px;
   }
 
@@ -188,8 +188,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 42px 22px;
-    min-height: 796px;
-    padding-bottom: 360px;
+    min-height: 0;
+    padding-bottom: 300px;
   }
 
   .site-footer__rail--left,
@@ -209,13 +209,13 @@
 }
 
 @media (max-width: 520px) {
-  .site-footer { min-height: 1030px; }
+  .site-footer { min-height: 0; }
 
   .site-footer__inner {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 32px 16px;
-    min-height: 966px;
-    padding-bottom: 350px;
+    min-height: 0;
+    padding-bottom: 270px;
   }
 
   .site-footer__rail--left,

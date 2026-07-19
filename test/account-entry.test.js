@@ -26,7 +26,7 @@ test('signup stylesheet remains available for the pre-launch form', () => {
 })
 
 test('signup form uses one clear qualification hierarchy and CTA', () => {
-  assert.match(html, /class="signup-kicker">Sprawdź dopasowanie</)
+  assert.doesNotMatch(html, /class="signup-kicker"/)
   assert.match(html, /<h2>Dołącz do RinoMove<\/h2>/)
   assert.equal((html.match(/class="seg"/g) || []).length, 0)
   assert.match(html, /name="discipline"/)
