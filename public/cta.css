@@ -1,0 +1,358 @@
+.signup {
+  background:
+    radial-gradient(circle at 14% 20%, rgba(199, 37, 98, .08), transparent 30%),
+    radial-gradient(circle at 86% 80%, rgba(169, 212, 234, .16), transparent 34%),
+    #f8f6f8;
+}
+
+.signup .wrap {
+  display: grid;
+  place-items: center;
+}
+
+.signup-card {
+  width: min(100%, 680px);
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 56px);
+  gap: 24px;
+  border: 0;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(26, 25, 30, .06),
+    0 8px 24px rgba(26, 25, 30, .06),
+    0 28px 64px rgba(26, 25, 30, .07);
+  transition: box-shadow 180ms ease-out;
+}
+
+.signup-card:focus-within {
+  box-shadow:
+    0 0 0 2px rgba(199, 37, 98, .22),
+    0 10px 28px rgba(26, 25, 30, .07),
+    0 30px 72px rgba(26, 25, 30, .08);
+}
+
+.signup-intro {
+  display: grid;
+  gap: 12px;
+}
+
+.signup-card h2 {
+  max-width: 560px;
+  font-size: clamp(2.55rem, 6vw, 4.6rem);
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.05em;
+  text-wrap: balance;
+}
+
+.signup-card .sub {
+  max-width: 520px;
+  margin-top: 0;
+  color: #565560;
+  font-size: 16px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.trainer-signup-form {
+  display: grid;
+  gap: 18px;
+}
+
+.trainer-signup-form fieldset {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.trainer-signup-form fieldset[hidden],
+.trainer-signup-form [hidden] {
+  display: none !important;
+}
+
+.trainer-signup-form legend {
+  margin-bottom: 10px;
+  color: #1c1b20;
+  font: 800 clamp(1.35rem, 3vw, 2rem)/1.15 Manrope, sans-serif;
+  letter-spacing: -.035em;
+}
+
+.trainer-signup-form label:not(.signup-option):not(.rodo) {
+  display: grid;
+  gap: 7px;
+  color: #3a3941;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.trainer-signup-form input:not([type="radio"]):not([type="checkbox"]),
+.trainer-signup-form textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 13px 15px;
+  border: 1px solid #dedbe0;
+  border-radius: 12px;
+  background: #fff;
+  color: #1c1b20;
+  font: 15px DM Sans, sans-serif;
+  outline: 0;
+  transition: border-color 160ms ease-out, box-shadow 160ms ease-out;
+}
+
+.trainer-signup-form textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.trainer-signup-form input:not([type="radio"]):not([type="checkbox"]):focus,
+.trainer-signup-form textarea:focus {
+  border-color: #1c1b20;
+  box-shadow: 0 0 0 4px rgba(26, 25, 30, .07);
+}
+
+.signup-progress {
+  display: grid;
+  gap: 8px;
+  color: #65636d;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.signup-progress progress {
+  width: 100%;
+  height: 7px;
+  accent-color: #c72562;
+}
+
+.signup-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 14px;
+  border: 1px solid #dedbe0;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 160ms ease-out, background-color 160ms ease-out;
+}
+
+.signup-option:has(input:checked) {
+  border-color: #c72562;
+  background: #fbf3f7;
+}
+
+.signup-option input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  accent-color: #c72562;
+}
+
+.signup-help,
+.trainer-signup-form small {
+  color: #65636d;
+  font-size: 12px;
+}
+
+.signup-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.signup-back {
+  min-height: 48px;
+  padding: 11px 18px;
+  border: 1px solid #dedbe0;
+  border-radius: 12px;
+  background: #fff;
+  color: #1c1b20;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.signup-nav [data-signup-next] {
+  min-width: 140px;
+  margin-left: auto;
+}
+
+.form-trap {
+  display: none !important;
+}
+
+.signup-status {
+  min-height: 22px;
+  color: #565560;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.signup-status.is-success {
+  color: #237a45;
+}
+
+.signup-status.is-error {
+  color: #9b1c1c;
+}
+
+.signup-card .seg {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border: 0;
+  border-radius: 14px;
+  overflow: visible;
+  background: #f3f1f3;
+}
+
+.signup-card .seg button {
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: background-color 160ms ease-out, color 160ms ease-out, transform 160ms ease-out;
+}
+
+.signup-card .seg button + button {
+  border-left: 0;
+}
+
+.signup-card .seg button:active,
+.signup-card .chip:active {
+  transform: scale(.96);
+}
+
+.signup-card .field {
+  gap: 8px;
+}
+
+.signup-card .field label {
+  color: #3a3941;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.signup-card .field input {
+  min-height: 52px;
+  padding: 13px 15px;
+  border: 1px solid #dedbe0;
+  border-radius: 12px;
+  background: #fff;
+  transition: border-color 160ms ease-out, box-shadow 160ms ease-out, background-color 160ms ease-out;
+}
+
+.signup-card .field input:hover {
+  border-color: #c7c3ca;
+}
+
+.signup-card .field input:focus {
+  border-color: #1a191e;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(26, 25, 30, .07);
+}
+
+.signup-card .chips {
+  gap: 8px;
+}
+
+.signup-card .chip {
+  min-height: 42px;
+  padding: 9px 15px;
+  border-radius: 10px;
+  transition: background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out, transform 160ms ease-out;
+}
+
+.signup-card .rodo {
+  gap: 12px;
+  color: #65636d;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.signup-card .rodo input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  accent-color: #1a191e;
+}
+
+.signup-card .btn-block {
+  min-height: 52px;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: background-color 160ms ease-out, transform 160ms ease-out;
+}
+
+.signup-card .btn-block:active:not(:disabled) {
+  transform: scale(.96);
+}
+
+.signup-card .btn-block:disabled {
+  cursor: not-allowed;
+}
+
+.signup-card .signup-trust {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 0;
+}
+
+.signup-card .signup-trust span {
+  padding: 10px 8px;
+  border-radius: 10px;
+  background: #f7f5f7;
+  color: #65636d;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .signup-card {
+    padding: 28px 22px;
+    border-radius: 22px;
+  }
+
+  .signup-card h2 {
+    font-size: clamp(2.45rem, 13vw, 3.45rem);
+  }
+
+  .signup-card .signup-trust {
+    grid-template-columns: 1fr;
+  }
+
+  .signup-nav {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .signup-nav button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signup-card,
+  .signup-card .seg button,
+  .signup-card .field input,
+  .signup-card .chip,
+  .signup-card .btn-block {
+    transition: none;
+  }
+
+  .signup-option,
+  .trainer-signup-form input,
+  .trainer-signup-form textarea {
+    transition: none;
+  }
+}

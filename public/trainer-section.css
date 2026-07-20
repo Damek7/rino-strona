@@ -1,0 +1,234 @@
+.trainer-product {
+  position: relative;
+  overflow: hidden;
+  min-height: auto;
+  padding-block: clamp(108px, 10vw, 164px);
+  background:
+    radial-gradient(circle at 7% 18%, rgba(169, 212, 234, .32), transparent 30%),
+    linear-gradient(180deg, #fcfbfc 0%, #f4f6fb 100%);
+  color: #17161b;
+}
+
+.trainer-product::after {
+  content: '';
+  position: absolute;
+  right: -120px;
+  bottom: -170px;
+  width: 460px;
+  height: 460px;
+  border: 1px solid rgba(23, 22, 27, .07);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.trainer-product-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(54px, 8vw, 112px);
+  align-items: start;
+}
+
+.trainer-product-copy {
+  display: grid;
+  gap: 24px;
+  align-content: start;
+}
+
+.trainer-product h2 {
+  max-width: 720px;
+  color: #17161b;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(3.25rem, 5.6vw, 6.1rem);
+  font-weight: 700;
+  line-height: .94;
+  letter-spacing: -.06em;
+  text-wrap: balance;
+}
+
+.trainer-product .lead {
+  max-width: 630px;
+  margin: 0;
+  color: #5c5a65;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.trainer-product .lead strong {
+  color: #17161b;
+  font-weight: 700;
+}
+
+.trainer-product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.trainer-product .btn-primary {
+  min-height: 54px;
+  margin: 0;
+  padding-inline: 24px;
+  background: #17161b;
+  color: #fff;
+  box-shadow: 0 12px 32px rgba(23, 22, 27, .16);
+  transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.trainer-product .btn-primary:hover {
+  background: #302e36;
+  box-shadow: 0 16px 38px rgba(23, 22, 27, .2);
+}
+
+.trainer-product .btn-primary:active,
+.trainer-text-link:active {
+  transform: scale(.96);
+}
+
+.trainer-text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #17161b;
+  font-weight: 800;
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.trainer-text-link span {
+  margin-left: 8px;
+  color: #c72562;
+  transition: transform 180ms ease;
+}
+
+.trainer-text-link:hover span {
+  transform: translateX(5px);
+}
+
+.trainer-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.trainer-benefit {
+  display: flex;
+  flex-direction: column;
+  min-height: 278px;
+  padding: clamp(24px, 3vw, 34px);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(23, 22, 27, .04), 0 20px 54px rgba(50, 48, 57, .07);
+  transition: transform 260ms cubic-bezier(.2, .8, .2, 1), box-shadow 260ms ease;
+}
+
+.trainer-benefit:nth-child(2) {
+  background: #eaf2ff;
+}
+
+.trainer-benefit:nth-child(3) {
+  background: #e9f8f3;
+}
+
+.trainer-benefit:nth-child(4) {
+  background: #f0edff;
+}
+
+.trainer-benefit > span {
+  color: #c72562;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.trainer-benefit h3 {
+  margin-top: auto;
+  color: #17161b;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.trainer-benefit p {
+  margin-top: 12px;
+  color: #65636d;
+  font-size: 14px;
+  line-height: 1.52;
+  text-wrap: pretty;
+}
+
+@media (hover: hover) {
+  .trainer-benefit:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 2px 3px rgba(23, 22, 27, .04), 0 26px 64px rgba(50, 48, 57, .11);
+  }
+}
+
+@media (max-width: 980px) {
+  .trainer-product-layout {
+    grid-template-columns: minmax(0, .84fr) minmax(0, 1.16fr);
+    gap: 44px;
+  }
+
+  .trainer-benefit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trainer-benefit {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 820px) {
+  .trainer-product {
+    padding-block: 94px;
+  }
+
+  .trainer-product-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .trainer-product h2 {
+    font-size: clamp(3.1rem, 13.5vw, 5.2rem);
+  }
+
+  .trainer-benefit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .trainer-product-actions,
+  .trainer-product .btn-primary {
+    width: 100%;
+  }
+
+  .trainer-benefit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trainer-benefit {
+    min-height: 0;
+    border-radius: 20px;
+  }
+
+  .trainer-benefit h3 {
+    margin-top: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trainer-product .btn-primary,
+  .trainer-text-link,
+  .trainer-text-link span,
+  .trainer-benefit {
+    transition: none;
+  }
+}

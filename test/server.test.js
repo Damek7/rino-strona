@@ -4,9 +4,9 @@ const { server } = require('../server')
 const fs = require('node:fs')
 const path = require('node:path')
 
-test('start command loads a local env file when present', () => {
+test('start command runs the Next.js production server', () => {
   const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8'))
-  assert.match(pkg.scripts.start, /--env-file-if-exists=\.env/)
+  assert.equal(pkg.scripts.start, 'next start')
 })
 
 test('server exposes the app and public config but never repository files', async t => {

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="RinoMove — profile trenerów, terminy, rezerwacje i płatności. Mniej wiadomości, więcej czasu na treningi.">
+  <title>RinoMove dla trenerów</title>
+  <link rel="icon" href="assets/rino-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Manrope:wght@500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#1c1b20;--ink-2:#292832;--paper:#f7f7fc;--surface:#f1f2ff;--white:#fff;--muted:#63647a;--line:#dfe1f2;--lavender:#a8bfe9;--raspberry:#c72562;--accent:#554cff;--blue:var(--lavender);--blue-deep:#554cff;--radius:30px;--radius-card:26px;--shadow-card:0 0 0 1px rgba(85,76,255,.07),0 2px 5px rgba(45,42,94,.04),0 18px 42px rgba(82,79,145,.07);--shadow-card-hover:0 0 0 1px rgba(85,76,255,.11),0 4px 10px rgba(45,42,94,.05),0 26px 58px rgba(82,79,145,.12);--max:1180px;--ease:cubic-bezier(.2,0,0,1)}
+    *,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;overflow-x:hidden;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}img{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit}h1,h2,h3,p{margin:0}h1,h2,h3,.btn,.site-nav{font-family:'Manrope',sans-serif}h1,h2{text-wrap:balance}p{text-wrap:pretty}.wrap{width:min(calc(100% - 40px),var(--max));margin-inline:auto}.skip{position:fixed;top:-80px;left:16px;z-index:100;background:white;padding:12px 16px;border-radius:10px}.skip:focus{top:16px}:focus-visible{outline:3px solid var(--raspberry);outline-offset:3px}.brand{display:flex;align-items:center;gap:10px;font-family:'Manrope',sans-serif;font-size:20px;font-weight:800;letter-spacing:-.04em}.brand img{width:35px;height:35px;border-radius:10px}.brand img.brand-wordmark{width:112px;height:auto;border-radius:0}.brand .move{font-family:'Manrope',sans-serif;font-style:italic;font-size:1em;font-weight:800;color:var(--ink)}
+    .site-nav{position:sticky;top:12px;z-index:50;display:flex;align-items:center;justify-content:space-between;width:min(calc(100% - 32px),var(--max));min-height:68px;margin:12px auto 0;padding:10px 12px 10px 18px;border:1px solid rgba(85,76,255,.09);border-radius:20px;background:rgba(255,255,255,.88);backdrop-filter:blur(18px);box-shadow:0 0 0 1px rgba(255,255,255,.5),0 14px 40px rgba(62,58,132,.08)}.nav-links{display:flex;align-items:center;gap:10px;font:700 14px 'Manrope',sans-serif}.nav-links>a:not(.btn){padding:10px 9px;border-radius:10px;color:var(--muted);transition-property:color,background-color;transition-duration:160ms;transition-timing-function:var(--ease)}.nav-links>a:not(.btn):hover,.nav-links>a:not(.btn):focus-visible{background:var(--surface);color:var(--ink)}.site-nav .nav-cta{min-height:46px;margin-left:6px;padding:11px 19px;background:var(--accent);box-shadow:0 8px 18px rgba(85,76,255,.18)}.site-nav .nav-cta:hover{background:#443be8;box-shadow:0 12px 24px rgba(85,76,255,.24)}.mobile-menu-toggle{display:none;min-height:44px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);font:700 14px 'Manrope',sans-serif;cursor:pointer}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:13px 22px;border:0;border-radius:12px;background:var(--ink);color:white;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(25,25,29,.14);transition-property:transform,background-color,box-shadow;transition-duration:180ms;transition-timing-function:var(--ease)}.btn:hover{background:#303037;box-shadow:0 12px 26px rgba(25,25,29,.18)}.btn:active{transform:scale(.96)}.btn-light{background:white;color:var(--ink)}.btn-light:hover{background:#eeece6}.text-link{font-weight:700;border-bottom:1px solid var(--ink);padding-bottom:3px}
+    .hero{padding:26px 16px 88px}.hero-shell{position:relative;display:grid;grid-template-columns:minmax(0,.88fr) minmax(430px,1.12fr);align-items:center;gap:clamp(48px,7vw,110px);width:min(100%,1320px);min-height:700px;margin:0 auto;padding:clamp(64px,8vw,116px);border-radius:38px;background:var(--surface);overflow:hidden}.hero-dot{position:absolute;z-index:3;display:block;width:11px;height:11px;border-radius:50%;box-shadow:0 7px 16px rgba(45,42,94,.14)}.hero-dot-coral{top:32%;left:32px;background:#ff8778}.hero-dot-lime{top:55%;right:28px;background:#a8e640}.hero-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;animation:rise .7s var(--ease) both}.hero h1{max-width:560px;font-size:clamp(3.5rem,5.4vw,6rem);line-height:.94;letter-spacing:-.065em;font-weight:800}.hero-copy>p{max-width:440px;margin-top:24px;color:var(--muted);font-size:17px}.hero-actions{display:flex;align-items:center;gap:18px;margin-top:30px;flex-wrap:wrap}.hero-actions .btn{min-height:54px;padding-inline:25px;background:var(--accent);box-shadow:0 14px 28px rgba(85,76,255,.18)}.hero-actions .btn:hover{background:#443be8;box-shadow:0 18px 34px rgba(85,76,255,.24)}.hero-visual{position:relative;z-index:1;min-height:500px;animation:rise .8s .08s var(--ease) both}.availability-card{position:absolute;inset:56px 8px 36px 62px;padding:34px 30px;border:1px solid rgba(85,76,255,.05);border-radius:30px;background:rgba(255,255,255,.92);box-shadow:0 28px 70px rgba(82,79,145,.13);transform:rotate(2deg);animation:heroDrift 7s .4s var(--ease) infinite}.availability-card h2{font-size:20px;letter-spacing:-.035em}.slot-list{display:grid;gap:14px;margin-top:24px}.time-slot{display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:0 17px;border-radius:15px;background:#f3f4fb;color:#85869a;font-size:13px;font-weight:700}.time-slot.is-active{background:var(--accent);color:var(--white);box-shadow:0 10px 22px rgba(85,76,255,.18)}.rating-card{position:absolute;z-index:2;top:0;right:0;width:180px;padding:18px 20px;border:1px solid rgba(85,76,255,.06);border-radius:22px;background:var(--white);box-shadow:0 18px 45px rgba(82,79,145,.12);transform:rotate(-2deg);animation:heroDrift 6s 1.2s var(--ease) infinite reverse}.rating-card span,.trainer-card span{display:block;margin-bottom:5px;color:var(--accent);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.rating-card b,.trainer-card b{font:800 15px 'Manrope',sans-serif}.trainer-card{position:absolute;z-index:2;left:16px;bottom:0;width:190px;padding:22px;border:1px solid rgba(85,76,255,.06);border-radius:22px;background:var(--white);box-shadow:0 22px 54px rgba(82,79,145,.15);transform:rotate(-4deg);animation:heroDrift 8s .8s var(--ease) infinite}.trainer-card span{margin:7px 0 0;color:var(--muted);font-size:10px}@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}@keyframes heroDrift{0%,100%{translate:0 0}50%{translate:0 -4px}}
+    .manifesto{padding:24px 0 110px}.manifesto-card{display:grid;grid-template-columns:.55fr 1.45fr;gap:48px;padding:clamp(36px,6vw,74px);border:1px solid rgba(85,76,255,.08);border-radius:var(--radius);background:var(--lavender);color:var(--ink);box-shadow:0 22px 60px rgba(82,79,145,.08)}.manifesto-label{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:12px}.manifesto h2{font-size:clamp(2.4rem,4.7vw,4.9rem);line-height:.98;letter-spacing:-.055em}.manifesto p{max-width:760px;margin-top:24px;color:#45465b;font-size:17px}.manifesto strong{color:var(--ink)}
+    section{padding:110px 0}.section-head{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:end;margin-bottom:58px}.section-head h2{font-size:clamp(2.7rem,5vw,5.2rem);line-height:.98;letter-spacing:-.055em}.section-head p{max-width:550px;color:var(--muted);font-size:17px}
+    .benefits{background:var(--white)}.benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.benefit-card{min-height:300px;padding:30px;border:1px solid rgba(85,76,255,.08);border-radius:26px;background:var(--surface);box-shadow:0 16px 38px rgba(82,79,145,.06);display:flex;flex-direction:column;justify-content:space-between}.benefit-card:nth-child(2),.benefit-card:nth-child(5){background:var(--white);box-shadow:0 20px 52px rgba(82,79,145,.1)}.benefit-card:nth-child(3){background:#eef7dd}.benefit-no{font-variant-numeric:tabular-nums;color:var(--accent);font-size:12px;font-weight:800}.benefit-card h3{font-size:clamp(1.45rem,2.3vw,2rem);line-height:1.08;letter-spacing:-.04em}.benefit-card p{margin-top:14px;color:var(--muted)}
+    .product{padding:110px 16px;background:var(--white);color:var(--ink)}.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(100%,1320px);min-height:720px;margin:0 auto;border:1px solid rgba(85,76,255,.08);border-radius:36px;overflow:hidden;background:var(--surface);box-shadow:0 28px 70px rgba(82,79,145,.1)}.product-media{min-height:720px;overflow:hidden;background:var(--ink)}.product-media img{width:100%;height:100%;object-fit:cover;object-position:90% center}.product-panel{display:flex;min-width:0;flex-direction:column;justify-content:center;padding:clamp(64px,7vw,110px) clamp(48px,5vw,88px)}.product h2{max-width:700px;margin-top:38px;font-family:'Manrope',sans-serif;font-size:clamp(2.8rem,4.9vw,5.6rem);font-weight:800;line-height:.94;letter-spacing:-.06em}.feature-list{margin-top:clamp(52px,6vw,82px);border-top:1px solid var(--line)}.feature{display:grid;grid-template-columns:40px minmax(0,.8fr) minmax(0,1.2fr);gap:22px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line)}.feature-no{color:var(--accent);font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}.feature b{font:700 14px 'Manrope',sans-serif;text-transform:uppercase}.feature p{color:var(--muted);font-size:14px}
+    .how{background:var(--surface)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.step{min-height:320px;padding:30px;border:1px solid rgba(85,76,255,.07);border-radius:26px;background:var(--white);box-shadow:0 16px 38px rgba(82,79,145,.06);display:flex;flex-direction:column}.step-no{color:var(--accent);font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}.step h3{margin-top:auto;font-size:28px;line-height:1.08;letter-spacing:-.04em}.step p{margin-top:12px;color:var(--muted)}
+    .truth{padding:110px 0;background:var(--white)}.truth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.program-card{min-height:330px;padding:36px;border:1px solid rgba(85,76,255,.08);border-radius:26px;background:var(--surface);display:flex;flex-direction:column;box-shadow:0 16px 38px rgba(82,79,145,.06)}.program-card.blue{background:var(--lavender)}.program-card.dark{background:var(--ink);color:var(--white)}.program-card h3{margin-top:auto;font-size:clamp(2rem,3vw,3rem);line-height:1;letter-spacing:-.05em}.program-card p{margin-top:20px;color:var(--muted);font-size:16px}.program-card.dark p{color:#c8c8d5}.program-card .card-label{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.program-card.dark .card-label{color:var(--lavender)}.program-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:24px;padding:28px 30px;border:1px solid rgba(85,76,255,.08);border-radius:22px;background:var(--surface)}.program-cta p{max-width:640px;color:var(--muted)}.program-cta .btn{background:var(--accent);box-shadow:none}
+    .faq{background:var(--paper)}.faq-list{max-width:900px;display:grid;gap:10px}.faq details{border:1px solid rgba(85,76,255,.08);border-radius:18px;background:var(--white);box-shadow:0 10px 28px rgba(82,79,145,.04)}summary{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 22px;cursor:pointer;list-style:none;font:700 clamp(17px,2vw,21px) 'Manrope',sans-serif}summary::-webkit-details-marker{display:none}summary::after{content:"+";font-size:26px;color:var(--accent)}details[open] summary::after{content:"−"}.answer{max-width:740px;padding:0 22px 24px;color:var(--muted);font-size:16px}
+    .contact{padding:110px 16px;background:var(--paper);color:var(--ink)}.contact-card{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(50px,7vw,96px);align-items:start;padding:clamp(40px,6vw,72px);border:1px solid rgba(85,76,255,.08);border-radius:34px;background:var(--lavender);box-shadow:0 26px 68px rgba(82,79,145,.11)}.contact h2{font-size:clamp(3rem,5.6vw,5.8rem);line-height:.94;letter-spacing:-.065em}.contact p{max-width:520px;margin-top:22px;color:#45465b;font-size:17px}.contact-action{padding:30px;border:0;border-radius:24px;background:var(--white);color:var(--ink);box-shadow:var(--shadow-card)}.contact-action>b{display:block;font:800 22px 'Manrope',sans-serif}.contact-action>p{margin:8px 0 22px;color:var(--muted);font-size:14px}.interest-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form-field{display:flex;flex-direction:column;gap:7px}.form-field.full{grid-column:1/-1}.form-field label{font-size:12px;font-weight:800}.form-field input,.form-field textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);padding:13px 14px;font:15px 'DM Sans',sans-serif;outline:0;transition-property:background-color,border-color,box-shadow;transition-duration:160ms;transition-timing-function:var(--ease)}.form-field textarea{min-height:90px;resize:vertical}.form-field input:hover,.form-field textarea:hover{border-color:#c8cae4;background:var(--white)}.form-field input:focus,.form-field textarea:focus{border-color:var(--accent);background:var(--white);box-shadow:0 0 0 3px rgba(85,76,255,.12)}.trainer-consent{grid-column:1/-1;display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:12px;line-height:1.5}.trainer-consent input{flex:0 0 auto;width:18px;height:18px;margin-top:1px;accent-color:var(--accent)}.form-trap{display:none!important}.interest-form .btn{grid-column:1/-1;width:100%;margin-top:4px;background:var(--accent);box-shadow:0 10px 22px rgba(85,76,255,.16)}.interest-form .btn:hover{background:#443be8;box-shadow:0 14px 28px rgba(85,76,255,.22)}.form-note{grid-column:1/-1;margin:0!important;color:var(--muted)!important;font-size:12px!important}.form-status{grid-column:1/-1;min-height:20px;color:var(--accent);font-size:13px;font-weight:700}.form-status.is-success{color:#237a45}.form-status.is-error{color:#9b1c1c}footer{padding:32px 0;background:var(--ink);color:#aaa9b0;border-top:1px solid rgba(255,255,255,.12)}footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}footer .brand{color:white}
+    .benefit-card,.step,.program-card{border:0;border-radius:var(--radius-card);box-shadow:var(--shadow-card);transition-property:transform,box-shadow;transition-duration:220ms;transition-timing-function:var(--ease)}.benefit-card:nth-child(2),.benefit-card:nth-child(5){box-shadow:var(--shadow-card)}.benefit-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-card-hover)}.step:hover{transform:translateY(-6px);box-shadow:var(--shadow-card-hover)}.program-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-card-hover)}.benefit-no,.step-no{display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;min-width:38px;min-height:30px;padding:0 10px;border-radius:999px;background:rgba(85,76,255,.09)}.product-media img{outline:1px solid rgba(28,27,32,.12);outline-offset:-1px}.feature{margin-inline:-14px;padding-inline:14px;border-radius:14px;transition-property:background-color,transform;transition-duration:180ms;transition-timing-function:var(--ease)}.feature:hover{background:rgba(255,255,255,.56);transform:translateX(4px)}.program-cta{border:0;box-shadow:var(--shadow-card)}.faq details{border:0;box-shadow:var(--shadow-card);transition-property:box-shadow,background-color;transition-duration:180ms;transition-timing-function:var(--ease)}details[open]{box-shadow:var(--shadow-card-hover);background:#fdfdff}summary::after{transition-property:transform,color;transition-duration:180ms;transition-timing-function:var(--ease)}details[open] summary::after{transform:rotate(180deg)}
+    @media(max-width:900px){.mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center}.nav-links{position:absolute;top:calc(100% + 8px);left:0;right:0;display:none;align-items:stretch;flex-direction:column;gap:4px;padding:10px;border:1px solid var(--line);border-radius:18px;background:var(--white);box-shadow:0 18px 44px rgba(62,58,132,.12)}.nav-links.is-open{display:flex}.nav-links a{padding:12px 14px;border-radius:10px}.nav-links .nav-cta{margin-top:4px}.hero-shell{grid-template-columns:1fr;gap:28px;padding:64px 48px}.hero-visual{min-height:460px}.manifesto-card,.section-head,.contact-card{grid-template-columns:1fr}.manifesto-card{gap:22px}.benefit-grid{grid-template-columns:repeat(2,1fr)}.truth-grid{grid-template-columns:1fr}.program-card{min-height:250px}.product-grid{grid-template-columns:1fr;min-height:0}.product-media{min-height:0;height:58vw;max-height:540px}.product-panel{padding:72px 40px 82px}.product h2{font-size:clamp(3.2rem,9vw,5.5rem)}.section-head{align-items:start}.section-head p{margin-top:4px}.contact-card{gap:40px}}
+    @media(max-width:620px){.wrap{width:min(calc(100% - 28px),var(--max))}.site-nav{top:8px;width:calc(100% - 20px);min-height:62px;margin-top:8px;padding:8px 9px 8px 13px;border-radius:17px}.brand{font-size:18px}.brand img{width:32px;height:32px}.hero{padding:18px 10px 60px}.hero-shell{gap:12px;min-height:0;padding:42px 20px 24px;border-radius:26px}.hero-dot{width:8px;height:8px}.hero-dot-coral{top:22%;left:8px}.hero-dot-lime{top:61%;right:8px}.hero h1{font-size:clamp(2.7rem,12.5vw,3.4rem);line-height:.96}.hero-copy>p{margin-top:20px;font-size:16px}.hero-actions{width:100%;margin-top:25px}.hero-actions .btn{width:100%;min-height:52px}.hero-visual{min-height:360px}.availability-card{inset:52px 0 26px 20px;padding:25px 18px;border-radius:23px}.availability-card h2{font-size:17px}.slot-list{gap:10px;margin-top:18px}.time-slot{min-height:43px;padding:0 13px;border-radius:12px;font-size:11px}.rating-card{right:0;width:142px;padding:14px 15px;border-radius:18px}.rating-card span,.trainer-card span{font-size:9px}.rating-card b,.trainer-card b{font-size:12px}.trainer-card{left:0;width:154px;padding:17px;border-radius:18px}.manifesto{padding:10px 0 72px}.manifesto-card{gap:18px;padding:32px 24px;border-radius:24px}.manifesto h2{font-size:2.35rem}section{padding:76px 0}.section-head{gap:22px;margin-bottom:38px}.section-head h2{font-size:clamp(2.4rem,12vw,3.3rem)}.benefit-grid,.steps,.truth-grid,.interest-form{grid-template-columns:1fr}.benefit-card,.step,.program-card{min-height:245px;padding:26px;border-radius:22px}.benefit-card:hover,.step:hover,.program-card:hover{transform:none}.product{padding:76px 10px}.product-grid{border-radius:26px}.product-media{height:108vw;min-height:340px;max-height:440px}.product-media img{object-position:86% center}.product-panel{padding:50px 22px 58px}.product h2{margin-top:26px;font-size:clamp(2.4rem,11.5vw,3.25rem);line-height:.98}.feature-list{margin-top:40px}.feature{grid-template-columns:34px 1fr;gap:12px 10px;margin-inline:-8px;padding:18px 8px}.feature:hover{transform:none}.feature p{grid-column:2}.program-cta{align-items:flex-start;flex-direction:column;padding:24px}.program-cta .btn{width:100%}.faq-list{gap:8px}summary{min-height:70px;padding:0 18px;font-size:17px}.answer{padding:0 18px 20px}.contact{padding:76px 10px}.contact-card{gap:34px;padding:32px 20px;border-radius:26px}.contact h2{font-size:clamp(2.7rem,13vw,3.7rem)}.contact-action{padding:22px 18px;border-radius:20px}.form-field.full,.interest-form .btn,.form-note,.form-status{grid-column:1}footer .wrap{align-items:flex-start;flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+    .btn-back-home{background:var(--white);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}.btn-back-home:hover{background:var(--surface)}
+    .trainer-home-hero{position:relative;overflow:hidden;background:radial-gradient(circle at 87% 74%,rgba(169,212,234,.2),transparent 31%),radial-gradient(circle at 7% 30%,rgba(199,37,98,.09),transparent 27%),linear-gradient(135deg,#fffaf6 0%,#fff 52%,#f4f9fc 100%)}
+    .trainer-home-hero .hero-shell{width:min(calc(100% - 64px),1344px);min-height:calc(100dvh - 104px);padding:clamp(64px,7vh,92px) 0;background:transparent;border-radius:0;overflow:visible}.trainer-home-hero .hero-dot-coral{top:23%;left:clamp(-195px,-10vw,-112px);width:clamp(210px,21vw,330px);height:auto;aspect-ratio:1;background:#c72562;box-shadow:none;opacity:.13}.trainer-home-hero .hero-visual{align-self:center;min-height:520px}.trainer-home-hero .hero-visual>.hero-dot-lime{z-index:0;right:-80px;bottom:-70px;top:auto;width:clamp(230px,23vw,360px);height:auto;aspect-ratio:1;background:#a9d4ea;box-shadow:none;opacity:.34}.trainer-home-hero .availability-card{z-index:2;inset:78px 24px auto 0;padding:30px 24px}.trainer-home-hero .rating-card,.trainer-home-hero .trainer-card{z-index:3}.trainer-home-hero .trainer-card{top:400px;bottom:auto}
+    @media(max-width:900px){.trainer-home-hero .hero-shell{width:min(calc(100% - 28px),var(--max));min-height:0}.trainer-home-hero .hero-visual{min-height:500px}.trainer-home-hero .availability-card{inset:60px 0 auto 0}.trainer-home-hero .trainer-card{top:382px}}@media(max-width:620px){.trainer-home-hero .hero-shell{padding-block:52px 38px}.trainer-home-hero .hero-visual{min-height:410px}.trainer-home-hero .hero-visual>.hero-dot-lime{right:-90px;bottom:-72px}.trainer-home-hero .availability-card{inset:28px 0 auto 8px;height:280px}.trainer-home-hero .trainer-card{top:auto;bottom:0}.brand img.brand-wordmark{width:96px}}
+    .trainer-signup-form{display:grid;grid-template-columns:1fr;gap:18px}.trainer-signup-form fieldset{display:grid;gap:14px;min-width:0;margin:0;padding:0;border:0}.trainer-signup-form fieldset[hidden],.trainer-signup-form [hidden]{display:none!important}.trainer-signup-form legend{margin-bottom:10px;color:var(--ink);font:800 clamp(1.35rem,3vw,2rem)/1.15 'Manrope',sans-serif;letter-spacing:-.035em}.trainer-signup-form label:not(.signup-option):not(.rodo){display:grid;gap:7px;color:#3a3941;font-size:13px;font-weight:700}.trainer-signup-form input:not([type="radio"]):not([type="checkbox"]),.trainer-signup-form textarea{width:100%;min-height:52px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);font:15px 'DM Sans',sans-serif;outline:0;transition:border-color 160ms var(--ease),box-shadow 160ms var(--ease)}.trainer-signup-form textarea{min-height:132px;resize:vertical}.trainer-signup-form input:not([type="radio"]):not([type="checkbox"]):focus,.trainer-signup-form textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(85,76,255,.12)}.signup-progress{display:grid;gap:8px;color:var(--muted);font-size:12px;font-weight:700}.signup-progress progress{width:100%;height:7px;accent-color:var(--accent)}.signup-option{display:flex;align-items:flex-start;gap:11px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--white);cursor:pointer;transition:border-color 160ms var(--ease),background-color 160ms var(--ease)}.signup-option:has(input:checked){border-color:var(--accent);background:var(--surface)}.signup-option input{flex:0 0 auto;width:18px;height:18px;margin-top:1px;accent-color:var(--accent)}.signup-help,.trainer-signup-form small{color:var(--muted);font-size:12px}.signup-nav{display:flex;justify-content:space-between;gap:12px}.signup-back{min-height:48px;padding:11px 18px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);font-weight:800;cursor:pointer}.signup-nav [data-signup-next]{min-width:140px;margin-left:auto}.trainer-signup-form [type="submit"]{width:100%}.trainer-signup-form .rodo{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:12px;line-height:1.5}.trainer-signup-form .rodo input{flex:0 0 auto;width:18px;height:18px;margin-top:1px;accent-color:var(--accent)}@media(max-width:620px){.signup-nav{align-items:stretch;flex-direction:column-reverse}.signup-nav button{width:100%}}@media(prefers-reduced-motion:reduce){.signup-option,.trainer-signup-form input,.trainer-signup-form textarea{transition:none}}
+  </style>
+  <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="footer.css?v=20260716-3">
+</head>
+<body class="public-subpage">
+  <a class="skip" href="#main">Przejdź do treści</a>
+  <div class="nav-shell">
+    <nav class="site-nav liquid-glass-nav public-navigation" aria-label="Główna nawigacja">
+      <a class="site-logo" href="index.html#top" aria-label="RinoMove — strona główna">
+        <img src="assets/Rino-logo-v10.png" alt="">
+        <img class="site-wordmark" src="assets/rino-move-wordmark.png" alt="Rino Move">
+      </a>
+      <div id="main-menu" class="desktop-nav">
+        <a href="index.html#top">Strona główna</a>
+        <a href="#korzysci">Korzyści</a>
+        <a href="#program">Program</a>
+        <a href="#jak">Jak dołączyć</a>
+        <a class="btn btn-primary nav-register" href="#kontakt">Zapisz się</a>
+      </div>
+      <a class="btn nav-mobile-cta" href="#kontakt">Zapisz się</a>
+      <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="main-menu" aria-label="Otwórz lub zamknij menu">☰</button>
+    </nav>
+  </div>
+  <main id="main">
+    <header class="hero trainer-home-hero" id="top">
+      <div class="hero-shell">
+        <span class="hero-dot hero-dot-coral" aria-hidden="true"></span>
+        <div class="hero-copy">
+          <h1>Trener i terminy w kilku kliknięciach.</h1>
+          <p>Sprawdź doświadczenie, opinie i kalendarz, zanim zdecydujesz się na trening.</p>
+          <div class="hero-actions"><a class="btn" href="#korzysci">Przeglądaj trenerów</a></div>
+        </div>
+        <div class="hero-visual" aria-label="Przykładowy kalendarz dostępności trenera">
+          <span class="hero-dot hero-dot-lime" aria-hidden="true"></span>
+          <div class="availability-card">
+            <h2>Wolne terminy</h2>
+            <div class="slot-list">
+              <div class="time-slot is-active"><span>Dzisiaj</span><time>18:30</time></div>
+              <div class="time-slot"><span>Jutro</span><time>09:00</time></div>
+              <div class="time-slot"><span>Czwartek</span><time>17:15</time></div>
+            </div>
+          </div>
+          <div class="rating-card"><span>Ocena klientów</span><b>4.9 · 36 opinii</b></div>
+          <div class="trainer-card"><b>Marek Kowalski</b><span>Trener tenisa</span></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="manifesto"><div class="wrap"><div class="manifesto-card"><div class="manifesto-label">Czym jest RinoMove?</div><div><h2>Nie kolejny katalog. Twoje miejsce do pracy z klientami.</h2><p>Budujemy platformę, która łączy klientów z trenerami tenisa, boksu, golfa, padla i squasha. <strong>Trener — nie kort ani klub — jest w centrum.</strong> Twój profil, wolne terminy, kontakt, płatności i wiarygodne opinie mają działać razem. Budujemy jedno miejsce na profil, terminy, rezerwacje i płatności.</p></div></div></div></section>
+
+    <section class="benefits" id="korzysci"><div class="wrap"><div class="section-head"><div><h2>Mniej pisania. Więcej trenowania.</h2></div><p>RinoMove powstaje po to, żeby uporządkować kontakt, terminy i płatności, tak aby obsługa klienta nie zabierała czasu przeznaczonego na treningi.</p></div><div class="benefit-grid">
+      <article class="benefit-card"><span class="benefit-no">01</span><div><h3>Prostszy pierwszy kontakt</h3><p>Budujemy profil, na którym klient pozna ofertę, cenę, lokalizację i dostępne terminy przed pierwszą rozmową. Bez stresującego telefonu i długiego ustalania szczegółów.</p></div></article>
+      <article class="benefit-card"><span class="benefit-no">02</span><div><h3>Twoja marka osobista</h3><p>Budujemy jedno miejsce na doświadczenie, specjalizacje, ceny, certyfikaty, wideo i realną dostępność.</p></div></article>
+      <article class="benefit-card"><span class="benefit-no">03</span><div><h3>Koniec ustalania terminów w wiadomościach</h3><p>Docelowo klient zobaczy wolne godziny i wybierze pasujący termin. Ty ustawisz kalendarz zamiast prowadzić kolejne rozmowy.</p></div></article>
+      <article class="benefit-card"><span class="benefit-no">04</span><div><h3>Płatność przed treningiem</h3><p>Planujemy płatność BLIK lub kartą przy rezerwacji, jasny status płatności i mniej pilnowania przelewów.</p></div></article>
+      <article class="benefit-card"><span class="benefit-no">05</span><div><h3>Prywatny numer zostaje prywatny</h3><p>Planujemy czat przypisany do klienta i rezerwacji, żeby szczegóły można było ustalić bez udostępniania telefonu.</p></div></article>
+      <article class="benefit-card"><span class="benefit-no">06</span><div><h3>Opinie, którym można ufać</h3><p>Opinię będzie mógł wystawić wyłącznie klient po opłaconym i potwierdzonym jako odbyty treningu.</p></div></article>
+    </div></div></section>
+
+    <section class="product" id="narzedzia">
+      <div class="product-grid">
+        <div class="product-media">
+          <img src="assets/tennis-back-serve.png" alt="Tenisista wykonujący serwis, widok od tyłu" loading="lazy">
+        </div>
+        <div class="product-panel">
+          <h2>Więcej treningów. Mniej administracji.</h2>
+          <div class="feature-list">
+            <div class="feature"><span class="feature-no">01</span><b>Nowi klienci</b><p>Profil, który zamienia zainteresowanie w rezerwacje.</p></div>
+            <div class="feature"><span class="feature-no">02</span><b>Terminy pod kontrolą</b><p>Kalendarz i kontakt w jednym miejscu.</p></div>
+            <div class="feature"><span class="feature-no">03</span><b>Proste płatności</b><p>Docelowo zobaczysz, które treningi są opłacone, potwierdzone i zakończone.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="jak"><div class="wrap"><div class="section-head"><div><h2>Jak dołączyć?</h2></div><p>Najpierw chcemy poznać Twoje doświadczenie i sposób pracy. Program jest przeznaczony dla zweryfikowanych trenerów.</p></div><div class="steps">
+      <article class="step"><span class="step-no">01</span><div><h3>Wysyłasz informacje o sobie</h3><p>Podajesz dyscyplinę, doświadczenie, certyfikaty i sposób kontaktu.</p></div></article>
+      <article class="step"><span class="step-no">02</span><div><h3>Weryfikujemy zgłoszenie</h3><p>Sprawdzamy doświadczenie i certyfikaty, a następnie umawiamy krótką rozmowę.</p></div></article>
+      <article class="step"><span class="step-no">03</span><div><h3>Dołączasz na 3 miesiące</h3><p>Po uruchomieniu profilu otrzymujesz bezpłatny dostęp na trzy miesiące, nasze wsparcie i rangę „Trener-założyciel”.</p></div></article>
+    </div></div></section>
+
+    <section class="truth" id="program"><div class="wrap"><div class="section-head"><div><h2>Nie tylko dołączasz. Pomagasz nam zbudować dobre narzędzie.</h2></div><p>To program dla trenerów, którzy chcą wejść wcześniej, przetestować RinoMove w praktyce i mieć realny wpływ na sposób działania platformy.</p></div><div class="truth-grid">
+      <article class="program-card"><span class="card-label">Co otrzymujesz</span><div><h3>3 miesiące za 0 zł</h3><p>Bezpłatny okres zaczyna się w dniu uruchomienia profilu. Wcześniej wspólnie przygotujemy profil i ustawimy pierwsze terminy.</p></div></article>
+      <article class="program-card blue"><span class="card-label">Co zostaje z Tobą</span><div><h3>Ranga „Trener-założyciel”</h3><p>Specjalne oznaczenie na profilu pokazujące, że współtworzysz RinoMove od początku.</p></div></article>
+      <article class="program-card dark"><span class="card-label">Czego potrzebujemy</span><div><h3>Regularnego feedbacku</h3><p>Szczerych uwag o kalendarzu, rezerwacjach, płatnościach, czacie i pracy z pierwszymi klientami.</p></div></article>
+    </div><div class="program-cta"><p>Chcesz współtworzyć RinoMove i otrzymać rangę trenera-założyciela? Prześlij informacje o swoim doświadczeniu i certyfikatach.</p><a class="btn" href="#kontakt">Wyślij zgłoszenie</a></div></div></section>
+
+    <section class="faq"><div class="wrap"><div class="section-head"><div><h2>Najczęstsze pytania</h2></div><p>Odpowiadamy konkretnie na pytania, które mogą pojawić się przed dołączeniem.</p></div><div class="faq-list">
+      <details><summary>Ile kosztuje program trenera-założyciela?</summary><div class="answer">Trzy miesiące bez opłat liczymy od uruchomienia Twojego profilu. Nie uruchamiamy automatycznie płatnego planu. Przed końcem tego okresu przedstawimy dalsze zasady i poprosimy Cię o świadomą decyzję.</div></details>
+      <details><summary>Jak weryfikujemy trenerów?</summary><div class="answer">Sprawdzamy doświadczenie, deklarowane specjalizacje oraz certyfikaty związane z prowadzonymi treningami. Zależy nam na małej, ale wiarygodnej bazie trenerów.</div></details>
+      <details><summary>Czy musicie przejąć moich obecnych klientów?</summary><div class="answer">Nie. Możesz wykorzystać RinoMove do obsługi własnych klientów, pozyskiwania nowych albo obu tych celów. Chcemy sprawdzić z trenerami, który problem jest najważniejszy.</div></details>
+      <details><summary>Czy muszę podawać prywatny numer?</summary><div class="answer">Docelowo nie. Kontakt z klientem ma odbywać się przez czat przypisany do rezerwacji, dzięki czemu prywatny numer pozostaje prywatny.</div></details>
+      <details><summary>Skąd będą pochodziły opinie?</summary><div class="answer">Tylko z rzeczywistych, opłaconych i oznaczonych jako odbyte treningów. Samo wejście na profil lub wysłanie zapytania nie daje prawa do wystawienia opinii.</div></details>
+    </div></div></section>
+
+    <section class="contact" id="kontakt">
+      <div class="wrap contact-card">
+        <div>
+          <h2>Dołącz do RinoMove.</h2>
+          <p>7 pytań, około 3 minuty. Sprawdzimy, czy RinoMove pasuje do Twojego sposobu pracy.</p>
+        </div>
+        <div class="contact-action">
+          <b>Opowiedz nam o swojej pracy</b>
+          <p>Nie każdy trener potrzebuje tego samego. Odpowiedzi pomogą nam dobrze przygotować pierwszą rozmowę.</p>
+          <form class="interest-form trainer-signup-form" data-trainer-signup data-source="trainer_page">
+            <div class="signup-progress" data-signup-progress>
+              <span>Pytanie <b data-signup-current>1</b> z 7</span>
+              <progress max="7" value="1" aria-label="Postęp formularza"></progress>
+            </div>
+
+            <fieldset data-signup-step="1">
+              <legend>Jaką dyscyplinę trenujesz i gdzie prowadzisz treningi?</legend>
+              <label>Dyscyplina<input name="discipline" required="required" minlength="2" maxlength="80" placeholder="np. tenis"></label>
+              <label>Miasto<input name="city" required="required" minlength="2" maxlength="80" placeholder="np. Warszawa"></label>
+              <label>Dzielnica lub obszar<input name="district" required="required" minlength="2" maxlength="80" placeholder="np. Mokotów"></label>
+              <label>Klub lub obiekt — opcjonalnie<input name="venue" maxlength="120" placeholder="np. Warszawianka"></label>
+            </fieldset>
+
+            <fieldset data-signup-step="2" hidden="hidden">
+              <legend>W jakim modelu pracujesz?</legend>
+              <label class="signup-option"><input type="radio" name="workModel" value="independent" required="required"><span>Pracuję niezależnie</span></label>
+              <label class="signup-option"><input type="radio" name="workModel" value="club"><span>Pracuję w klubie lub akademii</span></label>
+              <label class="signup-option"><input type="radio" name="workModel" value="mixed"><span>Łączę pracę niezależną z klubem lub akademią</span></label>
+              <label class="signup-option"><input type="radio" name="workModel" value="team"><span>Prowadzę zespół trenerów</span></label>
+            </fieldset>
+
+            <fieldset data-signup-step="3" hidden="hidden">
+              <legend>Ilu nowych klientów możesz obecnie przyjąć?</legend>
+              <label class="signup-option"><input type="radio" name="capacity" value="none" required="required"><span>Obecnie nie mam wolnych miejsc</span></label>
+              <label class="signup-option"><input type="radio" name="capacity" value="one_to_two"><span>1–2 klientów miesięcznie</span></label>
+              <label class="signup-option"><input type="radio" name="capacity" value="three_to_five"><span>3–5 klientów miesięcznie</span></label>
+              <label class="signup-option"><input type="radio" name="capacity" value="more_than_five"><span>Więcej niż 5 klientów miesięcznie</span></label>
+            </fieldset>
+
+            <fieldset data-signup-step="4" hidden="hidden">
+              <legend>Co najbardziej utrudnia Ci pozyskiwanie lub obsługę klientów i czego już próbowałeś?</legend>
+              <textarea name="blocker" required="required" minlength="30" maxlength="1000" rows="6" placeholder="Napisz własnymi słowami"></textarea>
+              <small>Minimum 30 znaków.</small>
+            </fieldset>
+
+            <fieldset data-signup-step="5" hidden="hidden">
+              <legend>Co sprawiło, że myślisz o nowym rozwiązaniu właśnie teraz?</legend>
+              <textarea name="whyNow" required="required" minlength="20" maxlength="800" rows="5" placeholder="Napisz, co zmieniło się ostatnio"></textarea>
+              <small>Minimum 20 znaków.</small>
+            </fieldset>
+
+            <fieldset data-signup-step="6" hidden="hidden">
+              <legend>Z czego jesteś gotowy korzystać w RinoMove?</legend>
+              <p class="signup-help">Możesz wybrać kilka odpowiedzi.</p>
+              <label class="signup-option"><input type="checkbox" name="readiness" value="profile"><span>Przygotuję i uzupełnię swój profil</span></label>
+              <label class="signup-option"><input type="checkbox" name="readiness" value="availability"><span>Dodam dostępne terminy</span></label>
+              <label class="signup-option"><input type="checkbox" name="readiness" value="bookings"><span>Będę przyjmować rezerwacje przez RinoMove</span></label>
+              <label class="signup-option"><input type="checkbox" name="readiness" value="payments"><span>Będę obsługiwać płatności przez RinoMove</span></label>
+              <label class="signup-option"><input type="checkbox" name="readiness" value="feedback"><span>Będę przekazywać uwagi o działaniu RinoMove</span></label>
+            </fieldset>
+
+            <fieldset data-signup-step="7" hidden="hidden">
+              <legend>Jaki rezultat sprawiłby, że uznasz korzystanie z RinoMove za wartościowe?</legend>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="new_client" required="required"><span>Pozyskanie przynajmniej jednego nowego klienta</span></label>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="regular_bookings"><span>Więcej regularnych rezerwacji</span></label>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="less_scheduling"><span>Mniej czasu na ustalanie terminów</span></label>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="easier_service"><span>Wygodniejsza obsługa rezerwacji i płatności</span></label>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="visibility"><span>Profesjonalny profil i większa widoczność</span></label>
+              <label class="signup-option"><input type="radio" name="desiredResult" value="other"><span>Inny rezultat</span></label>
+              <label data-other-result hidden="hidden">Jaki rezultat?<input name="desiredResultOther" minlength="3" maxlength="240"></label>
+            </fieldset>
+
+            <fieldset data-signup-contact hidden="hidden">
+              <legend>Zostaw kontakt — sprawdzimy Twoje zgłoszenie</legend>
+              <label>Imię i nazwisko<input name="name" autocomplete="name" required="required" minlength="2" maxlength="80"></label>
+              <label>Adres e-mail<input name="email" autocomplete="email" type="email" required="required" maxlength="120"></label>
+              <label>Numer telefonu<input name="phone" autocomplete="tel" type="tel" required="required" minlength="7" maxlength="24"></label>
+              <label>Instagram lub własna strona — opcjonalnie<input name="profileUrl" type="url" maxlength="240" placeholder="https://"></label>
+              <label class="rodo"><input type="checkbox" name="consent" required="required"><span>Wyrażam zgodę na kontakt w sprawie dołączenia do RinoMove i przetwarzanie danych w tym celu.</span></label>
+              <div class="form-trap" aria-hidden="true" hidden="hidden"><label>Strona internetowa<input name="website" tabindex="-1" autocomplete="off"></label></div>
+              <button type="submit" class="btn btn-primary btn-block">Wyślij zgłoszenie</button>
+            </fieldset>
+
+            <div class="signup-nav">
+              <button type="button" class="signup-back" data-signup-back hidden="hidden">Wstecz</button>
+              <button type="button" class="btn btn-primary" data-signup-next>Dalej</button>
+            </div>
+            <p class="form-status signup-status" data-signup-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" data-screen-label="Stopka">
+    <span class="site-footer__glow site-footer__glow--left" aria-hidden="true"></span><span class="site-footer__glow site-footer__glow--right" aria-hidden="true"></span>
+    <div class="wrap site-footer__inner"><div class="site-footer__rail site-footer__rail--left"><a class="site-footer__brand" href="index.html" aria-label="RinoMove — strona główna"><img src="assets/Rino-logo-v10.png" alt="" width="44" height="44"><img class="site-footer__wordmark" src="assets/rino-move-wordmark.png" alt="Rino Move"></a><p class="site-footer__description">Znajdź trenera i zacznij ruszać się po swojemu.</p><nav class="site-footer__nav" aria-label="Nawigacja w stopce"><h2>Odkrywaj</h2><a href="index.html#jak-to-dziala">Jak to działa <span aria-hidden="true">↗</span></a><a href="dla-trenerow.html">Dla trenerów <span aria-hidden="true">↗</span></a><a href="index.html#faq">FAQ <span aria-hidden="true">↗</span></a><a href="index.html#zapisy">Zapisz się <span aria-hidden="true">↗</span></a></nav><p class="site-footer__copyright">© 2026 RinoMove</p></div><div class="site-footer__mascot" aria-hidden="true"><img src="assets/rino-footer-grip-3d.png" alt="" width="1565" height="1005"></div><div class="site-footer__rail site-footer__rail--right"><nav class="site-footer__nav" aria-label="Informacje prawne"><h2>Ważne informacje</h2><a href="regulamin.html" data-status="preparation">Regulamin <small>W przygotowaniu</small></a><a href="polityka-prywatnosci.html" data-status="preparation">Polityka prywatności <small>W przygotowaniu</small></a><a href="rodo.html" data-status="preparation">RODO <small>W przygotowaniu</small></a><a href="cookies.html" data-status="preparation">Cookies <small>W przygotowaniu</small></a></nav><a class="site-footer__back" href="index.html#top">Wróć na górę <span aria-hidden="true">↑</span></a></div></div>
+  </footer>
+  <script src="public-navigation.js"></script>
+  <script src="trainer-signup.js"></script>
+</body>
+</html>

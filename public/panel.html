@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f3f0">
+  <meta name="description" content="RinoMove — rezerwacje, kalendarz i kontakt z trenerem w jednym miejscu.">
+  <title>RinoMove — panel treningów</title>
+  <link rel="icon" href="assets/Rino-logo-v10.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="panel.css">
+  <link rel="stylesheet" href="footer.css?v=20260716-3">
+</head>
+<body>
+  <a class="skip-link" href="#content">Przejdź do treści</a>
+
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-4.5v-6h-5v6H5a1.5 1.5 0 0 1-1.5-1.5z"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></symbol>
+    <symbol id="icon-booking" viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2-3-2-3 2V6a2 2 0 0 1 2-2zM8 9h8M8 13h5"/></symbol>
+    <symbol id="icon-message" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 3v-3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M7 9h10M7 13h7"/></symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M16 5.5a3 3 0 0 1 0 5.5M17 14a5 5 0 0 1 4 5"/></symbol>
+    <symbol id="icon-wallet" viewBox="0 0 24 24"><path d="M4 5h14a2 2 0 0 1 2 2v13H5a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3h11"/><path d="M15 11h7v5h-7a2.5 2.5 0 0 1 0-5z"/></symbol>
+    <symbol id="icon-profile" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.8 1.8 0 0 0 .36 2l.06.06-2.76 2.76-.06-.06a1.8 1.8 0 0 0-2-.36 1.8 1.8 0 0 0-1.1 1.65V21H10v-.09A1.8 1.8 0 0 0 8.9 19.3a1.8 1.8 0 0 0-2 .36l-.06.06-2.76-2.76.06-.06a1.8 1.8 0 0 0 .36-2A1.8 1.8 0 0 0 2.85 13H2v-4h.85A1.8 1.8 0 0 0 4.5 7.9a1.8 1.8 0 0 0-.36-2l-.06-.06 2.76-2.76.06.06a1.8 1.8 0 0 0 2 .36A1.8 1.8 0 0 0 10 1.85V2h4v-.15a1.8 1.8 0 0 0 1.1 1.65 1.8 1.8 0 0 0 2-.36l.06-.06 2.76 2.76-.06.06a1.8 1.8 0 0 0-.36 2A1.8 1.8 0 0 0 21.15 9H22v4h-.85A1.8 1.8 0 0 0 19.4 15z"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  </svg>
+
+  <header class="app-topbar">
+    <a class="app-brand" href="index.html" aria-label="RinoMove — strona główna">
+      <span class="brand-tile"><img src="assets/Rino-logo-v10.png" alt=""></span>
+      <img class="brand-wordmark" src="assets/rino-move-wordmark.png" alt="RinoMove">
+    </a>
+    <div class="topbar-actions">
+      <span class="mode-badge" id="modeBadge">Łączenie…</span>
+      <button class="account-trigger" id="accountButton" type="button">
+        <span class="account-copy"><small id="accountRole">Twoje konto</small><strong id="accountLabel">Zaloguj się</strong></span>
+        <span class="avatar" id="accountAvatar">RN</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-shell" id="appShell">
+    <aside class="app-sidebar">
+      <div class="sidebar-intro">
+        <span class="sidebar-kicker">RinoMove</span>
+        <strong id="sidebarTitle">Twoje treningi</strong>
+      </div>
+      <nav class="app-nav" id="appNav" aria-label="Nawigacja panelu"></nav>
+      <div class="sidebar-footer">
+        <a href="index.html"><svg aria-hidden="true"><use href="#icon-arrow"/></svg>Wróć na stronę</a>
+        <p>Sport zaczyna się prościej.</p>
+      </div>
+    </aside>
+
+    <main id="content" tabindex="-1">
+      <section class="view is-active" id="view-discover" data-route="discover">
+        <div class="page-heading page-heading--accent">
+          <div>
+            <span class="eyebrow">Warszawa · sprawdzeni specjaliści</span>
+            <h1>Znajdź trenera, z którym naprawdę zaczniesz.</h1>
+            <p>Porównaj doświadczenie, cenę i wolne terminy. Bez telefonu do klubu i bez zgadywania.</p>
+          </div>
+          <img class="heading-rino" src="assets/Rino-trener-cap-plain-3d-blue.png" alt="Rino z dużą bordową czapką">
+        </div>
+        <form class="filter-bar" id="searchForm">
+          <label class="filter-segment"><span>Miasto</span><select name="city" id="city" required><option value="">Wybierz miasto</option><option value="Warszawa">Warszawa</option></select></label>
+          <label class="filter-segment"><span>Dzielnica</span><select name="district" id="district" disabled><option value="">Najpierw wybierz miasto</option></select></label>
+          <label class="filter-segment"><span>Sport</span><select name="discipline" id="discipline"><option value="">Każdy sport</option><option value="tenis">Tenis</option><option value="boks">Boks</option><option value="padel">Padel</option><option value="golf">Golf</option><option value="squash">Squash</option><option value="pływanie">Pływanie</option></select></label>
+          <label class="filter-segment search-field"><span>Trener</span><svg aria-hidden="true"><use href="#icon-search"/></svg><input name="q" id="searchQuery" autocomplete="off" placeholder="Imię lub nazwisko"></label>
+          <button class="button button--primary" type="submit">Znajdź trenera<svg aria-hidden="true"><use href="#icon-arrow"/></svg></button>
+        </form>
+        <div class="result-controls" id="resultControls" hidden>
+          <p id="trainerCount"></p>
+          <div><button class="text-button" id="clearSearch" type="button">Wyczyść filtry</button><label>Sortuj<select id="trainerSort"><option value="relevance">Dopasowanie</option><option value="price-asc">Najniższa cena</option><option value="price-desc">Najwyższa cena</option><option value="rating-desc">Najlepsza średnia opinii</option><option value="reviews-desc">Najwięcej opinii</option></select></label></div>
+        </div>
+        <div class="trainer-grid" id="trainerResults" aria-live="polite"></div>
+      </section>
+
+      <section class="view" id="publicTrainerProfile" data-route="trainer">
+        <button class="text-button profile-back" type="button" data-route-to="discover"><svg aria-hidden="true"><use href="#icon-arrow"/></svg>Wróć do wyników</button>
+        <div class="public-profile-layout">
+          <div class="public-profile-main">
+            <div class="trainer-gallery" id="trainerGallery" aria-live="polite"></div>
+            <article class="surface public-profile-copy">
+              <div class="public-profile-heading">
+                <div><span class="eyebrow" id="publicTrainerMeta">Profil trenera</span><h1 id="publicTrainerName">Trener RinoMove</h1></div>
+                <span class="status-chip status-chip--success" id="publicTrainerVerified">Zweryfikowany</span>
+              </div>
+              <p class="public-profile-rating" id="publicTrainerRating"></p>
+              <section aria-labelledby="trainerAboutTitle"><h2 id="trainerAboutTitle">O trenerze</h2><p id="publicTrainerBio"></p></section>
+              <section aria-labelledby="trainerExperienceTitle"><h2 id="trainerExperienceTitle">Doświadczenie</h2><p id="publicTrainerExperience"></p></section>
+              <section aria-labelledby="trainerSpecialtiesTitle"><h2 id="trainerSpecialtiesTitle">Specjalizacje</h2><div class="trainer-tags" id="publicTrainerSpecialties"></div></section>
+            </article>
+            <article class="surface">
+              <div class="section-title"><div><span class="eyebrow">Opinie klientów</span><h2>Jak trenuje się z tym trenerem</h2></div></div>
+              <div class="review-list" id="trainerReviews"></div>
+            </article>
+          </div>
+          <aside class="surface profile-booking-card">
+            <span class="eyebrow">Trening indywidualny</span>
+            <p class="profile-booking-price" id="publicTrainerPrice"></p>
+            <p>Wolne terminy zobaczysz po utworzeniu konta klienta lub zalogowaniu.</p>
+            <button class="button button--primary button--wide" id="profileReserve" type="button">Zarezerwuj trening</button>
+            <small>Bez opłat przed wyborem terminu.</small>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="view-overview" data-route="overview">
+        <div class="page-heading">
+          <div><span class="eyebrow">Dzień dobry</span><h1 id="overviewTitle">Twój dzień w RinoMove</h1><p>Najważniejsze liczby i najbliższe działania w jednym miejscu.</p></div>
+          <button class="button button--primary" type="button" data-route-to="calendar"><svg aria-hidden="true"><use href="#icon-plus"/></svg>Dodaj dostępność</button>
+        </div>
+        <div class="metric-grid" id="overviewMetrics"></div>
+        <div class="dashboard-grid">
+          <article class="surface surface--dark"><span class="eyebrow eyebrow--light">Następny trening</span><div id="nextBookingCard"></div></article>
+          <article class="surface"><div class="section-title"><div><span class="eyebrow">Do zrobienia</span><h2>Twoje działania</h2></div></div><div class="action-list" id="trainerActions"></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-calendar" data-route="calendar">
+        <div class="page-heading">
+          <div><span class="eyebrow">Kalendarz</span><h1 id="calendarTitle">Wolne terminy</h1><p id="calendarDescription">Wybierz trenera i wygodny termin.</p></div>
+          <button class="button button--primary trainer-only" id="openAvailability" type="button"><svg aria-hidden="true"><use href="#icon-plus"/></svg>Dodaj termin</button>
+        </div>
+        <div class="calendar-context client-only" id="calendarContext"></div>
+        <div class="week-toolbar">
+          <button class="week-arrow" id="prevWeek" type="button" aria-label="Poprzedni tydzień"><svg aria-hidden="true"><use href="#icon-arrow"/></svg></button>
+          <div class="week-strip" id="calendarWeek"></div>
+          <button class="week-arrow" id="nextWeek" type="button" aria-label="Następny tydzień"><svg aria-hidden="true"><use href="#icon-arrow"/></svg></button>
+        </div>
+        <div class="calendar-layout">
+          <article class="surface calendar-agenda"><div class="section-title"><div><span class="eyebrow">Plan tygodnia</span><h2 id="agendaTitle">Dostępne godziny</h2></div></div><div id="availabilityPanel"></div></article>
+          <aside class="surface calendar-aside" id="calendarAside"></aside>
+        </div>
+      </section>
+
+      <section class="view" id="view-bookings" data-route="bookings">
+        <div class="page-heading"><div><span class="eyebrow">Wszystko pod kontrolą</span><h1 id="bookingsTitle">Rezerwacje</h1><p>Terminy, płatności i status każdego treningu.</p></div><button class="button button--secondary client-only" type="button" data-route-to="discover"><svg aria-hidden="true"><use href="#icon-plus"/></svg>Nowa rezerwacja</button></div>
+        <div class="segmented" id="bookingFilters" role="group" aria-label="Filtr rezerwacji"><button class="is-active" type="button" data-booking-filter="all">Wszystkie</button><button type="button" data-booking-filter="upcoming">Nadchodzące</button><button type="button" data-booking-filter="completed">Zakończone</button></div>
+        <div class="booking-list" id="bookingList"></div>
+      </section>
+
+      <section class="view" id="view-clients" data-route="clients">
+        <div class="page-heading"><div><span class="eyebrow">Relacje</span><h1>Twoi klienci</h1><p>Historia współpracy bez arkuszy i notatek w telefonie.</p></div></div>
+        <div class="client-grid" id="clientList"></div>
+      </section>
+
+      <section class="view" id="view-messages" data-route="messages">
+        <div class="page-heading"><div><span class="eyebrow">Bez SMS-owego chaosu</span><h1>Wiadomości</h1><p>Szczegóły treningu zostają przy rezerwacji.</p></div></div>
+        <div class="chat-shell">
+          <aside class="conversation-list" id="conversationList" aria-label="Rozmowy"></aside>
+          <section class="thread" aria-label="Aktywna rozmowa">
+            <header class="thread-header" id="threadHeader"><p>Wybierz rozmowę</p></header>
+            <div class="message-list" id="messages" aria-live="polite"></div>
+            <form class="composer" id="chatForm"><label class="sr-only" for="chatInput">Wiadomość</label><input id="chatInput" autocomplete="off" maxlength="2000" placeholder="Napisz wiadomość…"><button class="button button--primary" type="submit">Wyślij</button></form>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-earnings" data-route="earnings">
+        <div class="page-heading"><div><span class="eyebrow">Finanse bez arkusza</span><h1>Zarobki</h1><p>Przychód, opłaty platformy i kwota do wypłaty.</p></div><span class="status-chip status-chip--success">Rozliczenia aktualne</span></div>
+        <div class="metric-grid" id="earningMetrics"></div>
+        <article class="surface"><div class="section-title"><div><span class="eyebrow">Historia</span><h2>Rozliczone treningi</h2></div></div><div class="table-wrap"><table><thead><tr><th>Data</th><th>Klient</th><th>Kwota</th><th>Opłata</th><th>Do wypłaty</th><th>Status</th></tr></thead><tbody id="earningsTable"></tbody></table></div></article>
+      </section>
+
+      <section class="view" id="view-profile" data-route="profile">
+        <div class="page-heading"><div><span class="eyebrow">Twoja wizytówka</span><h1>Profil trenera</h1><p>Informacje, które pomagają klientowi podjąć spokojną decyzję.</p></div></div>
+        <form class="profile-layout" id="trainerProfileForm">
+          <article class="surface form-stack"><label>Opis współpracy<textarea name="bio" rows="6" maxlength="1200" placeholder="Opowiedz, komu i jak pomagasz"></textarea></label><div class="form-grid"><label>Główna dyscyplina<select name="discipline"><option value="tenis">Tenis</option><option value="boks">Boks</option><option value="padel">Padel</option><option value="golf">Golf</option><option value="squash">Squash</option><option value="pływanie">Pływanie</option></select></label><label>Dzielnica<input name="district" minlength="2" required placeholder="np. Mokotów"></label></div><label>Stawka za godzinę<div class="money-input"><input name="hourlyRate" type="number" min="1" max="10000" step="10" required><span>zł</span></div></label><label class="toggle-row"><span><strong>Profil widoczny dla klientów</strong><small>Publikacja nie zastępuje weryfikacji certyfikatów.</small></span><input name="published" type="checkbox" role="switch"></label><button class="button button--primary" type="submit">Zapisz profil</button></article>
+          <aside class="surface profile-preview" id="profilePreview"><span class="eyebrow">Podgląd</span><div class="empty-state compact"><strong>Uzupełnij profil</strong><p>Zmiany zobaczysz tutaj przed zapisaniem.</p></div></aside>
+        </form>
+      </section>
+
+      <section class="view" id="view-settings" data-route="settings">
+        <div class="page-heading"><div><span class="eyebrow">Rino pamięta za Ciebie</span><h1>Ustawienia</h1><p>Wybierz przypomnienia i kanały kontaktu.</p></div></div>
+        <form class="settings-grid" id="preferencesForm">
+          <article class="surface"><div class="section-title"><div><span class="eyebrow">Kiedy</span><h2>Przypomnienia</h2></div></div><label class="toggle-row"><span><strong>24 godziny przed</strong><small>Czas na spokojną zmianę planów.</small></span><input name="before24h" type="checkbox" role="switch"></label><label class="toggle-row"><span><strong>2 godziny przed</strong><small>Krótki sygnał przed wyjściem.</small></span><input name="before2h" type="checkbox" role="switch"></label><label class="toggle-row"><span><strong>Po treningu</strong><small>Podsumowanie i możliwość opinii.</small></span><input name="afterTraining" type="checkbox" role="switch"></label></article>
+          <article class="surface"><div class="section-title"><div><span class="eyebrow">Gdzie</span><h2>Kanały</h2></div></div><label class="toggle-row"><span><strong>E-mail</strong><small>Potwierdzenia i zmiany rezerwacji.</small></span><input name="email" type="checkbox" role="switch"></label><label class="toggle-row"><span><strong>SMS</strong><small>Najważniejsze przypomnienia.</small></span><input name="sms" type="checkbox" role="switch"></label><label class="toggle-row"><span><strong>Powiadomienia w aplikacji</strong><small>Aktualności po zalogowaniu.</small></span><input name="push" type="checkbox" role="switch"></label></article>
+          <button class="button button--primary settings-submit" type="submit">Zapisz ustawienia</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="liveStatus" role="status" aria-live="polite"></div>
+
+  <dialog id="moreDialog">
+    <div class="dialog-card more-dialog">
+      <div class="dialog-head"><div><span class="eyebrow">Studio trenera</span><h2>Więcej</h2></div><button class="icon-button" type="button" data-close-dialog="moreDialog" aria-label="Zamknij"><svg aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+      <nav class="more-nav" id="moreNav" aria-label="Dodatkowe sekcje trenera"></nav>
+    </div>
+  </dialog>
+
+  <dialog id="authDialog">
+    <div class="dialog-card auth-dialog">
+      <div class="dialog-head"><div><span class="eyebrow">Twoje miejsce w RinoMove</span><h2 id="authTitle">Załóż konto</h2></div><button class="icon-button" type="button" data-close-dialog="authDialog" aria-label="Zamknij"><svg aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+      <div class="auth-tabs" id="authTabs"><button class="is-active" type="button" data-auth="register">Rejestracja</button><button type="button" data-auth="login">Logowanie</button></div>
+      <form class="form-stack" id="authForm">
+        <label id="nameField">Imię i nazwisko<input name="fullName" autocomplete="name" minlength="2" maxlength="80"></label>
+        <label>Adres e-mail<input name="email" type="email" autocomplete="email" required></label>
+        <label>Hasło<input name="password" type="password" autocomplete="new-password" minlength="10" required><small>Minimum 10 znaków i jedna cyfra.</small></label>
+        <label id="roleField">Typ konta<select name="role"><option value="client">Szukam trenera</option><option value="trainer">Jestem trenerem</option></select></label>
+        <label id="trainerPhotoField" class="trainer-photo-field" hidden>Zdjęcie profilowe
+          <span class="trainer-photo-control"><span class="photo-preview" id="trainerPhotoPreview" aria-hidden="true">Dodaj</span><span><strong>Dodaj wyraźne zdjęcie twarzy</strong><small>JPEG, PNG lub WebP · maksymalnie 5 MB</small></span></span>
+          <input name="trainerPhoto" type="file" accept="image/jpeg,image/png,image/webp">
+        </label>
+        <label class="check-row" id="termsField"><input name="acceptTerms" type="checkbox"><span>Akceptuję regulamin i politykę prywatności.</span></label>
+        <p class="form-error" id="authError" role="alert"></p>
+        <button class="button button--primary button--wide" id="authSubmit" type="submit">Załóż konto</button>
+      </form>
+      <div class="demo-access" id="demoAccess"><span>Lub wejdź od razu do wersji demo</span><div><button type="button" data-demo-login="client">Konto klienta</button><button type="button" data-demo-login="trainer">Konto trenera</button></div></div>
+      <div class="account-panel" id="accountPanel" hidden><span class="avatar avatar--large" id="modalAvatar">RN</span><h3 id="modalName"></h3><p id="modalEmail"></p><button class="button button--secondary button--wide" id="logoutButton" type="button">Wyloguj się</button></div>
+    </div>
+  </dialog>
+
+  <dialog id="bookingDialog">
+    <div class="dialog-card">
+      <div class="dialog-head"><div><span class="eyebrow">Ostatni krok</span><h2>Potwierdź trening</h2></div><button class="icon-button" type="button" data-close-dialog="bookingDialog" aria-label="Zamknij"><svg aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+      <div class="booking-summary" id="bookingSummary"></div>
+      <div class="payment-note"><svg aria-hidden="true"><use href="#icon-check"/></svg><p><strong>Bezpieczna rezerwacja</strong><span>W trybie demo płatność zostanie oznaczona jako opłacona. W Supabase pozostanie oczekująca na operatora płatności.</span></p></div>
+      <p class="form-error" id="bookingError" role="alert"></p>
+      <button class="button button--primary button--wide" id="confirmBooking" type="button">Potwierdź rezerwację</button>
+    </div>
+  </dialog>
+
+  <dialog id="availabilityDialog">
+    <form class="dialog-card form-stack" id="availabilityForm">
+      <div class="dialog-head"><div><span class="eyebrow">Kalendarz trenera</span><h2>Dodaj dostępność</h2></div><button class="icon-button" type="button" data-close-dialog="availabilityDialog" aria-label="Zamknij"><svg aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+      <label>Początek<input name="startsAt" type="datetime-local" required></label>
+      <label>Koniec<input name="endsAt" type="datetime-local" required></label>
+      <label>Typ terminu<select name="status"><option value="available">Dostępny dla klientów</option><option value="blocked">Zablokowany</option></select></label>
+      <p class="form-error" id="availabilityError" role="alert"></p>
+      <button class="button button--primary button--wide" type="submit">Dodaj do kalendarza</button>
+    </form>
+  </dialog>
+
+  <dialog id="reviewDialog">
+    <form class="dialog-card form-stack" id="reviewForm">
+      <div class="dialog-head"><div><span class="eyebrow">Po odbytym treningu</span><h2>Oceń współpracę</h2></div><button class="icon-button" type="button" data-close-dialog="reviewDialog" aria-label="Zamknij"><svg aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+      <input name="bookingId" type="hidden">
+      <label>Ocena<select name="rating"><option value="5">5 — świetnie</option><option value="4">4 — bardzo dobrze</option><option value="3">3 — dobrze</option><option value="2">2 — słabo</option><option value="1">1 — bardzo słabo</option></select></label>
+      <label>Kilka słów<textarea name="body" rows="4" maxlength="2000"></textarea></label>
+      <p class="form-error" id="reviewError" role="alert"></p>
+      <button class="button button--primary button--wide" type="submit">Opublikuj opinię</button>
+    </form>
+  </dialog>
+
+  <footer class="site-footer" data-screen-label="Stopka">
+    <span class="site-footer__glow site-footer__glow--left" aria-hidden="true"></span><span class="site-footer__glow site-footer__glow--right" aria-hidden="true"></span>
+    <div class="wrap site-footer__inner"><div class="site-footer__rail site-footer__rail--left"><a class="site-footer__brand" href="index.html" aria-label="RinoMove — strona główna"><img src="assets/Rino-logo-v10.png" alt="" width="44" height="44"><img class="site-footer__wordmark" src="assets/rino-move-wordmark.png" alt="Rino Move"></a><p class="site-footer__description">Znajdź trenera i zacznij ruszać się po swojemu.</p><nav class="site-footer__nav" aria-label="Nawigacja w stopce"><h2>Odkrywaj</h2><a href="index.html#jak-to-dziala">Jak to działa <span aria-hidden="true">↗</span></a><a href="dla-trenerow.html">Dla trenerów <span aria-hidden="true">↗</span></a><a href="index.html#faq">FAQ <span aria-hidden="true">↗</span></a><a href="index.html#zapisy">Zapisz się <span aria-hidden="true">↗</span></a></nav><p class="site-footer__copyright">© 2026 RinoMove</p></div><div class="site-footer__mascot" aria-hidden="true"><img src="assets/rino-footer-grip-3d.png" alt="" width="1565" height="1005"></div><div class="site-footer__rail site-footer__rail--right"><nav class="site-footer__nav" aria-label="Informacje prawne"><h2>Ważne informacje</h2><a href="regulamin.html" data-status="preparation">Regulamin <small>W przygotowaniu</small></a><a href="polityka-prywatnosci.html" data-status="preparation">Polityka prywatności <small>W przygotowaniu</small></a><a href="rodo.html" data-status="preparation">RODO <small>W przygotowaniu</small></a><a href="cookies.html" data-status="preparation">Cookies <small>W przygotowaniu</small></a></nav><a class="site-footer__back" href="index.html#top">Wróć na górę <span aria-hidden="true">↑</span></a></div></div>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.5/dist/umd/supabase.js"></script>
+  <script defer src="auth-route.js"></script>
+  <script defer src="lib/domain.js"></script>
+  <script defer src="lib/demo-store.js"></script>
+  <script defer src="lib/supabase-store.js"></script>
+  <script defer src="lib/app-store.js"></script>
+  <script defer src="lib/panel-helpers.js"></script>
+  <script defer src="panel.js"></script>
+</body>
+</html>

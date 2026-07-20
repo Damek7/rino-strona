@@ -3,7 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "test": "node --test"
   },
   "engines": {
@@ -11,6 +13,9 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "2.110.5",
-    "playwright": "^1.61.1"
+    "next": "^16.2.10",
+    "playwright": "^1.61.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   }
 }
