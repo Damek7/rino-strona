@@ -12,7 +12,9 @@ after(async () => { await new Promise(resolve => server.close(resolve)) })
 
 test('anonymous user searches, reads profile and authenticates only on reserve', async () => {
   const browser = await chromium.launch({ headless: true })
+  try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
+  page.setDefaultTimeout(5000)
   await page.goto(`${origin}/panel.html`)
   await page.evaluate(() => localStorage.clear())
   await page.reload()
@@ -48,7 +50,9 @@ test('anonymous user searches, reads profile and authenticates only on reserve',
   await page.click('#confirmBooking')
   await page.waitForSelector('[data-route="bookings"].is-active')
   assert.match(await page.locator('#bookingList').textContent(), /Marek Kowalski/)
-  await browser.close()
+  } finally {
+    await browser.close()
+  }
 })
 
 test('mobile discovery hero keeps the cap mascot clear of copy', async () => {

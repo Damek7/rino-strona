@@ -27,10 +27,10 @@ test('signup stylesheet remains available for the pre-launch form', () => {
 
 test('signup form uses one clear qualification hierarchy and CTA', () => {
   assert.doesNotMatch(html, /class="signup-kicker"/)
-  assert.match(html, /<h2>Dołącz do RinoMove<\/h2>/)
+  assert.match(html, /<h2>Sprawdźmy, czy RinoMove pasuje do Twojej pracy\.<\/h2>/)
   assert.equal((html.match(/class="seg"/g) || []).length, 0)
   assert.match(html, /name="discipline"/)
-  assert.match(html, /name="desiredResult"/)
+  assert.match(html, /name="primaryNeed"/)
   assert.match(html, /data-signup-contact/)
   assert.match(html, /<button type="submit" class="btn btn-primary btn-block">Wyślij zgłoszenie<\/button>/)
 })

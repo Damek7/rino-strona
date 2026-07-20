@@ -7,11 +7,11 @@ const root = path.join(__dirname, '..')
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
 const cssPath = path.join(root, 'navigation.css')
 
-test('client navigation exposes only pre-launch destinations', () => {
+test('trainer-lead navigation exposes only pre-launch destinations', () => {
   assert.doesNotMatch(html, /panel\.html/)
   assert.match(html, /href="#jak-to-dziala"[^>]*>Jak to działa</)
   assert.match(html, /href="dla-trenerow\.html"[^>]*>Dla trenerów</)
-  assert.match(html, /class="btn btn-primary nav-register" href="#zapisy">Zapisz się</)
+  assert.match(html, /class="btn btn-primary nav-register" href="#zapisy">Zgłoś się</)
   assert.doesNotMatch(html, /Zaloguj się|Załóż konto/)
 })
 
@@ -27,7 +27,7 @@ test('navigation loads a focused liquid glass stylesheet', () => {
 })
 
 test('mobile navigation keeps signup outside the collapsed menu', () => {
-  assert.match(html, /class="btn nav-mobile-cta"[^>]*href="#zapisy">Zapisz się</)
+  assert.match(html, /class="btn nav-mobile-cta"[^>]*href="#zapisy">Zgłoś się</)
   assert.match(html, /aria-controls="main-menu"/)
 })
 

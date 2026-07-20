@@ -89,16 +89,13 @@ function filterTrainers(url) {
   })
 }
 
-const workModels = new Set(['independent', 'club', 'mixed', 'team'])
-const capacities = new Set(['none', 'one_to_two', 'three_to_five', 'more_than_five'])
-const readinessOptions = new Set(['profile', 'availability', 'bookings', 'payments', 'feedback'])
-const desiredResults = new Set(['new_client', 'regular_bookings', 'less_scheduling', 'easier_service', 'visibility', 'other'])
+const workModels = new Set(['independent', 'club', 'mixed'])
+const acceptingClientOptions = new Set(['yes', 'soon', 'no'])
+const primaryNeeds = new Set(['new_clients', 'less_scheduling', 'stronger_profile', 'bookings_payments', 'other'])
 
-function qualificationStatus({ city, capacity, readiness }) {
+function qualificationStatus({ city, acceptingClients }) {
   if (String(city || '').trim().toLocaleLowerCase('pl') !== 'warszawa') return 'waitlist'
-  const selected = new Set(Array.isArray(readiness) ? readiness : [])
-  const coreReady = ['profile', 'availability', 'bookings'].every(value => selected.has(value))
-  return capacity !== 'none' && coreReady ? 'qualified' : 'review'
+  return acceptingClients === 'yes' ? 'qualified' : 'review'
 }
 
 function createWaitlistHandler({ webhookUrl, webhookSecret, fetchImpl = fetch }) {
@@ -116,20 +113,16 @@ function createWaitlistHandler({ webhookUrl, webhookSecret, fetchImpl = fetch })
       discipline: String(data.discipline || '').trim(),
       city: String(data.city || '').trim(),
       district: String(data.district || '').trim(),
-      venue: String(data.venue || '').trim(),
       workModel: String(data.workModel || '').trim(),
-      capacity: String(data.capacity || '').trim(),
+      acceptingClients: String(data.acceptingClients || '').trim(),
+      primaryNeed: String(data.primaryNeed || '').trim(),
       blocker: String(data.blocker || '').trim(),
-      whyNow: String(data.whyNow || '').trim(),
-      readiness: [...new Set(Array.isArray(data.readiness) ? data.readiness.map(String) : [])],
-      desiredResult: String(data.desiredResult || '').trim(),
-      desiredResultOther: String(data.desiredResultOther || '').trim(),
       source: String(data.source || '').trim(),
     }
 
     if (lead.name.length < 2 || lead.name.length > 80) return { status: 422, body: { error: 'Podaj imię i nazwisko (2–80 znaków).' } }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) return { status: 422, body: { error: 'Podaj prawidłowy adres e-mail.' } }
-    if (!/^[0-9+ ()-]{7,24}$/.test(lead.phone)) return { status: 422, body: { error: 'Podaj prawidłowy numer telefonu.' } }
+    if (lead.phone && !/^[0-9+ ()-]{7,24}$/.test(lead.phone)) return { status: 422, body: { error: 'Podaj prawidłowy numer telefonu.' } }
     if (lead.profileUrl.length > 240) return { status: 422, body: { error: 'Link do profilu jest za długi.' } }
     if (lead.profileUrl) {
       try {
@@ -141,15 +134,11 @@ function createWaitlistHandler({ webhookUrl, webhookSecret, fetchImpl = fetch })
     }
     if (lead.discipline.length < 2 || lead.discipline.length > 80) return { status: 422, body: { error: 'Podaj dyscyplinę (2–80 znaków).' } }
     if (lead.city.length < 2 || lead.city.length > 80) return { status: 422, body: { error: 'Podaj miasto.' } }
-    if (lead.district.length < 2 || lead.district.length > 80) return { status: 422, body: { error: 'Podaj dzielnicę lub obszar działania.' } }
-    if (lead.venue.length > 120) return { status: 422, body: { error: 'Nazwa obiektu jest za długa.' } }
+    if (lead.district.length > 80) return { status: 422, body: { error: 'Nazwa dzielnicy lub obszaru jest za długa.' } }
     if (!workModels.has(lead.workModel)) return { status: 422, body: { error: 'Wybierz model pracy.' } }
-    if (!capacities.has(lead.capacity)) return { status: 422, body: { error: 'Wybierz liczbę wolnych miejsc.' } }
-    if (lead.blocker.length < 30 || lead.blocker.length > 1000) return { status: 422, body: { error: 'Opisz, co utrudnia Ci pozyskiwanie lub obsługę klientów.' } }
-    if (lead.whyNow.length < 20 || lead.whyNow.length > 800) return { status: 422, body: { error: 'Napisz, dlaczego szukasz rozwiązania właśnie teraz.' } }
-    if (!lead.readiness.length || lead.readiness.some(value => !readinessOptions.has(value))) return { status: 422, body: { error: 'Wybierz, z czego jesteś gotowy korzystać w RinoMove.' } }
-    if (!desiredResults.has(lead.desiredResult)) return { status: 422, body: { error: 'Wybierz oczekiwany rezultat.' } }
-    if (lead.desiredResultOther.length > 240 || (lead.desiredResult === 'other' && lead.desiredResultOther.length < 3)) return { status: 422, body: { error: 'Opisz oczekiwany rezultat (3–240 znaków).' } }
+    if (!acceptingClientOptions.has(lead.acceptingClients)) return { status: 422, body: { error: 'Wybierz, czy obecnie przyjmujesz nowych klientów.' } }
+    if (!primaryNeeds.has(lead.primaryNeed)) return { status: 422, body: { error: 'Wybierz główną potrzebę.' } }
+    if (lead.blocker.length > 600) return { status: 422, body: { error: 'Opis tego, co utrudnia Ci pracę, może mieć maksymalnie 600 znaków.' } }
     if (!['homepage', 'trainer_page'].includes(lead.source)) return { status: 422, body: { error: 'Nieprawidłowe źródło zgłoszenia.' } }
     if (data.consent !== true) return { status: 422, body: { error: 'Zaznacz zgodę na kontakt.' } }
     if (!url || !secret) return { status: 503, body: { error: 'Zapisy są chwilowo niedostępne. Spróbuj ponownie później.' } }

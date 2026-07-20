@@ -55,6 +55,7 @@
 .liquid-glass-nav a {
   color: inherit;
   text-decoration: none;
+  touch-action: manipulation;
 }
 
 .liquid-glass-nav .site-logo {
@@ -83,6 +84,7 @@
   color: #17161B;
   font: 700 14px 'Manrope', system-ui, sans-serif;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .public-subpage .nav-shell {

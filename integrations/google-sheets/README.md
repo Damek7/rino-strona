@@ -4,7 +4,7 @@ Arkusz: [RinoMove — zgłoszenia trenerów](https://docs.google.com/spreadsheet
 
 Pierwszy wiersz arkusza powinien zawierać kolumny w tej kolejności:
 
-Data zgłoszenia | Imię i nazwisko | E-mail | Telefon | Profil | Dyscyplina | Miasto | Dzielnica | Obiekt | Model pracy | Wolne miejsca | Blokada | Dlaczego teraz | Gotowość | Oczekiwany rezultat | Inny rezultat | Status kwalifikacji | Źródło | Status kontaktu | Notatki | Właściciel
+Data zgłoszenia | Imię i nazwisko | E-mail | Telefon | Profil | Dyscyplina | Miasto | Dzielnica | Model pracy | Przyjmuje klientów | Główna potrzeba | Blokada | Status kwalifikacji | Źródło | Status kontaktu | Notatki | Właściciel
 
 1. Utwórz projekt na [script.google.com](https://script.google.com) i wklej zawartość `Code.gs`.
 2. W ustawieniach projektu dodaj właściwość skryptu `WEBHOOK_SECRET` z losową, długą wartością.

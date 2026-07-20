@@ -3,10 +3,7 @@
   min-height: 100dvh;
   overflow: clip;
   isolation: isolate;
-  background:
-    radial-gradient(circle at 87% 74%, rgba(169, 212, 234, 0.2), transparent 31%),
-    radial-gradient(circle at 7% 30%, rgba(199, 37, 98, 0.09), transparent 27%),
-    linear-gradient(135deg, #fffaf6 0%, #ffffff 52%, #f4f9fc 100%);
+  background: #fffaf7;
 }
 
 #top.client-hero .hero {
@@ -287,10 +284,10 @@
   }
 
   #top.client-hero .hero h1 {
-    max-width: 350px;
-    font-size: clamp(2.75rem, 12.4vw, 3.35rem);
-    line-height: 1.03;
-    letter-spacing: -0.042em;
+    max-width: 10ch;
+    font-size: clamp(2.75rem, 12.2vw, 3.3rem);
+    line-height: .96;
+    letter-spacing: -0.052em;
   }
 
   #top.client-hero .hero-lead {
@@ -306,6 +303,7 @@
 
   #top.client-hero .hero-cta .btn {
     width: 100%;
+    min-height: 52px;
   }
 
   #top.client-hero .hero-cta .btn-text {

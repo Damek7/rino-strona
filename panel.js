@@ -547,7 +547,9 @@
     if (state.weekAnchor) return state.weekAnchor
     const today = new Date()
     const slotDate = state.slots.find(slot => slot.status === 'available')?.startsAt
-    return slotDate && new Date(slotDate).getFullYear() !== today.getFullYear() ? new Date(slotDate) : today
+    const currentWeek = new Set(domain.createWeek(today).map(day => day.iso))
+    const currentWeekHasAvailability = state.slots.some(slot => slot.status === 'available' && currentWeek.has(helpers.localDateKey(slot.startsAt)))
+    return slotDate && !currentWeekHasAvailability ? new Date(slotDate) : today
   }
 
   function renderWeek() {

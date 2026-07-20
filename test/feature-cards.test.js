@@ -18,11 +18,11 @@ test('client benefits sit after trust proof and before the trainer route', () =>
 
 test('benefits communicate four approved product advantages', () => {
   assert.equal((html.match(/class="feature-card feature-card--/g) || []).length, 4)
-  assert.match(html, /Sprawdzone profile/)
-  assert.match(html, /Terminy bez telefonu/)
-  assert.match(html, /Jasna cena przed rezerwacją/)
-  assert.match(html, /Cały trening pod ręką/)
-  assert.match(html, /certyfikaty, doświadczenie i opinie/i)
+  assert.match(html, /Profil, który mówi konkretnie/)
+  assert.match(html, /Kalendarz zamiast ping-ponga/)
+  assert.match(html, /Cena bez niedomówień/)
+  assert.match(html, /Każdy trening ma swój porządek/)
+  assert.match(html, /doświadczenie, specjalizacje i certyfikaty/i)
   assert.match(html, /wiadomości, płatność i szczegóły spotkania/i)
 })
 

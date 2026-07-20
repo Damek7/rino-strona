@@ -17,18 +17,22 @@ for (const [page, html, source] of [
   ['index.html', homepage, 'homepage'],
   ['dla-trenerow.html', trainerPage, 'trainer_page']
 ]) {
-  test(`${page} exposes the seven-question qualification contract`, () => {
+  test(`${page} exposes the three-step interest contract`, () => {
     const form = signupForm(html)
 
     assert.match(form, new RegExp(`data-source="${source}"`))
-    assert.equal((form.match(/data-signup-step/g) || []).length, 7)
+    assert.equal((form.match(/data-signup-step/g) || []).length, 3)
     for (const name of [
-      'discipline', 'city', 'district', 'venue', 'workModel', 'capacity',
-      'blocker', 'whyNow', 'readiness', 'desiredResult', 'desiredResultOther',
+      'discipline', 'city', 'district', 'workModel', 'acceptingClients',
+      'primaryNeed', 'blocker',
       'name', 'email', 'phone', 'profileUrl', 'consent', 'website'
     ]) assert.match(form, new RegExp(`name="${name}"`))
+    for (const retiredName of [
+      'venue', 'capacity', 'whyNow', 'readiness', 'desiredResult', 'desiredResultOther'
+    ]) assert.doesNotMatch(form, new RegExp(`name="${retiredName}"`))
     assert.match(form, /data-signup-contact/)
     assert.match(form, /data-signup-progress/)
+    assert.match(form, /max="3" value="1"/)
     assert.doesNotMatch(form, /pilotaż/i)
   })
 }
@@ -40,7 +44,8 @@ test('both pages load the shared wizard controller', () => {
   const script = fs.readFileSync(path.join(root, 'trainer-signup.js'), 'utf8')
   assert.match(script, /data-signup-next/)
   assert.match(script, /data-signup-back/)
-  assert.match(script, /data-other-result/)
-  assert.match(script, /data\.getAll\('readiness'\)/)
+  assert.match(script, /data\.get\('acceptingClients'\)/)
+  assert.match(script, /data\.get\('primaryNeed'\)/)
+  assert.doesNotMatch(script, /data-other-result|desiredResult|readiness/)
   assert.match(script, /fetch\(['"]\/api\/waitlist['"]/)
 })
