@@ -19,6 +19,7 @@ after(async () => {
 
 test('wizard moves forward and back without losing answers', async () => {
   const page = await browser.newPage()
+  await page.emulateMedia({ reducedMotion: 'reduce' })
   page.setDefaultTimeout(2000)
   await page.goto(`${baseUrl}/index.html#zapisy`)
   const form = page.locator('[data-trainer-signup]')
